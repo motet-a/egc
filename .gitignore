@@ -1,0 +1,3 @@
+*.o
+/libegc.a
+/test/test
