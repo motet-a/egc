@@ -10,10 +10,12 @@
 
 EGC_SOURCES_NAMES	= \
 			block.c \
+			block_fragment.c \
 			collect.c \
 			exit.c \
 			get_statics.c \
 			heap.c \
+			heaps.c \
 			hs_concat.c \
 			hs_format.c \
 			hs_new.c \

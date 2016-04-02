@@ -10,7 +10,8 @@
 
 #include "egc_private.h"
 
-static t_heap   *get_pointed_heap(t_statics *statics, void *pointer)
+t_heap          *egc_get_pointed_to_heap(const t_statics *statics,
+                                         const void *pointer)
 {
   t_heap        *heap;
   void          *data;
@@ -26,13 +27,13 @@ static t_heap   *get_pointed_heap(t_statics *statics, void *pointer)
   return (NULL);
 }
 
-static t_block  *get_pointed_block(t_statics *statics, void *pointer)
+static t_block  *get_pointed_to_block(t_statics *statics, void *pointer)
 {
   t_heap        *heap;
   t_block       *block;
   void          *data;
 
-  heap = get_pointed_heap(statics, pointer);
+  heap = egc_get_pointed_to_heap(statics, pointer);
   if (!heap)
     return (NULL);
   block = NULL;
@@ -63,7 +64,7 @@ void            egc_mark_pointer_array(void **pointer_array, size_t size)
   size -= sizeof(void *);
   while (size--)
     {
-      block = get_pointed_block(statics, *(void **)(char_array + size));
+      block = get_pointed_to_block(statics, *(void **)(char_array + size));
       if (block)
         egc_block_mark(block);
     }

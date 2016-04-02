@@ -2,7 +2,7 @@
    mark_stack_cond
    Memcheck:Cond
    ...
-   fun:get_pointed_block
+   fun:get_pointed_to_block
    fun:egc_mark_pointer_array
    fun:mark_range
    fun:egc_mark_stack

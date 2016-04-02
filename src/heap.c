@@ -55,33 +55,17 @@ void            egc_heap_delete(t_heap *heap)
   free(heap);
 }
 
-t_heap          *egc_find_heap_from_pointer(t_heap *heap, const void *p)
+static size_t   egc_max(size_t a, size_t b)
 {
-  while (heap)
-    {
-      if (p >= heap->data && p < heap->data + heap->size)
-        return (heap);
-      heap = heap->next;
-    }
-  return (NULL);
+  return (a > b ? a : b);
 }
 
-t_block         *egc_get_free_block(t_statics *statics,
-                                    t_heap **heap_pointer,
-                                    size_t size)
+void            egc_heap_add(size_t min_block_size)
 {
-  t_block       *block;
-  t_heap        *heap;
+  size_t        size;
 
-  heap = statics->heaps;
-  *heap_pointer = NULL;
-  while (heap)
-    {
-      *heap_pointer = heap;
-      block = egc_heap_get_free_block(heap, size);
-      if (block)
-        return (block);
-      heap = heap->next;
-    }
-  return (NULL);
+  min_block_size += sizeof(t_block);
+  size = egc_max(STATICS->heap_size * 2, min_block_size);
+  STATICS->heap_size = size;
+  STATICS->heaps = egc_heap_new(size, STATICS->heaps);
 }

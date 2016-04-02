@@ -33,27 +33,38 @@ typedef struct  s_heap
   struct s_heap *next;
 }               t_heap;
 
-void            egc_set_to_zero(void *data, size_t length);
+/*
+** Sets the first `n` bytes pointed to by data with zeros.
+*/
+void            egc_set_to_zero(void *data, size_t n);
+
+void            egc_mark_pointer_array(void **pointer_array, size_t size);
 
 void            egc_block_mark(t_block *block);
-
 void            egc_block_free(t_block *block, t_heap *heap);
+void            egc_block_request_fragmentation(t_block *block, size_t size);
 
 t_block         *egc_get_next_block(t_heap *heap, t_block *block);
 
+/*
+** Creates a new heap of the given size
+*/
 t_heap          *egc_heap_new(size_t size, t_heap *next);
+
+/*
+** Calls egc_heap_new()
+*/
+void            egc_heap_add(size_t min_block_size);
 
 /*
 ** Returns NULL if there is no free block of the given size
 */
 t_block         *egc_heap_get_free_block(t_heap *heap, size_t size);
 
-
 void            egc_heap_delete(t_heap *heap);
 
 void            egc_heap_mark(t_heap *heap);
 
-void            egc_mark_pointer_array(void **pointer_array, size_t size);
 
 /*
 ** A random number.
@@ -104,6 +115,11 @@ typedef struct          s_statics
 # ifdef EGC_DEBUG
 t_statics               g_egc_private_statics;
 # endif
+
+t_block         *egc_get_last_free_block(t_heap *heap, t_block *block);
+
+t_heap          *egc_get_pointed_to_heap(const t_statics *statics,
+                                         const void *pointer);
 
 int             egc_get_heap_count(void);
 

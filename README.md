@@ -20,7 +20,7 @@ function points to a memory block returned by `egc_malloc()`,
 `egc_malloc_atomic()` or `egc_realloc()`, it can be invalidated.
 
 The best practice to avoid that is to do nothing in the root
-function except allocating a `t_egc_private_data` on its stack and
+function except allocating a `t_egc_private_data` on the stack and
 calling `egc_start()` and `egc_stop()`:
 
     static int              main2(int argc, char **arg)

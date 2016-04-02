@@ -31,7 +31,7 @@ t_block         *egc_get_next_block(t_heap *heap, t_block *block)
   return (block);
 }
 
-static t_block  *get_last_free_block(t_heap *heap, t_block *block)
+t_block         *egc_get_last_free_block(t_heap *heap, t_block *block)
 {
   t_block       *previous;
 
@@ -53,8 +53,8 @@ void            egc_block_free(t_block *block, t_heap *heap)
   LOG("egc_block_free() block:");
   LOG_POINTER(block);
   LOG("");
-  last = get_last_free_block(heap, block);
-  if (last && 0)
+  last = egc_get_last_free_block(heap, block);
+  if (last)
     {
       block->size = (void *)last - (void *)block - sizeof(t_block);
     }

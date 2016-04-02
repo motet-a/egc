@@ -53,6 +53,8 @@ void    egc_exit(int status);
 */
 void    *egc_malloc(size_t size);
 
+void    *egc_realloc(void *data, size_t size);
+
 void    *egc_malloc_atomic(size_t size);
 
 # define EGC_NEW(type)          (type *)egc_malloc(sizeof(type))

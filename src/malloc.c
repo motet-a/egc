@@ -10,74 +10,26 @@
 
 #include "egc_private.h"
 
-static size_t   egc_max(size_t a, size_t b)
-{
-  return (a > b ? a : b);
-}
-
-int             egc_get_heap_count(void)
-{
-  t_heap        *heap;
-  int           count;
-
-  count = 0;
-  heap = STATICS->heaps;
-  while (heap)
-    {
-      count++;
-      heap = heap->next;
-    }
-  return (count);
-}
-
-static void     add_heap(size_t min_block_size)
-{
-  size_t        size;
-
-  min_block_size += sizeof(t_block);
-  size = egc_max(STATICS->heap_size * 2, min_block_size);
-  STATICS->heap_size = size;
-  STATICS->heaps = egc_heap_new(size, STATICS->heaps);
-}
-
-static void     fragment_block(t_block *block, size_t size)
-{
-  t_block       *new;
-  size_t        old_size;
-
-  old_size = block->size;
-  new = (void *)block + sizeof(t_block) + size;
-  new->size = old_size - sizeof(t_block) - size;
-  new->flags = BLOCK_FLAGS_FREE;
-  block->size = size;
-  LOG("first block:");
-  LOG_POINTER(block);
-  LOG("new block:");
-  LOG_POINTER(new);
-  LOG("");
-}
-
-static t_block  *malloc_block(size_t size)
+static t_block  *malloc_block(size_t size, t_statics *statics)
 {
   t_block       *block;
-  t_statics     *statics;
   t_heap        *heap;
 
-  statics = STATICS;
+  if (size % 8)
+    size += sizeof(size_t) - size % sizeof(size_t);
   egc_collect();
   block = egc_get_free_block(statics, &heap, size);
   if (!block)
     {
       egc_collect();
-      add_heap(size);
+      egc_heap_add(size);
       block = egc_get_free_block(statics, &heap, size);
       if (!block)
         {
           LOG("malloc_block() error");
         }
     }
-  if (block->size > size + 10 * sizeof(size_t))
-    fragment_block(block, size);
+  egc_block_request_fragmentation(block, size);
   block->flags &= ~BLOCK_FLAGS_FREE;
   statics->malloc_count++;
   return (block);
@@ -87,14 +39,65 @@ void            *egc_malloc(size_t size)
 {
   t_block       *block;
 
-  if (size % 8)
-    size += sizeof(size_t) - size % sizeof(size_t);
   LOG("egc_malloc() size:");
   LOG_POINTER((void *)size);
   LOG("");
-  block = malloc_block(size);
+  block = malloc_block(size, STATICS);
   LOG("egc_malloc() block:");
   LOG_POINTER(block);
   LOG("");
+  return ((void *)block + sizeof(t_block));
+}
+
+/*
+** Returns `block` on success
+*/
+static t_block  *realloc_join(t_heap *heap, t_block *block)
+{
+  t_block       *last_free;
+
+  last_free = egc_get_last_free_block(heap, block);
+  if (!last_free)
+    return (NULL);
+  block->size = (void *)last_free - (void *)heap + last_free->size;
+  egc_set_to_zero((void *)block + sizeof(t_block), block->size);
+  return (block);
+}
+
+static void     *realloc_new(t_heap *heap, t_block *block, size_t size)
+{
+  t_block       *new;
+
+  new = malloc_block(size, STATICS);
+  new->flags = block->flags;
+  egc_block_free(block, heap);
+  return (new);
+}
+
+void            *egc_realloc(void *data, size_t size)
+{
+  t_block       *block;
+  t_heap        *heap;
+
+  if (!data)
+    return (egc_malloc(size));
+  block = data - sizeof(t_block);
+  if (size < block->size)
+    {
+      egc_block_request_fragmentation(block, size);
+      return (block + sizeof(t_block));
+    }
+  heap = egc_get_pointed_to_heap(STATICS, block + 1);
+  if (realloc_join(heap, block))
+    return (block + sizeof(t_block));
+  return (realloc_new(heap, block, size));
+}
+
+void            *egc_malloc_atomic(size_t size)
+{
+  t_block       *block;
+
+  block = malloc_block(size, STATICS);
+  block->flags |= BLOCK_FLAGS_ATOM;
   return ((void *)block + sizeof(t_block));
 }
