@@ -2,12 +2,45 @@
 
 A garbage collector written in C for EPITECH projects.
 
+
+
+## Heap strings
+
+egc comes with string manipulation functions. Their prototypes
+are in `include/hs.h`.
+
+A *heap string* is represented with the type `t_hs`. It is a
+garbage-collected sequence of bytes, stored on the heap.
+
+
+
+## `egc_printf()`, `egc_fprintf()`
+
+These are like `printf()` and `fprintf()`, except `printf()`
+and `fprintf()` support flags and many more specifiers.
+
+There is no `egc_sprintf()`, but `hs_format()` is a bit like
+`asprintf()`.
+
+
+
+## Legacy string manipulation functions
+
+There are some functions in `include/egc_string.h` to handle
+NUL-terminated C strings (they are cloned from `string.h`).
+
+Prefer *heap strings*.
+
+
+
 ## Debugging
 
 If the macro `EGC_DEBUG` is defined, you can debug your program
 with Valgrind and the suppression file `valgrind.supp`.
 
 `make DEBUG=true` compiles egc with `EGC_DEBUG` defined.
+
+
 
 ## Bugs
 
