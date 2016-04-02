@@ -93,6 +93,7 @@ typedef struct          s_statics
   uint64_t              magic_number;
   t_egc_error_callback  error_callback;
   void                  *user_statics;
+  size_t                user_statics_size;
   t_heap                *heaps;
   void                  *stack_bottom;
   size_t                heap_size;
@@ -107,6 +108,8 @@ t_statics               g_egc_private_statics;
 int             egc_get_heap_count(void);
 
 void            egc_mark_stack(void);
+
+void            egc_mark_user_statics(void);
 
 /*
 ** Returns NULL if there is no free block of the given size

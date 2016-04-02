@@ -39,14 +39,3 @@ int             is_zero(void *data, size_t length)
       return (0);
   return (1);
 }
-
-void            string_copy(char *dest, const char *source)
-{
-  while (*source)
-    {
-      *dest = *source;
-      dest++;
-      source++;
-    }
-  *dest = '\0';
-}

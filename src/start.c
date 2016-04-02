@@ -27,13 +27,15 @@ t_statics       *init_statics(t_egc_private_data *private_data)
 
 void            egc_start(t_egc_private_data *private_data,
                           t_egc_error_callback error_callback,
-                          void *user_statics)
+                          void *user_statics,
+                          size_t user_statics_size)
 {
   t_statics     *statics;
 
   statics = init_statics(private_data);
   statics->error_callback = error_callback;
   statics->user_statics = user_statics;
+  statics->user_statics_size = user_statics_size;
   statics->malloc_count = 0;
   statics->free_count = 0;
   statics->heap_size = 1024;

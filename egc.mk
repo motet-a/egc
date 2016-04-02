@@ -14,12 +14,20 @@ EGC_SOURCES_NAMES	= \
 			exit.c \
 			get_statics.c \
 			heap.c \
+			hs_concat.c \
+			hs_format.c \
+			hs_new.c \
+			hs_new_int.c \
+			hs_print.c \
+			hs_vformat.c \
 			log.c \
 			malloc.c \
 			mark.c \
 			mark_stack.c \
+			printf.c \
 			safe_malloc.c \
 			start.c \
+			string.c
 
 EGC_SOURCES		= $(foreach file,$(EGC_SOURCES_NAMES), \
 			src/$(file))

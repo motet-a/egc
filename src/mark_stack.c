@@ -26,3 +26,12 @@ void            egc_mark_stack(void)
   stack_bottom = STATICS->stack_bottom;
   mark_range(&variable_on_the_stack, stack_bottom);
 }
+
+void            egc_mark_user_statics(void)
+{
+  t_statics     *statics;
+
+  statics = STATICS;
+  if (statics->user_statics && statics->user_statics_size)
+    egc_mark_pointer_array(statics->user_statics, statics->user_statics_size);
+}

@@ -12,6 +12,8 @@
 # define EGC_H
 
 # include <stdlib.h>
+# include "egc_string.h"
+# include "hs.h"
 
 typedef size_t  t_egc_private_data[32];
 
@@ -29,10 +31,16 @@ typedef void    (*t_egc_error_callback)(const char *message);
 **
 ** `user_statics` is the pointer returned by egc_get_statics().
 ** It can be NULL.
+**
+** `user_statics_size` is the size of the struct pointed to by
+** `user_statics`. If `user_statics` is not a pointer to a
+** struct, or if `user_statics_size` is zero, then
+** `user_statics_size` should be specified as zero.
 */
 void    egc_start(t_egc_private_data *private_data,
                   t_egc_error_callback error_cb,
-                  void *user_statics);
+                  void *user_statics,
+                  size_t user_statics_size);
 
 void    egc_stop(void);
 
@@ -46,6 +54,9 @@ void    egc_exit(int status);
 void    *egc_malloc(size_t size);
 
 void    *egc_malloc_atomic(size_t size);
+
+# define EGC_NEW(type)          (type *)egc_malloc(sizeof(type))
+# define EGC_NEW_ATOMIC(type)   (type *)egc_malloc_atomic(sizeof(type))
 
 /*
 ** Performs a garbage collection

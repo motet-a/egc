@@ -68,5 +68,6 @@ void            egc_collect(void)
   LOG("");
   unmark_heaps();
   egc_mark_stack();
+  egc_mark_user_statics();
   egc_free_unmarked();
 }
