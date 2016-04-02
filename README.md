@@ -16,7 +16,7 @@ garbage-collected sequence of bytes, stored on the heap.
 
 ## `egc_printf()`, `egc_fprintf()`
 
-These are like `printf()` and `fprintf()`, except `printf()`
+These are like `printf()` and `fprintf()`, except that `printf()`
 and `fprintf()` support flags and many more specifiers.
 
 There is no `egc_sprintf()`, but `hs_format()` is a bit like
