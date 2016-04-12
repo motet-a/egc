@@ -41,7 +41,7 @@ static void             test(void)
       print_error("test() failure\n");
       return ;
     }
-  egc_malloc(1024 * 1024 * 2);
+  egc_malloc_atomic(1024 * 1024 * 2);
   egc_malloc(6);
   data = egc_malloc(9);
   data = egc_realloc(data, 0);

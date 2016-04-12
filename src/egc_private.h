@@ -108,8 +108,11 @@ typedef struct          s_statics
   t_heap                *heaps;
   void                  *stack_bottom;
   size_t                heap_size;
+  size_t                total_malloc_count;
+  size_t                total_free_count;
   size_t                malloc_count;
   size_t                free_count;
+  size_t                collection_count;
 }                       t_statics;
 
 # ifdef EGC_DEBUG

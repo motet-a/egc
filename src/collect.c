@@ -43,6 +43,7 @@ void            egc_heap_free_unmarked(t_heap *heap)
       if (!(flags & BLOCK_FLAGS_MARK) && !(flags & BLOCK_FLAGS_FREE))
         {
           STATICS->free_count++;
+          STATICS->total_free_count++;
           egc_block_free(block, heap);
           egc_heap_free_unmarked(heap);
           return;
@@ -70,4 +71,5 @@ void            egc_collect(void)
   egc_mark_stack();
   egc_mark_user_statics();
   egc_free_unmarked();
+  STATICS->collection_count++;
 }

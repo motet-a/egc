@@ -13,10 +13,14 @@
 void            egc_block_mark(t_block *block)
 {
   void          *data;
+  t_block_flags flags;
 
-  if ((block->flags & BLOCK_FLAGS_FREE) || (block->flags & BLOCK_FLAGS_MARK))
+  flags = block->flags;
+  if ((flags & BLOCK_FLAGS_FREE) || (flags & BLOCK_FLAGS_MARK))
     return ;
   block->flags |= BLOCK_FLAGS_MARK;
+  if (flags & BLOCK_FLAGS_ATOM)
+    return ;
   data = (void *)block + sizeof(t_block);
   egc_mark_pointer_array((void **)data, block->size);
 }

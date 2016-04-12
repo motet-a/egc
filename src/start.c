@@ -38,6 +38,9 @@ void            egc_start(t_egc_private_data *private_data,
   statics->user_statics_size = user_statics_size;
   statics->malloc_count = 0;
   statics->free_count = 0;
+  statics->total_malloc_count = 0;
+  statics->total_free_count = 0;
+  statics->collection_count = 0;
   statics->heap_size = 1024;
   statics->heaps = NULL;
   statics->heaps = egc_heap_new(statics->heap_size, NULL);

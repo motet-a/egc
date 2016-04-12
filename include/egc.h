@@ -46,6 +46,8 @@ void    egc_stop(void);
 
 void    egc_exit(int status);
 
+void    egc_abort(void);
+
 /*
 ** Returns a garbage-collected memory area
 **

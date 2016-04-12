@@ -15,17 +15,30 @@ void    egc_stop()
   LOG("egc_stop() heap_count:");
   LOG_UINT(egc_get_heap_count());
   LOG("");
+  LOG("egc_stop() collection_count:");
+  LOG_UINT(STATICS->collection_count);
+  LOG("");
   egc_collect();
-  if (STATICS->malloc_count != STATICS->free_count)
+  if (STATICS->total_malloc_count != STATICS->total_free_count)
     {
-      LOG("egc_stop() Warning: malloc_count != free_count");
+      LOG("egc_stop() Warning: total_malloc_count != total_free_count");
     }
   egc_heap_delete(STATICS->heaps);
+}
+
+static void     exit_impl(int status)
+{
+  exit(status);
 }
 
 void    egc_exit(int status)
 {
   egc_stop();
-  /* TODO:  */
-  exit(status);
+  exit_impl(status);
+}
+
+void    egc_abort(void)
+{
+  egc_log("egc_abort() called");
+  exit_impl(1);
 }

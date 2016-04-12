@@ -10,14 +10,24 @@
 
 #include "egc_private.h"
 
-static t_block  *malloc_block(size_t size, t_statics *statics)
+static void     request_collection(t_statics *statics)
+{
+  if (statics->malloc_count > 2 * statics->free_count + 10)
+    {
+      egc_collect();
+      statics->malloc_count = 0;
+      statics->free_count = 0;
+    }
+}
+
+t_block         *egc_malloc_block(size_t size, t_statics *statics)
 {
   t_block       *block;
   t_heap        *heap;
 
+  request_collection(statics);
   if (size % 8)
     size += sizeof(size_t) - size % sizeof(size_t);
-  egc_collect();
   block = egc_get_free_block(statics, &heap, size);
   if (!block)
     {
@@ -25,13 +35,12 @@ static t_block  *malloc_block(size_t size, t_statics *statics)
       egc_heap_add(size);
       block = egc_get_free_block(statics, &heap, size);
       if (!block)
-        {
-          LOG("malloc_block() error");
-        }
+        egc_abort();
     }
   egc_block_request_fragmentation(block, size);
   block->flags &= ~BLOCK_FLAGS_FREE;
   statics->malloc_count++;
+  statics->total_malloc_count++;
   return (block);
 }
 
@@ -42,7 +51,7 @@ void            *egc_malloc(size_t size)
   LOG("egc_malloc() size:");
   LOG_POINTER((void *)size);
   LOG("");
-  block = malloc_block(size, STATICS);
+  block = egc_malloc_block(size, STATICS);
   LOG("egc_malloc() block:");
   LOG_POINTER(block);
   LOG("");
@@ -68,7 +77,7 @@ static void     *realloc_new(t_heap *heap, t_block *block, size_t size)
 {
   t_block       *new;
 
-  new = malloc_block(size, STATICS);
+  new = egc_malloc_block(size, STATICS);
   new->flags = block->flags;
   egc_block_free(block, heap);
   return (new);
@@ -79,6 +88,8 @@ void            *egc_realloc(void *data, size_t size)
   t_block       *block;
   t_heap        *heap;
 
+  LOG("egc_realloc()");
+  LOG("");
   if (!data)
     return (egc_malloc(size));
   block = data - sizeof(t_block);
@@ -97,7 +108,7 @@ void            *egc_malloc_atomic(size_t size)
 {
   t_block       *block;
 
-  block = malloc_block(size, STATICS);
+  block = egc_malloc_block(size, STATICS);
   block->flags |= BLOCK_FLAGS_ATOM;
   return ((void *)block + sizeof(t_block));
 }

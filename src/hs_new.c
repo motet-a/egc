@@ -20,7 +20,7 @@ t_hs            hs_new_from_length(size_t length, const char *chars)
   t_hs          hs;
 
   hs.length = length;
-  hs.chars = egc_malloc(hs.length);
+  hs.chars = egc_malloc_atomic(hs.length);
   egc_memcpy(hs.chars, chars, length);
   return (hs);
 }
