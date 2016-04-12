@@ -77,7 +77,7 @@ void            egc_log(const char *message);
 void            egc_log_pointer(void *pointer);
 void            egc_log_uint(unsigned long n);
 
-# ifdef EGC_DEBUG
+# ifdef EGC_LOG
 #  define LOG(message)  egc_log(message)
 #  define LOG_POINTER(pointer)  egc_log_pointer(pointer)
 #  define LOG_UINT(pointer)  egc_log_uint(pointer)
@@ -85,12 +85,6 @@ void            egc_log_uint(unsigned long n);
 #  define LOG(message)
 #  define LOG_POINTER(pointer)
 #  define LOG_UINT(pointer)
-# endif
-
-# ifdef EGC_DEBUG
-#  define IF_DEBUG(e)   (e)
-# else
-#  define IF_DEBUG(e)
 # endif
 
 # ifdef EGC_DEBUG

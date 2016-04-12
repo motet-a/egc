@@ -8,7 +8,7 @@
 ** Last update Wed Mar 30 18:38:51 2016 antoine
 */
 
-#include "test.h"
+#include "utils.h"
 #include "../include/egc.h"
 
 static void             test0(void)
@@ -58,7 +58,6 @@ static void             test1(void)
   egc_collect();
   egc_printf("%hs\n", hs);
   egc_printf("%d %d %u %x %p\n", 123, -123, -128, 0xdeadbeef, hs.chars);
-  printf("%d %d %u %x %p\n", 123, -123, -128, 0xdeadbeef, hs.chars);
 }
 
 int                     main(void)

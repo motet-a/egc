@@ -11,15 +11,27 @@
 include egc.mk
 
 CFLAGS		= -W -Wall -Wextra -std=c89
-CFLAGS		+= -g
 
-ifeq ($(DEBUG),true)
+ifneq ($(findstring test,$(MAKECMDGOALS)),)
+	DEBUG	= true
+endif
+
+ifdef LOG
+	DEBUG	= true
+endif
+
+ifdef DEBUG
+	CFLAGS	+= -g
 	CFLAGS	+= -D EGC_DEBUG
+endif
+
+ifdef LOG
+	CFLAGS	+= -D EGC_LOG
 endif
 
 LDFLAGS		=
 
-TEST_SOURCES	= test/main.c test/test.c
+TEST_SOURCES	= test/main.c test/utils.c
 TEST_OBJECTS	= $(TEST_SOURCES:.c=.o)
 
 all: test
