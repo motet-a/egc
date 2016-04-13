@@ -12,6 +12,40 @@ cd egc
 make
 ```
 
+You can compile `example.c` with the following command:
+
+`cc -o example example.c libegc.a`
+
+Read the **Debugging** section for debugging.
+
+
+
+## Initialization and shutdown
+
+The function `egc_start()` starts the garbage collector. Typically,
+you should call `egc_start()` in the `main()` function.
+
+The first argument of `egc_start()` should be a pointer to a
+`t_egc_private_data` allocated on the stack.
+
+
+egc should be stopped with `egc_stop()` to free some allocated
+resources. You should always call it before exiting your program.
+`egc_exit()` is the same as a call to `egc_stop()` and `exit()`.
+
+Here is a typical `main()` function of a garbage-collected program:
+
+```c
+int                     main()
+{
+  t_egc_private_data    private_data;
+
+  egc_start(&private_data);
+  whats_your_name();
+  egc_stop();
+}
+```
+
 
 
 ## Heap strings
@@ -66,18 +100,20 @@ The best practice to avoid that is to do nothing in the root
 function except allocating a `t_egc_private_data` on the stack and
 calling `egc_start()` and `egc_stop()`:
 
-    static int              main2(int argc, char **arg)
-    {
-      /* Here, you can do as many egc_malloc() as you want */
-    }
+```c
+static int              main2(int argc, char **arg)
+{
+  /* Here, you can do as many egc_malloc() as you want */
+}
 
-    int                     main(int argc, char **arg)
-    {
-      int                   r;
-      t_egc_private_data    private_data;
+int                     main(int argc, char **arg)
+{
+  int                   r;
+  t_egc_private_data    private_data;
 
-      egc_start(&private_data, &print_error, NULL, 0);
-      r = main2(argc, argv)
-      egc_stop();
-      return (r);
-    }
+  egc_start(&private_data, &print_error, NULL, 0);
+  r = main2(argc, argv)
+  egc_stop();
+  return (r);
+}
+```

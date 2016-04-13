@@ -37,7 +37,7 @@ typedef void    (*t_egc_error_callback)(const char *message);
 **
 ** It prints the error messages and the logs on the error output.
 **
-** `egc_data` is a pointer to a t_egc_private_data on the
+** `egc_data` is a pointer to a `t_egc_private_data` on the
 ** stack. EGC can't work if it is not on the stack.
 **
 */
