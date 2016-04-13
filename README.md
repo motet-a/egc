@@ -16,7 +16,8 @@ You can compile `example.c` with the following command:
 
 `cc -o example example.c libegc.a`
 
-Read the **Debugging** section for debugging.
+See also the [Debugging](https://github.com/motet-a/egc#debugging)
+section.
 
 
 
