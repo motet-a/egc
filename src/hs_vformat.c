@@ -75,7 +75,7 @@ t_hs            hs_vformat(const char *format, va_list list)
   t_hs          hs;
   t_hs          directive;
 
-  hs = hs_new_from_str("");
+  hs = hs_new_empty();
   while (*format)
     {
       if (format[0] == '%' && format[1])

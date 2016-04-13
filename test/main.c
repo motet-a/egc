@@ -64,7 +64,7 @@ int                     main(void)
 {
   t_egc_private_data    private_data;
 
-  egc_start(&private_data, &print_error, NULL, 0);
+  egc_start(&private_data);
   test0();
   test();
   test1();

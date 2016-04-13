@@ -20,6 +20,7 @@ typedef struct  s_hs
   char          *chars;
 }               t_hs;
 
+t_hs    hs_new_empty(void);
 t_hs    hs_new_from_str(const char *hsing);
 t_hs    hs_new_from_char(char c);
 t_hs    hs_new_from_length(size_t length, const char *chars);

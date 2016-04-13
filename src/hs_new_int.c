@@ -42,7 +42,7 @@ t_hs    hs_new_uint_base(unsigned long n, unsigned base)
   if (n >= base)
     s = hs_new_uint_base(n / base, base);
   else
-    s = hs_new_from_str("");
+    s = hs_new_empty();
   s = hs_concat_hs_char(s, get_digit_char(n % base));
   return (s);
 }

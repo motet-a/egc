@@ -4,6 +4,16 @@ A garbage collector written in C for EPITECH projects.
 
 
 
+## Download and compile
+
+```sh
+git clone https://github.com/motet-a/egc.git
+cd egc
+make
+```
+
+
+
 ## Heap strings
 
 egc comes with string manipulation functions. Their prototypes

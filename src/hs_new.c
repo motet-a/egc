@@ -29,3 +29,8 @@ t_hs    hs_new_from_char(char c)
 {
   return (hs_new_from_length(1, &c));
 }
+
+t_hs    hs_new_empty()
+{
+  return (hs_new_from_length(0, NULL));
+}
