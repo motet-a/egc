@@ -24,9 +24,9 @@ t_statics               *egc_get_private_statics(void)
     stack_pointer++;
   return ((t_statics *)stack_pointer);
 }
+#endif
 
 void                    *egc_get_statics(void)
 {
   return (egc_get_private_statics()->user_statics);
 }
-#endif

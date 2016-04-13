@@ -61,11 +61,10 @@ void            egc_start(t_egc_private_data *private_data)
   LOG("");
 }
 
-void            egc_set_user_statics(void *user_statics,
-                                     size_t user_statics_size)
+void            egc_set_statics(void *statics, size_t statics_size)
 {
-  STATICS->user_statics = user_statics;
-  STATICS->user_statics_size = user_statics_size;
+  STATICS->user_statics = statics;
+  STATICS->user_statics_size = statics_size;
 }
 
 void            egc_set_error_callback(t_egc_error_callback error_callback)

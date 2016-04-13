@@ -9,9 +9,9 @@
 */
 
 #include "utils.h"
-#include "../include/egc.h"
+#include "test.h"
 
-static void             test0(void)
+static void             test_malloc_0(void)
 {
   int                   i;
 

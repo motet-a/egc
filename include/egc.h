@@ -46,15 +46,19 @@ void    egc_start(t_egc_private_data *egc_data);
 /*
 ** Sets up pseudo-statics variables
 **
-** `user_statics` is the pointer returned by egc_get_statics().
+** `statics` is the pointer returned by egc_get_statics().
 ** It can be NULL.
 **
-** `user_statics_size` is the size of the struct pointed to by
-** `user_statics`. If `user_statics` is not a pointer to a
-** struct, or if `user_statics_size` is zero, then
-** `user_statics_size` should be specified as zero.
+** `statics_size` is the size of the struct pointed to by `statics`.
+** If `statics` is not a pointer to a struct, or if `statics_size`
+** is zero, then `statics_size` should be specified as zero.
 */
-void    egc_set_user_statics(void *user_statics, size_t user_statics_size);
+void    egc_set_statics(void *statics, size_t statics_size);
+
+/*
+** Returns the `statics` pointer given to `egc_start()`
+*/
+void    *egc_get_statics(void);
 
 /*
 ** Sets the error callback
@@ -113,10 +117,5 @@ void    *egc_malloc_atomic(size_t size);
 ** Performs a garbage collection
 */
 void    egc_collect(void);
-
-/*
-** Returns the `user_statics` pointer given to `egc_start()`
-*/
-void    *egc_get_statics(void);
 
 #endif /* EGC_H */

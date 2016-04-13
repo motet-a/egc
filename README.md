@@ -49,6 +49,12 @@ int                     main()
 
 
 
+## Allocate garbage-collected memory
+
+TODO
+
+
+
 ## Heap strings
 
 egc comes with string manipulation functions. Their prototypes
