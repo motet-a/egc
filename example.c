@@ -11,6 +11,11 @@
 #include <unistd.h>
 #include "include/egc.h"
 
+/*
+** Reads a character from the standard input
+**
+** If the EOF is reach or an error occured, '\0' is returned.
+*/
 static char     read_char(void)
 {
   char          c;
@@ -20,6 +25,11 @@ static char     read_char(void)
   return c;
 }
 
+/*
+** Reads a line from the standard input
+**
+** The line is terminated by a Ctrl+D or a '\n'.
+*/
 static t_hs     read_line(void)
 {
   t_hs          line;
