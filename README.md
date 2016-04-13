@@ -140,7 +140,7 @@ int                     main(int argc, char **arg)
   int                   r;
   t_egc_private_data    private_data;
 
-  egc_start(&private_data, &print_error, NULL, 0);
+  egc_start(&private_data);
   r = main2(argc, argv)
   egc_stop();
   return (r);
