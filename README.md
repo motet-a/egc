@@ -54,17 +54,46 @@ egc comes with string manipulation functions. Their prototypes
 are in `include/hs.h`.
 
 A *heap string* is represented with the type `t_hs`. It is a
-garbage-collected sequence of bytes, stored on the heap.
+garbage-collected sequence of bytes, stored on the heap. Heap
+strings should be considered immutable.
+
+Heap strings can contain binary data and NULs.
+
+Avoid accessing heap strings with pointers. In function arguments,
+pass heap strings by value. Don't write this:
+
+```c
+void    print_string(t_hs *hs);
+```
+
+but:
+
+```c
+void    print_string(t_hs hs);
+```
+
+Moreover, don't use `const` heap strings. It is useless, since
+a heap string should be considered immutable.
+
+Heap strings can be created with the `hs_new_*()` and
+`hs_format()` functions, concatenated with the `hs_concat_*()`
+functions, and printed with `hs_print_*()` or `egc_printf()`
+functions.
+
+You can get the length of a heap string `hs` with `hs.length`.
+You can access directly its bytes with `hs.chars` — but keep
+in mind that it is not NUL-terminated and it can contain NULs.
 
 
 
-## `egc_printf()`, `egc_fprintf()`
+## printf-like functions
 
-These are like `printf()` and `fprintf()`, except that `printf()`
-and `fprintf()` support flags and many more specifiers.
+`egc_printf()` and `egc_fprintf()` are like `printf()` and
+`fprintf()`, except that `printf()` and `fprintf()` support
+flags and many more specifiers.
 
 There is no `egc_sprintf()`, but `hs_format()` is a bit like
-`asprintf()`.
+the GNU function `asprintf()`.
 
 
 
