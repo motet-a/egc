@@ -46,20 +46,17 @@ static t_hs     read_line(void)
   return (line);
 }
 
-static void             whats_your_name(void)
+static int              main2()
 {
   t_hs                  name;
 
   egc_printf("What's your name? ");
   name = read_line();
   egc_printf("Hello %hs!\n", name);
+  return (0);
 }
 
 int                     main()
 {
-  t_egc_private_data    private_data;
-
-  egc_start(&private_data);
-  whats_your_name();
-  egc_stop();
+  return (egc_run(0, NULL, main2));
 }

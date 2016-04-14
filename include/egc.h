@@ -15,14 +15,17 @@
 # include "egc_string.h"
 # include "hs.h"
 
-typedef size_t  t_egc_private_data[32];
-
 typedef void    (*t_egc_error_callback)(const char *message);
 
+typedef int     (*t_egc_main_function)(int argc, char **argv);
+
 /*
-** Starts EGC
+** Runs a garbage-collected program
 **
 ** You should call this function before any other egc's function.
+**
+** This functions initializes egc and calls the given function pointer
+** `aux_main`. `argc` and `argv` are passed unmodified to `aux_main`.
 **
 ** The default error callback is the following:
 **
@@ -37,11 +40,8 @@ typedef void    (*t_egc_error_callback)(const char *message);
 **
 ** It prints the error messages and the logs on the error output.
 **
-** `egc_data` is a pointer to a `t_egc_private_data` on the
-** stack. EGC can't work if it is not on the stack.
-**
 */
-void    egc_start(t_egc_private_data *egc_data);
+int     egc_run(int argc, char **argv, t_egc_main_function aux_main);
 
 /*
 ** Sets up pseudo-statics variables
@@ -70,18 +70,8 @@ void    *egc_get_statics(void);
 void    egc_set_error_callback(t_egc_error_callback error_callback);
 
 /*
-** Stops egc
-*/
-void    egc_stop(void);
-
-/*
 ** Stops egc and exits the program
-**
-** A call to `egc_exit(4)` is similar to:
-**
-**     egc_stop();
-**     exit(4);
-**
+
 ** Avoid to call directly exit(), prefer this function.
 */
 void    egc_exit(int status);

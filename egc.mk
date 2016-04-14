@@ -22,13 +22,14 @@ EGC_SOURCES_NAMES	= \
 			hs_new_int.c \
 			hs_print.c \
 			hs_vformat.c \
+			init.c \
 			log.c \
 			malloc.c \
 			mark.c \
 			mark_stack.c \
 			printf.c \
+			run.c \
 			safe_malloc.c \
-			start.c \
 			string.c
 
 EGC_SOURCES		= $(foreach file,$(EGC_SOURCES_NAMES), \

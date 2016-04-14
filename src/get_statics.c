@@ -11,17 +11,17 @@
 #include "egc_private.h"
 
 #ifndef EGC_DEBUG
-/*
-** XXX: Works only if the magic number is aligned on the stack
-*/
+
 t_statics               *egc_get_private_statics(void)
 {
-  uint64_t              variable_on_the_stack;
-  uint64_t              *stack_pointer;
+  char                  variable_on_the_stack;
+  char                  *stack_pointer;
 
   stack_pointer = &variable_on_the_stack;
-  while (*stack_pointer != MAGIC_NUMBER + 1)
-    stack_pointer++;
+  while (*(uint64_t *)stack_pointer != MAGIC_NUMBER + 1)
+    {
+      stack_pointer++;
+    }
   return ((t_statics *)stack_pointer);
 }
 #endif

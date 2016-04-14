@@ -11,19 +11,20 @@
 #include <unistd.h>
 #include "egc_private.h"
 
-static t_statics        *init_statics(t_egc_private_data *private_data)
+static t_statics        *init_statics(t_statics *statics)
 {
-  t_statics             *statics;
+  void                  *stack_bottom;
 
+  stack_bottom = statics;
+  statics->magic_number = MAGIC_NUMBER;
+  statics->magic_number++;
 #ifdef EGC_DEBUG
   statics = &g_egc_private_statics;
-#else
-  statics = (t_statics *)private_data;
 #endif
   statics->magic_number = MAGIC_NUMBER;
   statics->magic_number++;
-  statics->stack_bottom = (void *)private_data;
-  return statics;
+  statics->stack_bottom = stack_bottom;
+  return (statics);
 }
 
 static void     print_string(const char *string)
@@ -35,11 +36,9 @@ static void     print_string(const char *string)
     }
 }
 
-void            egc_start(t_egc_private_data *private_data)
+void            egc_init(t_statics *statics)
 {
-  t_statics     *statics;
-
-  statics = init_statics(private_data);
+  statics = init_statics(statics);
   statics->error_callback = &print_string;
   statics->user_statics = NULL;
   statics->user_statics_size = 0;
@@ -48,16 +47,19 @@ void            egc_start(t_egc_private_data *private_data)
   statics->total_malloc_count = 0;
   statics->total_free_count = 0;
   statics->collection_count = 0;
-  statics->heap_size = 1024;
+  statics->heap_size = 10 * 1024;
   statics->heaps = NULL;
   statics->heaps = egc_heap_new(statics->heap_size, NULL);
+  statics->exit_status = 0;
+  statics->exited = 0;
+  statics->return_address = NULL;
   if (STATICS != statics)
     {
-      print_string("egc_start(): Internal error\n");
+      print_string("egc_init(): Internal error\n");
       exit(-1);
     }
-  LOG("egc_start() statics:");
-  LOG_POINTER(private_data);
+  LOG("egc_init() statics:");
+  LOG_POINTER(statics);
   LOG("");
 }
 

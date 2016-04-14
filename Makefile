@@ -45,6 +45,9 @@ test: test/test
 test/test: $(TEST_OBJECTS) libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 
+example: example.o libegc.a
+	$(CC) -o $@ $^ $(LDFLAGS)
+
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 

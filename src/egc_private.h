@@ -107,11 +107,17 @@ typedef struct          s_statics
   size_t                malloc_count;
   size_t                free_count;
   size_t                collection_count;
+  int                   exit_status;
+  int                   exited;
+  void                  *return_address;
 }                       t_statics;
 
 # ifdef EGC_DEBUG
 t_statics               g_egc_private_statics;
 # endif
+
+void            egc_init(t_statics *statics);
+void            egc_stop(void);
 
 t_block         *egc_get_last_free_block(t_heap *heap, t_block *block);
 

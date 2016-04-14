@@ -25,9 +25,13 @@ void            assert_impl(int a, const char *position)
   STATS->total_test_count++;
 }
 
-static void     run_test_suites(void)
+static void     run_tests(void)
 {
+  egc_collect();
   test_suite_malloc();
+  egc_printf("%d tests, %d failures\n",
+             STATS->total_test_count,
+             STATS->failed_test_count);
 }
 
 int             main2()
@@ -37,20 +41,11 @@ int             main2()
   stats.failed_test_count = 0;
   stats.total_test_count = 0;
   egc_set_statics(&stats, sizeof(t_test_stats));
-  run_test_suites();
-  egc_printf("%d tests, %d failures\n",
-             STATS->total_test_count,
-             STATS->failed_test_count);
+  run_tests();
   return (STATS->failed_test_count != 0);
 }
 
 int             main()
 {
-  int                   r;
-  t_egc_private_data    private_data;
-
-  egc_start(&private_data);
-  r = main2();
-  egc_stop();
-  return (r);
+  return (egc_run(0, NULL, main2));
 }
