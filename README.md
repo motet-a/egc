@@ -42,7 +42,7 @@ int                     main()
   t_egc_private_data    private_data;
 
   egc_start(&private_data);
-  whats_your_name();
+  // do something...
   egc_stop();
 }
 ```
