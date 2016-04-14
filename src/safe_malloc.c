@@ -26,9 +26,9 @@ void            *egc_safe_malloc(size_t length)
   return (data);
 }
 
-static size_t   set_to_zero_8(size_t sdata, size_t length8)
+static size_t   set_to_zero_8(size_t sdata, size_t *length8)
 {
-  while (length8 > 0)
+  while (*length8 > 0)
     {
       ((size_t *)sdata)[0] = 0;
       ((size_t *)sdata)[1] = 0;
@@ -39,9 +39,9 @@ static size_t   set_to_zero_8(size_t sdata, size_t length8)
       ((size_t *)sdata)[6] = 0;
       ((size_t *)sdata)[7] = 0;
       sdata += 8 * sizeof(size_t);
-      length8--;
+      (*length8)--;
     }
-  return (length8);
+  return (sdata);
 }
 
 void            egc_set_to_zero(void *data, size_t length)
@@ -53,13 +53,17 @@ void            egc_set_to_zero(void *data, size_t length)
     {
       sdata = (size_t)data;
       while (sdata % sizeof(size_t) && length--)
-        ((char *)sdata++)[0] = '\0';
+        ((char *)(sdata++))[0] = '\0';
       length8 = length / (sizeof(size_t) * 8);
-      length8 = set_to_zero_8(sdata, length8);
+      sdata = set_to_zero_8(sdata, &length8);
       length %= sizeof(size_t) * 8;
-      while (length8)
-        ((size_t *)sdata)[length8--] = 0;
-      length %= sizeof(size_t) ;
+      length8 = length / sizeof(size_t);
+      while (length8--)
+        {
+          ((size_t *)sdata)[0] = 0;
+          sdata += sizeof(size_t);
+        }
+      length %= sizeof(size_t);
     }
   while (length--)
     ((char *)data)[length] = '\0';

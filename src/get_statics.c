@@ -28,5 +28,5 @@ t_statics               *egc_get_private_statics(void)
 
 void                    *egc_get_statics(void)
 {
-  return (egc_get_private_statics()->user_statics);
+  return (STATICS->user_statics);
 }

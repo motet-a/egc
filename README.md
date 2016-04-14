@@ -4,7 +4,7 @@ A garbage collector written in C for EPITECH projects.
 
 
 
-## Download and compile
+## Download and build
 
 ```sh
 git clone https://github.com/motet-a/egc.git

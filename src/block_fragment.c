@@ -10,17 +10,16 @@
 
 #include "egc_private.h"
 
-static void     fragment(t_block *block, size_t size)
+static void     fragment(t_block *block, size_t min_size)
 {
   t_block       *new;
   size_t        old_size;
 
   old_size = block->size;
-  new = (void *)block + sizeof(t_block) + size;
-  new->size = old_size - sizeof(t_block) - size;
+  new = (void *)block + sizeof(t_block) + min_size;
+  new->size = old_size - sizeof(t_block) - min_size;
   new->flags = BLOCK_FLAGS_FREE;
-  egc_set_to_zero((void *)new + sizeof(t_block), new->size);
-  block->size = size;
+  block->size = min_size;
   LOG("first block:");
   LOG_POINTER(block);
   LOG("new block:");
@@ -28,8 +27,12 @@ static void     fragment(t_block *block, size_t size)
   LOG("");
 }
 
-void            egc_block_request_fragmentation(t_block *block, size_t size)
+void            egc_block_request_fragmentation(t_block *block,
+                                                size_t min_size)
 {
-  if (block->size > size + 10 * sizeof(size_t))
-    fragment(block, size);
+  size_t        max_size;
+
+  max_size = min_size + 10 * sizeof(size_t);
+  if (block->size > max_size)
+    fragment(block, min_size);
 }

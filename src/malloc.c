@@ -39,6 +39,7 @@ t_block         *egc_malloc_block(size_t size, t_statics *statics)
     }
   egc_block_request_fragmentation(block, size);
   block->flags &= ~BLOCK_FLAGS_FREE;
+  egc_set_to_zero((void *)block + sizeof(t_block), block->size);
   statics->malloc_count++;
   statics->total_malloc_count++;
   return (block);
@@ -83,6 +84,12 @@ static void     *realloc_new(t_heap *heap, t_block *block, size_t size)
   return (new);
 }
 
+static void     *realloc_split(t_block *block, size_t size)
+{
+  egc_block_request_fragmentation(block, size);
+  return (block + sizeof(t_block));
+}
+
 void            *egc_realloc(void *data, size_t size)
 {
   t_block       *block;
@@ -94,10 +101,7 @@ void            *egc_realloc(void *data, size_t size)
     return (egc_malloc(size));
   block = data - sizeof(t_block);
   if (size < block->size)
-    {
-      egc_block_request_fragmentation(block, size);
-      return (block + sizeof(t_block));
-    }
+    return (realloc_split(block, size));
   heap = egc_get_pointed_to_heap(STATICS, block + 1);
   if (realloc_join(heap, block))
     return (block + sizeof(t_block));

@@ -11,17 +11,6 @@
 #include "utils.h"
 #include "test.h"
 
-static void             test_malloc_0(void)
-{
-  int                   i;
-
-  i = -1;
-  while (++i < 1000)
-    {
-      egc_malloc(i);
-    }
-}
-
 static void             test(void)
 {
   void                  *data;
@@ -65,7 +54,6 @@ int                     main(void)
   t_egc_private_data    private_data;
 
   egc_start(&private_data);
-  test0();
   test();
   test1();
   egc_stop();
