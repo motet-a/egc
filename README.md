@@ -64,6 +64,12 @@ garbage-collected block.
 
 Avoid using `egc_realloc()` yet, it is still unstable.
 
+Warning: Don't store a pointer returned by the system `malloc()`
+inside a garbage-collected block (returned by `egc_malloc()`).
+The blocks returned by `malloc()` are not visited by the garbage
+collector, and can be faulty marked as unused during the garbage
+collection. This can lead to hard-to-find bugs.
+
 *TODO: Write more text here*
 
 
