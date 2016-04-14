@@ -29,7 +29,7 @@ other egc routines.
 
 Here is a typical `main()` function of a garbage-collected program:
 
-```
+```c
 int     main2(int argc, char **argv)
 {
   /* do garbage-collected stuff here */
@@ -54,7 +54,17 @@ case.
 
 ## Allocate garbage-collected memory
 
-TODO
+`egc_malloc()` acts like `malloc()` exept you should not `free()`
+the returned pointer.
+
+`egc_malloc_atomic()` is like `egc_malloc()` except the returned
+block is not visited during garbage collection. Use this function
+if the allocated block should not contain a pointer to a
+garbage-collected block.
+
+Avoid using `egc_realloc()` yet, it is still unstable.
+
+*TODO: Write more text here*
 
 
 
