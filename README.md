@@ -23,29 +23,32 @@ section.
 
 ## Initialization and shutdown
 
-The function `egc_start()` starts the garbage collector. Typically,
-you should call `egc_start()` in the `main()` function.
-
-The first argument of `egc_start()` should be a pointer to a
-`t_egc_private_data` allocated on the stack.
-
-
-egc should be stopped with `egc_stop()` to free some allocated
-resources. You should always call it before exiting your program.
-`egc_exit()` is the same as a call to `egc_stop()` and `exit()`.
+egc should be started with `egc_run()`. This function accepts a
+pointer to a function which should contain all the calls to the
+other egc routines.
 
 Here is a typical `main()` function of a garbage-collected program:
 
-```c
-int                     main()
+```
+int     main2(int argc, char **argv)
 {
-  t_egc_private_data    private_data;
+  /* do garbage-collected stuff here */
+  return (0);
+}
 
-  egc_start(&private_data);
-  // do something...
-  egc_stop();
+int     main(int argc, char **argv)
+{
+  return (egc_run(argc, argv, main2));
 }
 ```
+
+`egc_run()` passes `argc` and `argv` unmodified to `main2()`,
+and returns the value returned by `main2()` — or the argument of
+a call to `egc_exit()`.
+
+You can exit the program from `main2()` with `egc_exit()`. The value
+returned by `egc_run()` will be the parameter of `egc_exit()` in this
+case.
 
 
 
