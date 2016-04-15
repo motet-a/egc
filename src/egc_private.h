@@ -119,7 +119,7 @@ void            egc_stop(void);
 /*
 ** Aborts the program execution
 */
-void    egc_abort(void);
+void            egc_abort(void);
 
 t_block         *egc_get_last_free_block(t_heap *heap, t_block *block);
 

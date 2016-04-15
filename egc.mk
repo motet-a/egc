@@ -21,6 +21,7 @@ EGC_SOURCES_NAMES	= \
 			hs_new.c \
 			hs_new_int.c \
 			hs_print.c \
+			hs_puts.c \
 			hs_vformat.c \
 			init.c \
 			log.c \

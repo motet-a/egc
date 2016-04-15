@@ -69,4 +69,11 @@ int     hs_print(t_hs hs);
 int     hs_print_err(t_hs hs);
 int     hs_print_file(t_hs hs, int output_file);
 
+/*
+** Like hs_print_*() functions, but prints a "\n" at the end
+*/
+int     hs_puts(t_hs hs);
+int     hs_puts_err(t_hs hs);
+int     hs_puts_file(t_hs hs, int output_file);
+
 #endif /* HS_H */
