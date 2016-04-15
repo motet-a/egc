@@ -107,9 +107,6 @@ typedef struct          s_statics
   size_t                malloc_count;
   size_t                free_count;
   size_t                collection_count;
-  int                   exit_status;
-  int                   exited;
-  void                  *return_address;
 }                       t_statics;
 
 # ifdef EGC_DEBUG

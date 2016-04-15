@@ -12,24 +12,21 @@
 
 static int      run(int argc,
                     char **argv,
-                    t_egc_main_function aux_main,
-                    t_statics **statics_ptr_ptr)
+                    t_egc_main_function aux_main)
 {
-  *statics_ptr_ptr = STATICS;
-  STATICS->return_address = __builtin_return_address(0);
-  return (aux_main(argc, argv));
+  int           status;
+
+  status = aux_main(argc, argv);
+  return (status);
 }
 
 int             egc_run(int argc, char **argv, t_egc_main_function aux_main)
 {
   int           status;
   t_statics     statics;
-  t_statics     *statics_ptr;
 
   egc_init(&statics);
-  status = run(argc, argv, aux_main, &statics_ptr);
-  if (statics_ptr->exited)
-    status = statics_ptr->exit_status;
+  status = run(argc, argv, aux_main);
   egc_stop();
   return (status);
 }

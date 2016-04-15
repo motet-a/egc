@@ -21,24 +21,30 @@ void    egc_stop()
   egc_collect();
   if (STATICS->total_malloc_count != STATICS->total_free_count)
     {
+      LOG_UINT(STATICS->total_malloc_count);
+      LOG_UINT(STATICS->total_free_count);
       LOG("egc_stop() Warning: total_malloc_count != total_free_count");
     }
   egc_heap_delete(STATICS->heaps);
 }
 
-static void     exit_impl(int status)
-{
-  exit(status);
-}
-
 void    egc_exit(int status)
 {
+  long  lstatus;
+
+  LOG("egc_exit()");
   egc_stop();
-  exit_impl(status);
+  lstatus = status;
+  __asm__ volatile ("movq   $60, %%rax\n\t"
+                    "movq   %0, %%rdi\n\t"
+                    "syscall"
+                    :
+                    : "r" (lstatus)
+                    : "%rax", "%rdi", "memory", "cc");
 }
 
 void    egc_abort(void)
 {
   egc_log("egc_abort() called");
-  exit_impl(1);
+  egc_exit(1);
 }

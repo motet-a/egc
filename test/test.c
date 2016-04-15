@@ -27,11 +27,11 @@ void            assert_impl(int a, const char *position)
 
 static void     run_tests(void)
 {
-  egc_collect();
   test_suite_malloc();
   egc_printf("%d tests, %d failures\n",
              STATS->total_test_count,
              STATS->failed_test_count);
+  egc_exit(STATS->failed_test_count != 0);
 }
 
 int             main2()
@@ -42,7 +42,8 @@ int             main2()
   stats.total_test_count = 0;
   egc_set_statics(&stats, sizeof(t_test_stats));
   run_tests();
-  return (STATS->failed_test_count != 0);
+  FAIL();
+  return (3);
 }
 
 int             main()

@@ -50,9 +50,6 @@ void            egc_init(t_statics *statics)
   statics->heap_size = 10 * 1024;
   statics->heaps = NULL;
   statics->heaps = egc_heap_new(statics->heap_size, NULL);
-  statics->exit_status = 0;
-  statics->exited = 0;
-  statics->return_address = NULL;
   if (STATICS != statics)
     {
       print_string("egc_init(): Internal error\n");
