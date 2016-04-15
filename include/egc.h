@@ -77,11 +77,6 @@ void    egc_set_error_callback(t_egc_error_callback error_callback);
 void    egc_exit(int status);
 
 /*
-** Aborts the program execution
-*/
-void    egc_abort(void);
-
-/*
 ** Returns a garbage-collected memory area
 **
 ** Never returns NULL.

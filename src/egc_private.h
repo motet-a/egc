@@ -116,6 +116,11 @@ t_statics               g_egc_private_statics;
 void            egc_init(t_statics *statics);
 void            egc_stop(void);
 
+/*
+** Aborts the program execution
+*/
+void    egc_abort(void);
+
 t_block         *egc_get_last_free_block(t_heap *heap, t_block *block);
 
 t_heap          *egc_get_pointed_to_heap(const t_statics *statics,
