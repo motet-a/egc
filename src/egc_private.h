@@ -116,6 +116,8 @@ t_statics               g_egc_private_statics;
 void            egc_init(t_statics *statics);
 void            egc_stop(void);
 
+t_block         *egc_malloc_block(size_t size, t_statics *statics);
+
 /*
 ** Aborts the program execution
 */

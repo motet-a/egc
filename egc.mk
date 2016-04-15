@@ -29,6 +29,7 @@ EGC_SOURCES_NAMES	= \
 			mark.c \
 			mark_stack.c \
 			printf.c \
+			realloc.c \
 			run.c \
 			safe_malloc.c \
 			string.c

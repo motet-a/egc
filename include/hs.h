@@ -35,7 +35,7 @@ t_hs    hs_new_uint(unsigned long n);
 t_hs    hs_new_uint_base(unsigned long n, unsigned base);
 
 /*
-** Concatenates left and right
+** Concatenates left and right to a new heap string
 */
 t_hs    hs_concat(t_hs left, t_hs right);
 
