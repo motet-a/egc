@@ -33,6 +33,7 @@ LDFLAGS		=
 
 TEST_SOURCES	= \
 		test/format.c \
+		test/glist.c \
 		test/malloc.c \
 		test/test.c \
 		test/utils.c
