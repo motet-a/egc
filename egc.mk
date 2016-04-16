@@ -14,6 +14,16 @@ EGC_SOURCES_NAMES	= \
 			collect.c \
 			exit.c \
 			get_statics.c \
+			glist_char.c \
+			glist_double.c \
+			glist_float.c \
+			glist_hs.c \
+			glist_int.c \
+			glist_long.c \
+			glist_str.c \
+			glist_uint.c \
+			glist_ulong.c \
+			glist_voidp.c \
 			heap.c \
 			heaps.c \
 			hs_concat.c \

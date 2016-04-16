@@ -10,7 +10,7 @@
 
 include egc.mk
 
-CFLAGS		= -W -Wall -Wextra -std=c89
+CFLAGS		= -W -Wall -Wextra -std=c89 -I./include/
 
 ifneq ($(findstring test,$(MAKECMDGOALS)),)
 	DEBUG	= true
@@ -36,11 +36,14 @@ TEST_OBJECTS	= $(TEST_SOURCES:.c=.o)
 
 all: test
 
+src/glist_%.c:
+	./glist_gen.py
+
 libegc.a: $(EGC_OBJECTS)
 	ar rc $@ $^
 	ranlib $@
 
-test: test/test
+test: src/glist_char.c test/test
 
 test/test: $(TEST_OBJECTS) libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
@@ -54,6 +57,8 @@ example: example.o libegc.a
 clean:
 	$(RM) $(TEST_OBJECTS)
 	$(RM) $(EGC_OBJECTS)
+	$(RM) src/glist_*.c
+	$(RM) include/glist_*.h
 
 fclean: clean
 	$(RM) libegc.a

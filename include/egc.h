@@ -15,6 +15,17 @@
 # include "egc_string.h"
 # include "hs.h"
 
+# include "glist_char.h"
+# include "glist_double.h"
+# include "glist_float.h"
+# include "glist_hs.h"
+# include "glist_int.h"
+# include "glist_long.h"
+# include "glist_str.h"
+# include "glist_uint.h"
+# include "glist_ulong.h"
+# include "glist_voidp.h"
+
 typedef void    (*t_egc_error_callback)(const char *message);
 
 typedef int     (*t_egc_main_function)(int argc, char **argv);
