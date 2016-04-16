@@ -21,6 +21,16 @@ section.
 
 
 
+## Test
+
+Run the `test` executable in the `test/` directory:
+
+```sh
+./test/test
+```
+
+
+
 ## Initialization and shutdown
 
 egc should be started with `egc_run()`. This function accepts a
