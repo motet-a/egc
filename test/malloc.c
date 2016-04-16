@@ -63,15 +63,19 @@ static void     test_realloc(void)
   data[0] = 'a';
   data = egc_realloc(data, 1);
   ASSERT(data[0] == 'a');
-  data = egc_realloc(data, 100);
+  data = egc_realloc(data, 1);
   ASSERT(data[0] == 'a');
-  data[99] = 'b';
+  data = egc_realloc(data, 0);
+  data = egc_realloc(data, 1);
+  ASSERT(!data[0]);
+  data[0] = 'a';
   data = egc_realloc(data, 100);
   ASSERT(data[0] == 'a');
   ASSERT(is_zero(data + 1, 99));
   data[99] = 'b';
   data = egc_realloc(data, 100);
   ASSERT(data[0] == 'a');
+  ASSERT(is_zero(data + 1, 98));
   ASSERT(data[99] == 'b');
 }
 
