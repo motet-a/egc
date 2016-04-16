@@ -28,6 +28,7 @@ void            assert_impl(int a, const char *position)
 static void     run_tests(void)
 {
   test_suite_malloc();
+  test_suite_format();
   egc_printf("%d tests, %d failures\n",
              STATS->total_test_count,
              STATS->failed_test_count);

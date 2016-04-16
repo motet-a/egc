@@ -31,7 +31,12 @@ endif
 
 LDFLAGS		=
 
-TEST_SOURCES	= test/test.c test/utils.c test/malloc.c
+TEST_SOURCES	= \
+		test/format.c \
+		test/malloc.c \
+		test/test.c \
+		test/utils.c
+
 TEST_OBJECTS	= $(TEST_SOURCES:.c=.o)
 
 all: test

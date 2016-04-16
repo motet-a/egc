@@ -33,5 +33,6 @@ typedef struct          s_test_stats
 # define STATS          ((t_test_stats *)egc_get_statics())
 
 void    test_suite_malloc(void);
+void    test_suite_format(void);
 
 #endif /* TEST_H */

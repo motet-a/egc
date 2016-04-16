@@ -27,6 +27,7 @@ EGC_SOURCES_NAMES	= \
 			heap.c \
 			heaps.c \
 			hs_concat.c \
+			hs_equals.c \
 			hs_format.c \
 			hs_new.c \
 			hs_new_int.c \

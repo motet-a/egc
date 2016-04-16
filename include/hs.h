@@ -46,6 +46,9 @@ t_hs    hs_concat_str_str(const char *left, const char *right);
 t_hs    hs_concat_hs_char(t_hs left, char right);
 t_hs    hs_concat_char_hs(char left, t_hs right);
 
+int     hs_equals(t_hs a, t_hs b);
+int     hs_equals_str(t_hs a, const char *b);
+
 /*
 ** Creates a new t_hs from the given format and arguments
 **
