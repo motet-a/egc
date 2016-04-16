@@ -29,10 +29,12 @@ EGC_SOURCES_NAMES	= \
 			hs_concat.c \
 			hs_equals.c \
 			hs_format.c \
+			hs_index_of.c \
 			hs_new.c \
 			hs_new_int.c \
 			hs_print.c \
 			hs_puts.c \
+			hs_split.c \
 			hs_vformat.c \
 			init.c \
 			log.c \

@@ -12,25 +12,25 @@
 
 t_hs            hs_new_from_str(const char *string)
 {
-  return (hs_new_from_length(egc_strlen(string), string));
+  return (hs_new_from_n_chars(egc_strlen(string), string));
 }
 
-t_hs            hs_new_from_length(size_t length, const char *chars)
+t_hs            hs_new_from_n_chars(size_t n, const char *chars)
 {
   t_hs          hs;
 
-  hs.length = length;
+  hs.length = n;
   hs.chars = egc_malloc_atomic(hs.length);
-  egc_memcpy(hs.chars, chars, length);
+  egc_memcpy(hs.chars, chars, n);
   return (hs);
 }
 
 t_hs    hs_new_from_char(char c)
 {
-  return (hs_new_from_length(1, &c));
+  return (hs_new_from_n_chars(1, &c));
 }
 
 t_hs    hs_new_empty()
 {
-  return (hs_new_from_length(0, NULL));
+  return (hs_new_from_n_chars(0, NULL));
 }

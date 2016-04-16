@@ -30,6 +30,7 @@ static void     run_tests(void)
   test_suite_malloc();
   test_suite_format();
   test_suite_glist();
+  test_suite_hs_slice();
   egc_printf("%d tests, %d failures\n",
              STATS->total_test_count,
              STATS->failed_test_count);

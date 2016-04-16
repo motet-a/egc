@@ -23,7 +23,7 @@ typedef struct  s_hs
 t_hs    hs_new_empty(void);
 t_hs    hs_new_from_str(const char *hsing);
 t_hs    hs_new_from_char(char c);
-t_hs    hs_new_from_length(size_t length, const char *chars);
+t_hs    hs_new_from_n_chars(size_t n, const char *chars);
 
 /*
 ** Use these functions to convert integers to a new
@@ -78,5 +78,28 @@ int     hs_print_file(t_hs hs, int output_file);
 int     hs_puts(t_hs hs);
 int     hs_puts_err(t_hs hs);
 int     hs_puts_file(t_hs hs, int output_file);
+
+/*
+** Returns the lowest index in hs where the substring is found
+**
+** Returns -1 on failure.
+*/
+int     hs_index_of(t_hs hs, t_hs substring);
+int     hs_index_of_str(t_hs hs, const char *substring);
+int     hs_index_of_char(t_hs hs, char c);
+
+t_hs    hs_slice(t_hs hs, int start_index, int end_index);
+t_hs    hs_slice_str(const char *string, int start_index, int end_index);
+
+/*
+** Forward declarations
+*/
+struct                          s_glist_hs;
+typedef struct s_glist_hs       t_glist_hs_;
+
+t_glist_hs_     hs_split(t_hs hs, t_hs separator);
+t_glist_hs_     hs_split_str(t_hs hs, const char *separator);
+
+int     hs_get_real_index(t_hs hs, int index);
 
 #endif /* HS_H */
