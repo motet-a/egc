@@ -19,7 +19,11 @@ void            test_suite_glist(void)
   ASSERT(glist_int_size(&l) == 0);
   glist_int_append(&l, 0);
   ASSERT(glist_int_size(&l) == 1);
+  ASSERT(glist_int_get(&l, 0) == 0);
   glist_int_append(&l, 1);
   glist_int_append(&l, 2);
   ASSERT(glist_int_size(&l) == 3);
+  ASSERT(glist_int_get(&l, 0) == 0);
+  ASSERT(glist_int_get(&l, 1) == 1);
+  ASSERT(glist_int_get(&l, 2) == 2);
 }
