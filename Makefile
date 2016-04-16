@@ -36,14 +36,16 @@ TEST_OBJECTS	= $(TEST_SOURCES:.c=.o)
 
 all: test
 
+glist: src/glist_%.c
+
 src/glist_%.c:
 	./glist_gen.py
 
-libegc.a: $(EGC_OBJECTS)
-	ar rc $@ $^
+libegc.a: glist $(EGC_OBJECTS)
+	ar rc $@ $(EGC_OBJECTS)
 	ranlib $@
 
-test: src/glist_char.c test/test
+test: glist test/test
 
 test/test: $(TEST_OBJECTS) libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
