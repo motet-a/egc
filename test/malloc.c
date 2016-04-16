@@ -54,8 +54,30 @@ static void     test_malloc_atomic(void)
   ASSERT(1);
 }
 
+static void     test_realloc(void)
+{
+  char          *data;
+
+  data = egc_realloc(NULL, 10);
+  check_allocated_block(data, 10);
+  data[0] = 'a';
+  data = egc_realloc(data, 1);
+  ASSERT(data[0] == 'a');
+  data = egc_realloc(data, 100);
+  ASSERT(data[0] == 'a');
+  data[99] = 'b';
+  data = egc_realloc(data, 100);
+  ASSERT(data[0] == 'a');
+  ASSERT(is_zero(data + 1, 99));
+  data[99] = 'b';
+  data = egc_realloc(data, 100);
+  ASSERT(data[0] == 'a');
+  ASSERT(data[99] == 'b');
+}
+
 void            test_suite_malloc(void)
 {
   test_malloc_0();
   test_malloc_atomic();
+  test_realloc();
 }
