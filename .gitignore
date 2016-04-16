@@ -1,3 +1,5 @@
 *.o
 /libegc.a
 /test/test
+src/glist_*.c
+include/glist_*.h

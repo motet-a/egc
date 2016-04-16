@@ -51,14 +51,21 @@ test/test: $(TEST_OBJECTS) libegc.a
 example: example.o libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 
+delivery: src/glist_char.c
+	$(RM) glist_gen.py
+	$(RM) .gitignore
+	$(RM) valgrind.supp
+
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
+
+glist_clean:
+	$(RM) src/glist_*.c
+	$(RM) include/glist_*.h
 
 clean:
 	$(RM) $(TEST_OBJECTS)
 	$(RM) $(EGC_OBJECTS)
-	$(RM) src/glist_*.c
-	$(RM) include/glist_*.h
 
 fclean: clean
 	$(RM) libegc.a
