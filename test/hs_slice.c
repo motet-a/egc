@@ -18,4 +18,6 @@ void    test_suite_hs_slice(void)
   ASSERT(hs_equals_str(hs_slice_str("abc", 0, 3), "abc"));
   ASSERT(hs_equals_str(hs_slice_str("abc", 0, -1), "ab"));
   ASSERT(hs_equals_str(hs_slice_str("abc", 0, -2), "a"));
+  ASSERT(hs_equals_str(hs_slice_str("abc", 1, -1), "b"));
+  ASSERT(hs_equals_str(hs_slice_str("abc", -2, -1), "b"));
 }

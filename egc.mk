@@ -12,6 +12,7 @@ EGC_SOURCES_NAMES	= \
 			block.c \
 			block_fragment.c \
 			collect.c \
+			debug_lock.c \
 			exit.c \
 			get_statics.c \
 			glist_char.c \
@@ -34,6 +35,7 @@ EGC_SOURCES_NAMES	= \
 			hs_new_int.c \
 			hs_print.c \
 			hs_puts.c \
+			hs_slice.c \
 			hs_split.c \
 			hs_vformat.c \
 			init.c \

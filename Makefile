@@ -32,9 +32,10 @@ endif
 LDFLAGS		=
 
 TEST_SOURCES	= \
-		test/format.c \
 		test/glist.c \
+		test/hs_format.c \
 		test/hs_slice.c \
+		test/hs_split.c \
 		test/malloc.c \
 		test/test.c \
 		test/utils.c
@@ -43,7 +44,7 @@ TEST_OBJECTS	= $(TEST_SOURCES:.c=.o)
 
 all: test
 
-glist: src/glist_%.c
+glist: src/glist_char.c
 
 src/glist_%.c:
 	./glist_gen.py

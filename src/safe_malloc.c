@@ -26,6 +26,7 @@ void            *egc_safe_malloc(size_t length)
   return (data);
 }
 
+/*
 static size_t   set_to_zero_8(size_t sdata, size_t *length8)
 {
   while (*length8 > 0)
@@ -67,4 +68,14 @@ void            egc_set_to_zero(void *data, size_t length)
     }
   while (length--)
     ((char *)data)[length] = '\0';
+}
+*/
+
+void            egc_set_to_zero(void *data, size_t length)
+{
+  char          *chars;
+
+  chars = data;
+  while (length--)
+    chars[length] = '\0';
 }

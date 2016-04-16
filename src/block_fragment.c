@@ -10,11 +10,13 @@
 
 #include "egc_private.h"
 
-static void     fragment(t_block *block, size_t min_size)
+void            egc_block_fragment(t_block *block, size_t min_size)
 {
   t_block       *new;
   size_t        old_size;
 
+  if (block->size <= min_size)
+    return ;
   old_size = block->size;
   new = (void *)block + sizeof(t_block) + min_size;
   new->size = old_size - sizeof(t_block) - min_size;
@@ -34,5 +36,5 @@ void            egc_block_request_fragmentation(t_block *block,
 
   max_size = min_size + 10 * sizeof(size_t);
   if (block->size > max_size)
-    fragment(block, min_size);
+    egc_block_fragment(block, min_size);
 }

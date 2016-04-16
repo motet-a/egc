@@ -34,7 +34,8 @@ typedef struct          s_test_stats
 
 void    test_suite_glist(void);
 void    test_suite_malloc(void);
-void    test_suite_format(void);
+void    test_suite_hs_format(void);
 void    test_suite_hs_slice(void);
+void    test_suite_hs_split(void);
 
 #endif /* TEST_H */

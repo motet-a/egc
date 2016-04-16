@@ -20,7 +20,8 @@ t_heap          *egc_get_pointed_to_heap(const t_statics *statics,
   while (heap)
     {
       data = heap->data;
-      if (pointer >= data && pointer < data + sizeof(t_block) + heap->size)
+      if (pointer >= data + sizeof(t_block) &&
+          pointer < data + heap->size)
         return (heap);
       heap = heap->next;
     }
@@ -62,10 +63,11 @@ void            egc_mark_pointer_array(void **pointer_array, size_t size)
   char_array = (char *)pointer_array;
   statics = STATICS;
   size -= sizeof(void *);
-  while (size--)
+  while (size)
     {
       block = get_pointed_to_block(statics, *(void **)(char_array + size));
       if (block)
         egc_block_mark(block);
+      size--;
     }
 }

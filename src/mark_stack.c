@@ -12,6 +12,10 @@
 
 static void     mark_range(void *a, void *b)
 {
+  LOG("mark_range()");
+  LOG_POINTER(a);
+  LOG_POINTER(b);
+  LOG("");
   if (a < b)
     egc_mark_pointer_array(a, b - a);
   else

@@ -21,7 +21,7 @@ void            egc_block_mark(t_block *block)
   block->flags |= BLOCK_FLAGS_MARK;
   if (flags & BLOCK_FLAGS_ATOM)
     return ;
-  data = (void *)block + sizeof(t_block);
+  data = (char *)block + sizeof(t_block);
   egc_mark_pointer_array((void **)data, block->size);
 }
 
@@ -54,14 +54,49 @@ void            egc_block_free(t_block *block, t_heap *heap)
 {
   t_block       *last;
 
+  if (block->flags & BLOCK_FLAGS_FREE)
+    egc_abort();
+  if (block->flags & BLOCK_FLAGS_DEBUG_LOCK)
+    {
+      egc_log("egc_block_free(): locked block");
+      egc_log_pointer(block);
+      egc_log("");
+      egc_abort();
+    }
   LOG("egc_block_free() block:");
   LOG_POINTER(block);
   LOG("");
+  /*
   last = egc_get_last_free_block(heap, block);
   if (last)
     {
-      block->size = (void *)last - (void *)block - sizeof(t_block);
+      block->size = (void *)last - (void *)block + sizeof(t_block) + last->size;
     }
-  block->flags |= BLOCK_FLAGS_FREE;
+  */
+  block->flags = BLOCK_FLAGS_FREE;
   egc_set_to_zero((void *)block + sizeof(t_block), block->size);
+}
+
+void            egc_debug_lock_on(void *pointer)
+{
+  t_block       *block;
+
+  block = (t_block *)((char *)pointer - sizeof(t_block));
+  if (block->flags & BLOCK_FLAGS_FREE)
+    egc_abort();
+  if (block->flags & BLOCK_FLAGS_DEBUG_LOCK)
+    egc_abort();
+  block->flags |= BLOCK_FLAGS_DEBUG_LOCK;
+}
+
+void            egc_debug_lock_off(void *pointer)
+{
+  t_block       *block;
+
+  block = (t_block *)((char *)pointer - sizeof(t_block));
+  if (block->flags & BLOCK_FLAGS_FREE)
+    egc_abort();
+  if (!(block->flags & BLOCK_FLAGS_DEBUG_LOCK))
+    egc_abort();
+  block->flags &= ~BLOCK_FLAGS_DEBUG_LOCK;
 }

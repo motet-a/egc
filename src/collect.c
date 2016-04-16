@@ -16,7 +16,17 @@ static void     unmark_heap(t_heap *heap)
 
   block = NULL;
   while ((block = egc_get_next_block(heap, block)))
-    block->flags &= ~BLOCK_FLAGS_MARK;
+    {
+      /*
+        printf("block %p size %lu %d\n", block, block->size,
+        block->flags & BLOCK_FLAGS_FREE);
+        if (block->size > 100000)
+        {
+        egc_abort();
+        }
+      */
+      block->flags &= ~BLOCK_FLAGS_MARK;
+    }
 }
 
 static void     unmark_heaps(void)

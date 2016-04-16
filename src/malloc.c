@@ -12,6 +12,7 @@
 
 static void     request_collection(t_statics *statics)
 {
+  egc_collect();
   if (statics->malloc_count > 2 * statics->free_count + 10)
     {
       egc_collect();
@@ -25,9 +26,10 @@ t_block         *egc_malloc_block(size_t size, t_statics *statics)
   t_block       *block;
   t_heap        *heap;
 
+  LOG("egc_malloc_block()");
   request_collection(statics);
   if (size % 8)
-    size += sizeof(size_t) - size % sizeof(size_t);
+    size += 8 - size % 8;
   block = egc_get_free_block(statics, &heap, size);
   if (!block)
     {
