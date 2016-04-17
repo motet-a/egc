@@ -147,6 +147,16 @@ flags and many more specifiers.
 There is no `egc_sprintf()`, but `hs_format()` is a bit like
 the GNU function `asprintf()`.
 
+The directives `d`, `i`, `u`, `x`, `p`, `c` and `s` are supported.
+
+The length specifiers `h`, `hh` and `l` are supported.
+
+Use `%hs` to print heap strings:
+
+```c
+egc_printf("This is a plain old C string: %s\n", "hello");
+egc_printf("This is a heap string: %hs\n", hs_new_from_str("hello"));
+```
 
 
 ## Legacy string manipulation functions
