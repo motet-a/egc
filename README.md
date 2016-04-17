@@ -97,9 +97,15 @@ egc comes with generic lists, implemented with an `egc_malloced`
 array resized with `egc_realloc()` — a bit like `std::vector` in
 C++.
 
-Generic lists are generated with `glist_gen.py`. But all this stuff
-is still under development, still unstable and still subject to
-major changes.
+Generic lists are generated with `glist_gen.py`. `make all` runs
+this script if the generated sources are not present.
+
+Generated source files are not removed on `make fclean`, and are
+not regenerated on `make re`. You must use `make glist_clean` to
+remove these ones.
+
+All this stuff is still under development, still unstable and
+still subject to major changes.
 
 
 
