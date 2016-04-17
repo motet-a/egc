@@ -53,7 +53,7 @@ void            egc_init(t_statics *statics)
   if (STATICS != statics)
     {
       print_string("egc_init(): Internal error\n");
-      exit(-1);
+      egc_abort();
     }
   LOG("egc_init() statics:");
   LOG_POINTER(statics);
