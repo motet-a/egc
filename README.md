@@ -2,6 +2,9 @@
 
 A garbage collector written in C for EPITECH projects.
 
+**Warning**: Don't use this in an EPITECH project since I use it in my
+own projects.
+
 
 
 ## Download and build
@@ -70,7 +73,10 @@ block is not visited during garbage collection. Use this function
 if the allocated block should not contain a pointer to a
 garbage-collected block.
 
-Avoid using `egc_realloc()` yet, it is still unstable.
+`egc_realloc()` acts like `realloc()`, but returns a
+garbage-collected block too. An atomic block resized with
+`egc_realloc()` remains atomic, a non-atomic one remains non-atomic.
+*TODO: Add tests for that*.
 
 Warning: Don't store a pointer returned by the system `malloc()`
 inside a garbage-collected block (returned by `egc_malloc()`).
@@ -79,6 +85,18 @@ collector, and can be faulty marked as unused during the garbage
 collection. This can lead to hard-to-find bugs.
 
 *TODO: Write more text here*
+
+
+
+## Generic lists
+
+egc comes with generic lists, implemented with an `egc_malloced`
+array resized with `egc_realloc()` — a bit like `std::vector` in
+C++.
+
+Generic lists are generated with `glist_gen.py`. But all this stuff
+is still under development, still unstable and still subject to
+major changes.
 
 
 
