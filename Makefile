@@ -46,7 +46,7 @@ TEST_OBJECTS	= $(TEST_SOURCES:.c=.o)
 
 all: test
 
-glist: src/glist_char.c
+glist: src/glist_char_0.c
 
 src/glist_%.c:
 	./glist_gen.py
