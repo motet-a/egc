@@ -125,6 +125,8 @@ void            egc_init(t_statics *statics);
 void            egc_stop(void);
 
 t_block         *egc_defrag_block(t_heap *heap, t_block *block, int clr_left);
+void            egc_defrag_blocks(t_heap *heap, t_block *block);
+void            egc_defrag(void);
 
 t_block         *egc_malloc_block(size_t size, t_statics *statics);
 

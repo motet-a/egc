@@ -13,6 +13,7 @@ EGC_SOURCES_NAMES	= \
 			block_fragment.c \
 			collect.c \
 			debug_lock.c \
+			defrag.c \
 			exit.c \
 			get_statics.c \
 			glist_char.c \
