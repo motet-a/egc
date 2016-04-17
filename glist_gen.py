@@ -44,9 +44,16 @@ T_GLIST         GLIST_copy(const T_GLIST *source);
 */
 void            GLIST_append(T_GLIST *list, T_ITEM item);
 
-T_GLIST         GLIST_add(T_GLIST *left, T_GLIST right);
+void            GLIST_append_all(T_GLIST *list,
+                                 const T_GLIST *new_items);
+
+T_GLIST         GLIST_add(const T_GLIST *left,
+                          const T_GLIST *right);
+
 T_ITEM          GLIST_get(const T_GLIST *list, int index);
-T_ITEM          GLIST_set(T_GLIST *l, int i, T_ITEM n);
+T_ITEM          GLIST_set(T_GLIST *list,
+                          int index,
+                          T_ITEM n);
 
 /*
 ** Returns the size of a list
@@ -89,7 +96,7 @@ T_GLIST                 GLIST_copy(const T_GLIST *source)
   return (new);
 }
 
-static void             grow(T_GLIST *list, size_t new_size)
+static void     grow(T_GLIST *list, size_t new_size)
 {
   if (list->available >= new_size)
     return ;
@@ -106,28 +113,45 @@ void            GLIST_append(T_GLIST *list, T_ITEM item)
   list->size++;
 }
 
-/*
-T_GLIST         GLIST_add(T_GLIST *left, T_GLIST right)
+void            GLIST_append_all(T_GLIST *left,
+                                 const T_GLIST *right)
 {
+  int   i;
+
+  i = -1;
+  while (++i < (int)right->size)
+    GLIST_append(left, right->items[i]);
 }
-*/
+
+T_GLIST                 GLIST_add(const T_GLIST *left,
+                                  const T_GLIST *right)
+{
+  T_GLIST               new;
+
+  new = GLIST_new();
+  GLIST_append_all(&new, left);
+  GLIST_append_all(&new, right);
+  return (new);
+}
 
 T_ITEM          GLIST_get(const T_GLIST *list, int index)
 {
   return (list->items[index]);
 }
 
-T_ITEM          GLIST_set(T_GLIST *l, int i, T_ITEM n)
+T_ITEM          GLIST_set(T_GLIST *list,
+                          int index,
+                          T_ITEM new)
 {
   T_ITEM        old;
 
-  if (i == l->size)
+  if (index == (int)list->size)
     {
-      GLIST_append(l, n);
-      return (n);
+      GLIST_append(list, new);
+      return (new);
     }
-  old = GLIST_get(l, i);
-  l->items[i] = n;
+  old = GLIST_get(list, index);
+  list->items[index] = new;
   return (old);
 }
 
@@ -136,13 +160,14 @@ int             GLIST_size(const T_GLIST *list)
   return (list->size);
 }
 
-void    GLIST_apply(const T_GLIST *list, T_GLIST_func f)
+void            GLIST_apply(const T_GLIST *list,
+                            T_GLIST_func func)
 {
-  int   i;
+  int           i;
 
   i = -1;
   while (++i < (int)list->size)
-    f(i, list->items[i]);
+    func(i, list->items[i]);
 }
 """
 
@@ -182,9 +207,24 @@ def replace_in_line(line, old, new):
     return line
 
 
+def indent(line, prev_lines):
+    if (')' in line or line.endswith(',')) and '(' not in line:
+        for prev_line in reversed(prev_lines):
+            if '(' in prev_line and ')' not in prev_line:
+                indent = prev_line.index('(') + 1
+                line = ' ' * indent + line.strip()
+                return line
+    return line
+
+
 def replace(string, old, new):
     lines = string.split('\n')
-    new_lines = [replace_in_line(line, old, new) for line in lines]
+    new_lines = []
+    for line in lines:
+        if len(new_lines) > 0:
+            line = indent(line, new_lines)
+        line = replace_in_line(line, old, new)
+        new_lines.append(line)
     return '\n'.join(new_lines)
 
 

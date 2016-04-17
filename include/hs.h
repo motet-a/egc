@@ -101,7 +101,8 @@ typedef struct s_glist_hs       t_glist_hs_;
 t_glist_hs_     hs_split(t_hs hs, t_hs separator);
 t_glist_hs_     hs_split_str(t_hs hs, const char *separator);
 
-t_hs    hs_join(t_hs separator, t_glist_hs_ strings);
+t_hs    hs_join(t_hs separator, const t_glist_hs_ *strings);
+t_hs    hs_join_str_hs(const char *separator, const t_glist_hs_ *strings);
 
 int     hs_get_real_index(t_hs hs, int index);
 

@@ -48,9 +48,18 @@ static void     test_2(void)
   ASSERT(hs_equals_str(glist_hs_get(&l, 0), ""));
 }
 
+static void     test_join(void)
+{
+  t_glist_hs    l;
+
+  l = hs_split_str(hs_new_from_str("here,comes,the,sun"), ",");
+  ASSERT(hs_equals_str(hs_join_str_hs("-", &l), "here-comes-the-sun"));
+}
+
 void            test_suite_hs_split(void)
 {
   test_0();
   test_1();
   test_2();
+  test_join();
 }

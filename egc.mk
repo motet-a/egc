@@ -33,6 +33,7 @@ EGC_SOURCES_NAMES	= \
 			hs_format.c \
 			hs_format_directive.c \
 			hs_index_of.c \
+			hs_join.c \
 			hs_new.c \
 			hs_new_int.c \
 			hs_print.c \

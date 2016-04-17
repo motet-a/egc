@@ -11,6 +11,38 @@
 #include "../src/egc_private.h"
 #include "test.h"
 
+static void     test_append_and_size(void)
+{
+  t_glist_int   l;
+
+  l = glist_int_new();
+  ASSERT(glist_int_size(&l) == 0);
+  glist_int_append(&l, 0);
+  ASSERT(glist_int_size(&l) == 1);
+  ASSERT(glist_int_get(&l, 0) == 0);
+  glist_int_append(&l, 1);
+  glist_int_append(&l, 2);
+  ASSERT(glist_int_size(&l) == 3);
+  ASSERT(glist_int_get(&l, 0) == 0);
+  ASSERT(glist_int_get(&l, 1) == 1);
+  ASSERT(glist_int_get(&l, 2) == 2);
+}
+
+static void     test_add(void)
+{
+  t_glist_hs    a;
+  t_glist_hs    b;
+  t_glist_hs    c;
+
+  a = hs_split_str(hs_new_from_str("a b"), "");
+  b = hs_split_str(hs_new_from_str("c d e"), "");
+  ASSERT(glist_hs_size(&a) == 2);
+  ASSERT(glist_hs_size(&b) == 3);
+  c = glist_hs_add(&a, &b);
+  ASSERT(glist_hs_size(&c) == 5);
+  ASSERT(hs_equals_str(hs_join_str_hs("-", &c), "a-b-c-d-e"));
+}
+
 static void     test_glist_hs(void)
 {
   t_glist_hs    l;
@@ -31,18 +63,7 @@ static void     test_glist_hs(void)
 
 void            test_suite_glist(void)
 {
-  t_glist_int   l;
-
-  l = glist_int_new();
-  ASSERT(glist_int_size(&l) == 0);
-  glist_int_append(&l, 0);
-  ASSERT(glist_int_size(&l) == 1);
-  ASSERT(glist_int_get(&l, 0) == 0);
-  glist_int_append(&l, 1);
-  glist_int_append(&l, 2);
-  ASSERT(glist_int_size(&l) == 3);
-  ASSERT(glist_int_get(&l, 0) == 0);
-  ASSERT(glist_int_get(&l, 1) == 1);
-  ASSERT(glist_int_get(&l, 2) == 2);
+  test_append_and_size();
+  test_add();
   test_glist_hs();
 }
