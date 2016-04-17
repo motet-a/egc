@@ -14,6 +14,9 @@ void    test_suite_hs_format(void)
 {
   ASSERT(hs_equals_str(hs_format(""), ""));
   ASSERT(hs_equals_str(hs_format("hello"), "hello"));
+  ASSERT(hs_equals_str(hs_format("%%"), "%"));
+  ASSERT(hs_equals_str(hs_format("%c", 'z'), "z"));
+  ASSERT(hs_equals_str(hs_format("%hhu", 0xffff), "255"));
   ASSERT(hs_equals_str(hs_format("%d", -1), "-1"));
   ASSERT(hs_equals_str(hs_format("%d", 123), "123"));
   ASSERT(hs_equals_str(hs_format("%x", 0xdeadbeef), "deadbeef"));

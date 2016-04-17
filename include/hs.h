@@ -56,6 +56,7 @@ int     hs_equals_str(t_hs a, const char *b);
 */
 t_hs    hs_format(const char *format, ...);
 t_hs    hs_vformat(const char *format, va_list list);
+t_hs    hs_format_directive(const char **format_pointer, va_list list);
 
 t_hs    hs_repr(t_hs hs);
 t_hs    hs_escape_nuls(t_hs hs);
@@ -99,6 +100,8 @@ typedef struct s_glist_hs       t_glist_hs_;
 
 t_glist_hs_     hs_split(t_hs hs, t_hs separator);
 t_glist_hs_     hs_split_str(t_hs hs, const char *separator);
+
+t_hs    hs_join(t_hs separator, t_glist_hs_ strings);
 
 int     hs_get_real_index(t_hs hs, int index);
 
