@@ -8,6 +8,13 @@
 ## Last update Wed Mar 30 18:36:20 2016 antoine
 ##
 
+GLIST_TYPES		= char double float hs int long str uint ulong voidp
+
+GLIST_SOURCES		= $(foreach type,$(GLIST_TYPES), \
+			glist_$(type)_0.c \
+			glist_$(type)_1.c \
+			glist_$(type)_2.c)
+
 EGC_SOURCES_NAMES	= \
 			block.c \
 			block_fragment.c \
@@ -16,16 +23,6 @@ EGC_SOURCES_NAMES	= \
 			defrag.c \
 			exit.c \
 			get_statics.c \
-			glist_char.c \
-			glist_double.c \
-			glist_float.c \
-			glist_hs.c \
-			glist_int.c \
-			glist_long.c \
-			glist_str.c \
-			glist_uint.c \
-			glist_ulong.c \
-			glist_voidp.c \
 			heap.c \
 			heaps.c \
 			hs_concat.c \
@@ -52,6 +49,8 @@ EGC_SOURCES_NAMES	= \
 			safe_malloc.c \
 			stats.c \
 			string.c
+
+EGC_SOURCES_NAMES	+= $(GLIST_SOURCES)
 
 EGC_SOURCES		= $(foreach file,$(EGC_SOURCES_NAMES), \
 			src/$(file))

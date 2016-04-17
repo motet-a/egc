@@ -18,7 +18,7 @@ HEADER_TEMPLATE = EPITECH_HEADER_COMMENT + """
 #ifndef GLIST_H
 # define GLIST_H
 
-# include "hs.h"
+# INCLUDES
 
 /*
 ** T_GLIST - a list of T_ITEM
@@ -68,9 +68,8 @@ void    GLIST_apply(const T_GLIST *list, T_GLIST_func f);
 #endif /* EGC_H */
 """
 
-SOURCE_TEMPLATE = EPITECH_HEADER_COMMENT + """
-#include "egc.h"
-#include "INCLUDE_FILE_NAME"
+SOURCE0_TEMPLATE = EPITECH_HEADER_COMMENT + """
+#INCLUDES
 
 T_GLIST                 GLIST_new(void)
 {
@@ -95,6 +94,10 @@ T_GLIST                 GLIST_copy(const T_GLIST *source)
     new.items[i] = source->items[i];
   return (new);
 }
+"""
+
+SOURCE1_TEMPLATE = EPITECH_HEADER_COMMENT + """
+#INCLUDES
 
 static void     grow(T_GLIST *list, size_t new_size)
 {
@@ -122,6 +125,10 @@ void            GLIST_append_all(T_GLIST *left,
   while (++i < (int)right->size)
     GLIST_append(left, right->items[i]);
 }
+"""
+
+SOURCE2_TEMPLATE = EPITECH_HEADER_COMMENT + """
+#INCLUDES
 
 T_GLIST                 GLIST_add(const T_GLIST *left,
                                   const T_GLIST *right)
@@ -170,6 +177,12 @@ void            GLIST_apply(const T_GLIST *list,
     func(i, list->items[i]);
 }
 """
+
+SOURCE_TEMPLATES = [
+    SOURCE0_TEMPLATE,
+    SOURCE1_TEMPLATE,
+    SOURCE2_TEMPLATE,
+]
 
 
 def get_leading_space_count(string):
@@ -250,8 +263,9 @@ def gen_header_content(item_type_name, item_type):
     return gen_content(HEADER_TEMPLATE, item_type_name, item_type)
 
 
-def gen_source_content(item_type_name, item_type):
-    return gen_content(SOURCE_TEMPLATE, item_type_name, item_type)
+def gen_sources_contents(item_type_name, item_type):
+    return [gen_content(template, item_type_name, item_type)
+            for template in SOURCE_TEMPLATES]
 
 
 def check_line_length(string):
@@ -260,10 +274,13 @@ def check_line_length(string):
             raise Exception("Too long line:\n" + line)
 
 
-def gen_file(content, file_name):
+def gen_file(content, file_name, includes):
     print('Generating', file_name)
+    includes = ['include ' + inc for inc in includes]
     replacements = [
-        ('INCLUDE_FILE_NAME', '../include/' + file_name.replace('.c', '.h')),
+        ('#INCLUDES', '\n'.join(['#' + i for i in includes])),
+        ('# INCLUDES', '\n'.join(['# ' + i for i in includes])),
+        ('#  INCLUDES', '\n'.join(['#  ' + i for i in includes])),
         ('FILE_NAME', file_name),
     ]
     generated = replace_multi(content, replacements)
@@ -281,15 +298,16 @@ def write_to_dir(content, file_name, dir_path):
 def gen_and_write_header(item_type_name, item_type, dir_path):
     source = gen_header_content(item_type_name, item_type)
     file_name = 'glist_' + item_type_name + '.h'
-    source = gen_file(source, file_name)
+    source = gen_file(source, file_name, ['"egc.h"'])
     write_to_dir(source, file_name, dir_path)
 
 
 def gen_and_write_source(item_type_name, item_type, dir_path):
-    source = gen_source_content(item_type_name, item_type)
-    file_name = 'glist_' + item_type_name + '.c'
-    source = gen_file(source, file_name)
-    write_to_dir(source, file_name, dir_path)
+    sources = gen_sources_contents(item_type_name, item_type)
+    for i, source in enumerate(sources):
+        file_name = 'glist_' + item_type_name + '_' + str(i) + '.c'
+        source = gen_file(source, file_name, ['"egc.h"'])
+        write_to_dir(source, file_name, dir_path)
 
 
 def gen_and_write_list(item_type_name, item_type, include_dir, source_dir):
