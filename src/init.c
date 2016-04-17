@@ -47,7 +47,7 @@ void            egc_init(t_statics *statics)
   statics->total_malloc_count = 0;
   statics->total_free_count = 0;
   statics->collection_count = 0;
-  statics->heap_size = 10 * 1024;
+  statics->heap_size = 100 * 1024;
   statics->heaps = NULL;
   statics->heaps = egc_heap_new(statics->heap_size, NULL);
   if (STATICS != statics)

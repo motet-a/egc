@@ -114,4 +114,9 @@ void    *egc_malloc_atomic(size_t size);
 */
 void    egc_collect(void);
 
+/*
+** Prints some statistics
+*/
+void    egc_print_stats(void);
+
 #endif /* EGC_H */

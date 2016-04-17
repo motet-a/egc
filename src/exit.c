@@ -28,12 +28,10 @@ void    egc_stop()
   egc_heap_delete(STATICS->heaps);
 }
 
-void    egc_exit(int status)
+static void     exit_impl(int status)
 {
   long  lstatus;
 
-  LOG("egc_exit()");
-  egc_stop();
   lstatus = status;
   __asm__ volatile ("movq   $60, %%rax\n\t"
                     "movq   %0, %%rdi\n\t"
@@ -43,8 +41,15 @@ void    egc_exit(int status)
                     : "%rax", "%rdi", "memory", "cc");
 }
 
+void    egc_exit(int status)
+{
+  LOG("egc_exit()");
+  egc_stop();
+  exit_impl(status);
+}
+
 void    egc_abort(void)
 {
   egc_log("egc_abort() called");
-  egc_exit(1);
+  exit_impl(1);
 }

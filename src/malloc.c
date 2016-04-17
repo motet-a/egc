@@ -39,7 +39,7 @@ t_block         *egc_malloc_block(size_t size, t_statics *statics)
       if (!block)
         egc_abort();
     }
-  egc_block_request_fragmentation(block, size);
+  egc_block_request_fragmentation(block, heap, size);
   block->flags &= ~BLOCK_FLAGS_FREE;
   egc_set_to_zero((void *)block + sizeof(t_block), block->size);
   statics->malloc_count++;

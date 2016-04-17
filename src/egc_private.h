@@ -43,8 +43,14 @@ void            egc_mark_pointer_array(void **pointer_array, size_t size);
 
 void            egc_block_mark(t_block *block);
 void            egc_block_free(t_block *block, t_heap *heap);
-void            egc_block_fragment(t_block *block, size_t min_size);
-void            egc_block_request_fragmentation(t_block *block, size_t size);
+
+void            egc_block_fragment(t_block *block,
+                                   t_heap *heap,
+                                   size_t min_size);
+
+void            egc_block_request_fragmentation(t_block *block,
+                                                t_heap *heap,
+                                                size_t size);
 
 t_block         *egc_get_next_block(t_heap *heap, t_block *block);
 
@@ -117,6 +123,8 @@ t_statics               g_egc_private_statics;
 
 void            egc_init(t_statics *statics);
 void            egc_stop(void);
+
+t_block         *egc_defrag_block(t_heap *heap, t_block *block, int clr_left);
 
 t_block         *egc_malloc_block(size_t size, t_statics *statics);
 

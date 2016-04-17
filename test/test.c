@@ -8,6 +8,7 @@
 ** Last update Tue Feb 23 00:12:28 2016 antoine
 */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include "utils.h"
 #include "test.h"
@@ -33,6 +34,9 @@ static void     run_tests(void)
   test_suite_glist();
   test_suite_hs_slice();
   test_suite_hs_split();
+  egc_print_stats();
+  egc_collect();
+  egc_print_stats();
   egc_printf("%d tests, %d failures\n",
              STATS->total_test_count,
              STATS->failed_test_count);

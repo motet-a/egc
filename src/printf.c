@@ -28,7 +28,7 @@ int             egc_fprintf(int file_descriptor, const char *format, ...)
   int           r;
 
   va_start(list, format);
-  r = egc_fprintf(file_descriptor, format, list);
+  r = egc_vfprintf(file_descriptor, format, list);
   va_end(list);
   return (r);
 }

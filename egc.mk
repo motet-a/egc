@@ -47,6 +47,7 @@ EGC_SOURCES_NAMES	= \
 			realloc.c \
 			run.c \
 			safe_malloc.c \
+			stats.c \
 			string.c
 
 EGC_SOURCES		= $(foreach file,$(EGC_SOURCES_NAMES), \
