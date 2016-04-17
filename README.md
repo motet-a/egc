@@ -2,6 +2,9 @@
 
 A garbage collector written in C for EPITECH projects.
 
+In fact, it was a garbage collector, but now it is more than a
+garbage collector.
+
 **Warning**: Don't use this in an EPITECH project since I use it in my
 own projects.
 
