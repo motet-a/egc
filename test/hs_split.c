@@ -15,10 +15,10 @@ static void     test_0(void)
 {
   t_glist_hs    l;
 
-  l = hs_split_str(hs_new_from_str("hello"), "");
+  l = hs_split_str_str("hello", "");
   ASSERT(glist_hs_size(&l) == 1);
   ASSERT(hs_equals_str(glist_hs_get(&l, 0), "hello"));
-  l = hs_split_str(hs_new_from_str("a"), ",");
+  l = hs_split_str_str("a", ",");
   ASSERT(glist_hs_size(&l) == 1);
   ASSERT(hs_equals_str(glist_hs_get(&l, 0), "a"));
 }
@@ -27,7 +27,7 @@ static void     test_1(void)
 {
   t_glist_hs    l;
 
-  l = hs_split_str(hs_new_from_str("a,b"), ",");
+  l = hs_split_str_str("a,b", ",");
   egc_debug_lock_on(l.items);
   ASSERT(glist_hs_size(&l) == 2);
   egc_debug_lock_on(glist_hs_get(&l, 0).chars);
@@ -43,7 +43,7 @@ static void     test_2(void)
 {
   t_glist_hs    l;
 
-  l = hs_split_str(hs_new_from_str(","), ",");
+  l = hs_split_str_str(",", ",");
   ASSERT(glist_hs_size(&l) == 2);
   ASSERT(hs_equals_str(glist_hs_get(&l, 0), ""));
 }
@@ -52,7 +52,7 @@ static void     test_join(void)
 {
   t_glist_hs    l;
 
-  l = hs_split_str(hs_new_from_str("here,comes,the,sun"), ",");
+  l = hs_split_str_str("here,comes,the,sun", ",");
   ASSERT(hs_equals_str(hs_join_str_hs("-", &l), "here-comes-the-sun"));
 }
 

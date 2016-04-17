@@ -34,8 +34,8 @@ static void     test_add(void)
   t_glist_hs    b;
   t_glist_hs    c;
 
-  a = hs_split_str(hs_new_from_str("a b"), "");
-  b = hs_split_str(hs_new_from_str("c d e"), "");
+  a = hs_split_str_str("a b", "");
+  b = hs_split_str_str("c d e", "");
   ASSERT(glist_hs_size(&a) == 2);
   ASSERT(glist_hs_size(&b) == 3);
   c = glist_hs_add(&a, &b);

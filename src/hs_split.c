@@ -61,7 +61,12 @@ t_glist_hs      hs_split(t_hs hs, t_hs separator)
   return (list);
 }
 
-t_glist_hs      hs_split_str(t_hs hs, const char *separator)
+t_glist_hs      hs_split_hs_str(t_hs hs, const char *separator)
 {
   return (hs_split(hs, hs_new_from_str(separator)));
+}
+
+t_glist_hs_     hs_split_str_str(const char *str, const char *separator)
+{
+  return (hs_split_hs_str(hs_new_from_str(str), separator));
 }
