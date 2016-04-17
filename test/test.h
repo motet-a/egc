@@ -32,9 +32,10 @@ typedef struct          s_test_stats
 
 # define STATS          ((t_test_stats *)egc_get_statics())
 
+void    test_suite_statics(void);
 void    test_suite_set_to_zero(void);
-void    test_suite_glist(void);
 void    test_suite_malloc(void);
+void    test_suite_glist(void);
 void    test_suite_hs_format(void);
 void    test_suite_hs_slice(void);
 void    test_suite_hs_split(void);

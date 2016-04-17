@@ -38,6 +38,7 @@ TEST_SOURCES	= \
 		test/hs_split.c \
 		test/malloc.c \
 		test/set_to_zero.c \
+		test/statics.c \
 		test/test.c \
 		test/utils.c
 

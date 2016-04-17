@@ -67,9 +67,18 @@ int     egc_run(int argc, char **argv, t_egc_main_function aux_main);
 void    egc_set_statics(void *statics, size_t statics_size);
 
 /*
-** Returns the `statics` pointer given to `egc_start()`
+** Returns the `statics` pointer given to `egc_set_statics()`
+**
+** Returns NULL if `egc_set_statics()` has not been called.
 */
 void    *egc_get_statics(void);
+
+/*
+** Returns the `static_size` integer given to `egc_set_statics()`
+**
+** Returns zero if `egc_set_statics()` has not been called.
+*/
+size_t  egc_get_statics_size(void);
 
 /*
 ** Sets the error callback

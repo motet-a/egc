@@ -30,3 +30,8 @@ void                    *egc_get_statics(void)
 {
   return (STATICS->user_statics);
 }
+
+size_t                  egc_get_statics_size(void)
+{
+  return (STATICS->user_statics_size);
+}

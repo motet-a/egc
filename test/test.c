@@ -28,10 +28,11 @@ void            assert_impl(int a, const char *position)
 
 static void     run_tests(void)
 {
+  test_suite_statics();
   test_suite_set_to_zero();
   test_suite_malloc();
-  test_suite_hs_format();
   test_suite_glist();
+  test_suite_hs_format();
   test_suite_hs_slice();
   test_suite_hs_split();
   egc_print_stats();
