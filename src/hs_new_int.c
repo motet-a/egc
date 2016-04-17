@@ -10,22 +10,22 @@
 
 #include "../include/egc.h"
 
-t_hs    hs_new_int(long n)
+t_hs    hs_new_from_int(long n)
 {
-  return (hs_new_int_base(n, 10));
+  return (hs_new_from_int_base(n, 10));
 }
 
-t_hs    hs_new_int_base(long n, unsigned base)
+t_hs    hs_new_from_int_base(long n, unsigned base)
 {
   if (n < 0)
-    return (hs_concat_char_hs('-', hs_new_uint_base(-n, base)));
+    return (hs_concat_char_hs('-', hs_new_from_uint_base(-n, base)));
   else
-    return (hs_new_uint_base(n, base));
+    return (hs_new_from_uint_base(n, base));
 }
 
-t_hs    hs_new_uint(unsigned long n)
+t_hs    hs_new_from_uint(unsigned long n)
 {
-  return (hs_new_uint_base(n, 10));
+  return (hs_new_from_uint_base(n, 10));
 }
 
 static char     get_digit_char(size_t n)
@@ -35,12 +35,12 @@ static char     get_digit_char(size_t n)
   return (n - 10 + 'a');
 }
 
-t_hs    hs_new_uint_base(unsigned long n, unsigned base)
+t_hs    hs_new_from_uint_base(unsigned long n, unsigned base)
 {
   t_hs  s;
 
   if (n >= base)
-    s = hs_new_uint_base(n / base, base);
+    s = hs_new_from_uint_base(n / base, base);
   else
     s = hs_new_empty();
   s = hs_concat_hs_char(s, get_digit_char(n % base));

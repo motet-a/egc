@@ -29,10 +29,10 @@ t_hs    hs_new_from_n_chars(size_t n, const char *chars);
 ** Use these functions to convert integers to a new
 ** heap string
 */
-t_hs    hs_new_int(long n);
-t_hs    hs_new_int_base(long n, unsigned base);
-t_hs    hs_new_uint(unsigned long n);
-t_hs    hs_new_uint_base(unsigned long n, unsigned base);
+t_hs    hs_new_from_int(long n);
+t_hs    hs_new_from_int_base(long n, unsigned base);
+t_hs    hs_new_from_uint(unsigned long n);
+t_hs    hs_new_from_uint_base(unsigned long n, unsigned base);
 
 /*
 ** Concatenates left and right to a new heap string

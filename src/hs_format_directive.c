@@ -20,25 +20,25 @@ static t_hs     format_string(char length, va_list list)
 static t_hs     format_decimal(char length, va_list list)
 {
   if (length == 'h')
-    return (hs_new_int((short)va_arg(list, int)));
+    return (hs_new_from_int((short)va_arg(list, int)));
   if (length == 'i')
-    return (hs_new_int((char)va_arg(list, int)));
+    return (hs_new_from_int((char)va_arg(list, int)));
   if (length == 'l')
-    return (hs_new_int(va_arg(list, long)));
-  return (hs_new_int(va_arg(list, int)));
+    return (hs_new_from_int(va_arg(list, long)));
+  return (hs_new_from_int(va_arg(list, int)));
 }
 
 static t_hs     format_unsigned(char length, va_list list, unsigned base)
 {
   if (length == 'h')
-    return (hs_new_uint_base((unsigned short)va_arg(list, unsigned), base));
+    return (hs_new_from_uint_base((unsigned short)va_arg(list, unsigned), base));
   if (length == 'i')
-    return (hs_new_uint_base((unsigned char)va_arg(list, unsigned), base));
+    return (hs_new_from_uint_base((unsigned char)va_arg(list, unsigned), base));
   if (length == 'l')
-    return (hs_new_uint_base(va_arg(list, unsigned long), base));
+    return (hs_new_from_uint_base(va_arg(list, unsigned long), base));
   if (length == 'p')
-    return (hs_new_uint_base(va_arg(list, size_t), base));
-  return (hs_new_uint_base(va_arg(list, unsigned), base));
+    return (hs_new_from_uint_base(va_arg(list, size_t), base));
+  return (hs_new_from_uint_base(va_arg(list, unsigned), base));
 }
 
 static t_hs     format_directive(char length, char c, va_list list)
