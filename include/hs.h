@@ -40,6 +40,13 @@ t_hs    hs_new_from_uint_base(unsigned long n, unsigned base);
 size_t  hs_length(t_hs hs);
 
 /*
+** Returns the character at the given index
+**
+** If hs is empty, returns '\0'.
+*/
+char    hs_get(t_hs hs, int index);
+
+/*
 ** Concatenates left and right to a new heap string
 */
 t_hs    hs_concat(t_hs left, t_hs right);

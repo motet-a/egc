@@ -33,6 +33,7 @@ LDFLAGS		=
 
 TEST_SOURCES	= \
 		test/glist.c \
+		test/hs_get.c \
 		test/hs_format.c \
 		test/hs_slice.c \
 		test/hs_split.c \

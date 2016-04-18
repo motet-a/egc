@@ -29,6 +29,7 @@ EGC_SOURCES_NAMES	= \
 			hs_equals.c \
 			hs_format.c \
 			hs_format_directive.c \
+			hs_get.c \
 			hs_index_of.c \
 			hs_join.c \
 			hs_length.c \

@@ -32,6 +32,7 @@ static void     run_tests(void)
   test_suite_set_to_zero();
   test_suite_malloc();
   test_suite_glist();
+  test_suite_hs_get();
   test_suite_hs_format();
   test_suite_hs_slice();
   test_suite_hs_split();

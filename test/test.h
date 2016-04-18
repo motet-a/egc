@@ -36,6 +36,7 @@ void    test_suite_statics(void);
 void    test_suite_set_to_zero(void);
 void    test_suite_malloc(void);
 void    test_suite_glist(void);
+void    test_suite_hs_get(void);
 void    test_suite_hs_format(void);
 void    test_suite_hs_slice(void);
 void    test_suite_hs_split(void);
