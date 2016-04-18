@@ -11,7 +11,7 @@
 #include "test.h"
 #include "hs.h"
 
-void    test_suite_hs_starts_with(void)
+static void     test_starts_with(void)
 {
   ASSERT(hs_starts_with_str(hs_new_from_str(""), ""));
   ASSERT(hs_starts_with_str(hs_new_from_str("abc"), ""));
@@ -20,4 +20,18 @@ void    test_suite_hs_starts_with(void)
   ASSERT(!hs_starts_with_str(hs_new_from_str(""), "a"));
   ASSERT(!hs_starts_with_str(hs_new_from_str("ab"), "abc"));
   ASSERT(!hs_starts_with_str(hs_new_from_str("abc"), "b"));
+}
+
+static void     test_ends_with(void)
+{
+  ASSERT(hs_ends_with_str(hs_new_from_str(""), ""));
+  ASSERT(hs_ends_with_str(hs_new_from_str("abc"), ""));
+  ASSERT(hs_ends_with_str(hs_new_from_str("abc"), "c"));
+  ASSERT(!hs_ends_with_str(hs_new_from_str("a"), "aa"));
+}
+
+void    test_suite_hs_starts_with(void)
+{
+  test_starts_with();
+  test_ends_with();
 }

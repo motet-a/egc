@@ -33,7 +33,7 @@ int     hs_ends_with(t_hs string, t_hs postfix)
 
   string_i = hs_length(string);
   postfix_i = hs_length(postfix);
-  while (--string_i && --postfix_i)
+  while (--string_i > 0 && --postfix_i > 0)
     {
       if (string._chars[string_i] != postfix._chars[postfix_i])
         return (0);
