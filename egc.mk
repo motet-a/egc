@@ -39,6 +39,7 @@ EGC_SOURCES_NAMES	= \
 			hs_puts.c \
 			hs_slice.c \
 			hs_split.c \
+			hs_starts_with.c \
 			hs_vformat.c \
 			init.c \
 			log.c \

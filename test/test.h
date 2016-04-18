@@ -40,5 +40,6 @@ void    test_suite_hs_get(void);
 void    test_suite_hs_format(void);
 void    test_suite_hs_slice(void);
 void    test_suite_hs_split(void);
+void    test_suite_hs_starts_with(void);
 
 #endif /* TEST_H */

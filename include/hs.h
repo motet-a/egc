@@ -61,6 +61,11 @@ t_hs    hs_concat_char_hs(char left, t_hs right);
 int     hs_equals(t_hs a, t_hs b);
 int     hs_equals_str(t_hs a, const char *b);
 
+int     hs_starts_with(t_hs string, t_hs prefix);
+int     hs_starts_with_str(t_hs string, const char *prefix);
+int     hs_ends_with(t_hs string, t_hs postfix);
+int     hs_ends_with_str(t_hs string, const char *prefix);
+
 /*
 ** Creates a new t_hs from the given format and arguments
 **

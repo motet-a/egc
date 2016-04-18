@@ -41,7 +41,7 @@ static void     unmark_heaps(void)
     }
 }
 
-void            egc_heap_free_unmarked(t_heap *heap)
+static void     egc_heap_free_unmarked(t_heap *heap)
 {
   t_block       *block;
   t_block_flags flags;
@@ -61,7 +61,7 @@ void            egc_heap_free_unmarked(t_heap *heap)
     }
 }
 
-void            egc_free_unmarked(void)
+static void     egc_free_unmarked(void)
 {
   t_heap        *heap;
 

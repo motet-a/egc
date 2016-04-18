@@ -10,7 +10,10 @@
 
 include egc.mk
 
-CFLAGS		= -W -Wall -Wextra -std=c89 -I./include/
+CFLAGS		= -W -Wall -Wextra \
+		-Wmissing-prototypes \
+		-Wmissing-declarations \
+		-std=c89 -I./include/
 
 ifneq ($(findstring test,$(MAKECMDGOALS)),)
 	DEBUG	= true
@@ -37,6 +40,7 @@ TEST_SOURCES	= \
 		test/hs_format.c \
 		test/hs_slice.c \
 		test/hs_split.c \
+		test/hs_starts_with.c \
 		test/malloc.c \
 		test/set_to_zero.c \
 		test/statics.c \

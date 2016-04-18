@@ -36,6 +36,7 @@ static void     run_tests(void)
   test_suite_hs_format();
   test_suite_hs_slice();
   test_suite_hs_split();
+  test_suite_hs_starts_with();
   egc_print_stats();
   egc_collect();
   egc_print_stats();
@@ -45,7 +46,7 @@ static void     run_tests(void)
   egc_exit(STATS->failed_test_count != 0);
 }
 
-int             main2()
+static int      main2()
 {
   t_test_stats  stats;
 

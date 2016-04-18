@@ -12,7 +12,7 @@
 #include "utils.h"
 #include "../src/egc_private.h"
 
-void    set_to_1(char *buffer, size_t length)
+static void     set_to_1(char *buffer, size_t length)
 {
   while (length--)
     {
@@ -20,9 +20,9 @@ void    set_to_1(char *buffer, size_t length)
     }
 }
 
-void    test_suite_set_to_zero(void)
+void            test_suite_set_to_zero(void)
 {
-  char  buffer[32];
+  char          buffer[32];
 
   {
     set_to_1(buffer, sizeof(buffer));
