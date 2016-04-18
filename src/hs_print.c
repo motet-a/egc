@@ -23,5 +23,5 @@ int     hs_print_err(t_hs hs)
 
 int     hs_print_file(t_hs hs, int output_file)
 {
-  return (write(output_file, hs.chars, hs.length));
+  return (write(output_file, hs._chars, hs._length));
 }

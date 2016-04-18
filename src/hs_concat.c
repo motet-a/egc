@@ -14,10 +14,10 @@ t_hs    hs_concat(t_hs left, t_hs right)
 {
   t_hs  new;
 
-  new.length = left.length + right.length;
-  new.chars = egc_malloc_atomic(new.length);
-  egc_memcpy(new.chars, left.chars, left.length);
-  egc_memcpy(new.chars + left.length, right.chars, right.length);
+  new._length = left._length + right._length;
+  new._chars = egc_malloc_atomic(new._length);
+  egc_memcpy(new._chars, left._chars, left._length);
+  egc_memcpy(new._chars + left._length, right._chars, right._length);
   return (new);
 }
 
@@ -35,10 +35,10 @@ t_hs    hs_concat_hs_char(t_hs left, char right)
 {
   t_hs  new;
 
-  new.length = left.length + 1;
-  new.chars = egc_malloc_atomic(new.length);
-  egc_memcpy(new.chars, left.chars, left.length);
-  new.chars[left.length] = right;
+  new._length = left._length + 1;
+  new._chars = egc_malloc_atomic(new._length);
+  egc_memcpy(new._chars, left._chars, left._length);
+  new._chars[left._length] = right;
   return (new);
 }
 
@@ -46,9 +46,9 @@ t_hs    hs_concat_char_hs(char left, t_hs right)
 {
   t_hs  new;
 
-  new.length = 1 + right.length;
-  new.chars = egc_malloc_atomic(new.length);
-  new.chars[0] = left;
-  egc_memcpy(new.chars + 1, right.chars, right.length);
+  new._length = 1 + right._length;
+  new._chars = egc_malloc_atomic(new._length);
+  new._chars[0] = left;
+  egc_memcpy(new._chars + 1, right._chars, right._length);
   return (new);
 }

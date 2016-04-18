@@ -19,9 +19,9 @@ t_hs            hs_new_from_n_chars(size_t n, const char *chars)
 {
   t_hs          hs;
 
-  hs.length = n;
-  hs.chars = egc_malloc_atomic(hs.length);
-  egc_memcpy(hs.chars, chars, n);
+  hs._length = n;
+  hs._chars = egc_malloc_atomic(hs._length);
+  egc_memcpy(hs._chars, chars, n);
   return (hs);
 }
 

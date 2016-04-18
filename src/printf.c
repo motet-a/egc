@@ -43,7 +43,7 @@ int             egc_vfprintf(int file, const char *format, va_list list)
   t_hs          hs;
 
   hs = hs_vformat(format, list);
-  if (hs_print_file(hs, file) != (ssize_t)hs.length)
+  if (hs_print_file(hs, file) != (ssize_t)hs_length(hs))
     return (-1);
-  return ((int)hs.length);
+  return ((int)hs_length(hs));
 }

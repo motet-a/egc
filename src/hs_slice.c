@@ -13,15 +13,15 @@
 int     hs_get_real_index(t_hs hs, int index)
 {
   if (index < 0)
-    index += hs.length;
-  if (index < 0 || index >= (int)hs.length)
+    index += hs._length;
+  if (index < 0 || index >= (int)hs._length)
     return (-1);
   return (index);
 }
 
 static int      get_real_index(t_hs hs, int index)
 {
-  if (index == (int)hs.length)
+  if (index == (int)hs._length)
     return (index);
   return (hs_get_real_index(hs, index));
 }
@@ -37,7 +37,7 @@ t_hs    hs_slice(t_hs hs, int start_index, int end_index)
   length = end_index - start_index;
   if (length < 0)
     length = 0;
-  return (hs_new_from_n_chars(length, hs.chars + start_index));
+  return (hs_new_from_n_chars(length, hs._chars + start_index));
 }
 
 t_hs    hs_slice_str(const char *string, int start_index, int end_index)

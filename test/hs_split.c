@@ -30,12 +30,12 @@ static void     test_1(void)
   l = hs_split_str_str("a,b", ",");
   egc_debug_lock_on(l.items);
   ASSERT(glist_hs_size(&l) == 2);
-  egc_debug_lock_on(glist_hs_get(&l, 0).chars);
-  egc_debug_lock_on(glist_hs_get(&l, 1).chars);
+  egc_debug_lock_on(glist_hs_get(&l, 0)._chars);
+  egc_debug_lock_on(glist_hs_get(&l, 1)._chars);
   ASSERT(hs_equals_str(glist_hs_get(&l, 0), "a"));
   ASSERT(hs_equals_str(glist_hs_get(&l, 1), "b"));
-  egc_debug_lock_off(glist_hs_get(&l, 0).chars);
-  egc_debug_lock_off(glist_hs_get(&l, 1).chars);
+  egc_debug_lock_off(glist_hs_get(&l, 0)._chars);
+  egc_debug_lock_off(glist_hs_get(&l, 1)._chars);
   egc_debug_lock_off(l.items);
 }
 

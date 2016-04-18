@@ -14,12 +14,12 @@ int             hs_equals(t_hs a, t_hs b)
 {
   size_t        i;
 
-  if (a.length != b.length)
+  if (a._length != b._length)
     return (0);
   i = 0;
-  while (i < a.length)
+  while (i < a._length)
     {
-      if (a.chars[i] != b.chars[i])
+      if (a._chars[i] != b._chars[i])
         return (0);
       i++;
     }

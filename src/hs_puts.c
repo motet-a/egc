@@ -26,7 +26,7 @@ int     hs_puts_file(t_hs hs, int output_file)
   int   a;
   int   b;
 
-  a = write(output_file, hs.chars, hs.length);
+  a = hs_print_file(hs, output_file);
   if (a < 0)
     return (a);
   b = write(output_file, "\n", 1);

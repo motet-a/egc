@@ -14,10 +14,13 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
+/*
+** Don't access directly the members of this structure
+*/
 typedef struct  s_hs
 {
-  size_t        length;
-  char          *chars;
+  size_t        _length;
+  char          *_chars;
 }               t_hs;
 
 t_hs    hs_new_empty(void);
@@ -33,6 +36,8 @@ t_hs    hs_new_from_int(long n);
 t_hs    hs_new_from_int_base(long n, unsigned base);
 t_hs    hs_new_from_uint(unsigned long n);
 t_hs    hs_new_from_uint_base(unsigned long n, unsigned base);
+
+size_t  hs_length(t_hs hs);
 
 /*
 ** Concatenates left and right to a new heap string

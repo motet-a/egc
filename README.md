@@ -121,7 +121,8 @@ strings should be considered immutable.
 Heap strings can contain binary data and NULs.
 
 Avoid accessing heap strings with pointers. In function arguments,
-pass heap strings by value. Don't write this:
+pass heap strings by value - unless you want to write a heap
+string at the given address. Don't write this:
 
 ```c
 void    print_string(t_hs *hs);
@@ -141,9 +142,8 @@ Heap strings can be created with the `hs_new_*()` and
 functions, and printed with `hs_print_*()` or `egc_printf()`
 functions.
 
-You can get the length of a heap string `hs` with `hs.length`.
-You can access directly its bytes with `hs.chars` — but keep
-in mind that it is not NUL-terminated and it can contain NULs.
+You can get the length of a heap string `hs` with `hs_length()`.
+Don't access directly the members of a `t_hs`.
 
 
 
