@@ -22,12 +22,14 @@ HEADER_TEMPLATE = EPITECH_HEADER_COMMENT + """
 
 /*
 ** T_GLIST - a list of T_ITEM
+**
+** Don't access these members directly.
 */
 typedef struct          S_GLIST
 {
-  size_t                available;
-  size_t                size;
-  T_ITEM                *items;
+  size_t                _available;
+  size_t                _size;
+  T_ITEM                *_items;
 }                       T_GLIST;
 
 typedef void (*T_GLIST_func)(int index, T_ITEM item);
@@ -58,7 +60,7 @@ T_ITEM          GLIST_set(T_GLIST *list,
 /*
 ** Returns the size of a list
 */
-int             GLIST_size(const T_GLIST *list);
+int             GLIST_length(const T_GLIST *list);
 
 /*
 ** Calls `f` on each element of the list
@@ -75,9 +77,9 @@ T_GLIST                 GLIST_new(void)
 {
   T_GLIST               list;
 
-  list.available = 0;
-  list.size = 0;
-  list.items = NULL;
+  list._available = 0;
+  list._size = 0;
+  list._items = NULL;
   return (list);
 }
 
@@ -86,12 +88,12 @@ T_GLIST                 GLIST_copy(const T_GLIST *source)
   T_GLIST               new;
   int                   i;
 
-  new.available = source->size;
-  new.size = source->size;
-  new.items = egc_malloc(sizeof(T_ITEM) * source->size);
+  new._available = source->_size;
+  new._size = source->_size;
+  new._items = egc_malloc(sizeof(T_ITEM) * source->_size);
   i = -1;
-  while (++i < (int)new.size)
-    new.items[i] = source->items[i];
+  while (++i < (int)new._size)
+    new._items[i] = source->_items[i];
   return (new);
 }
 """
@@ -101,19 +103,19 @@ SOURCE1_TEMPLATE = EPITECH_HEADER_COMMENT + """
 
 static void     grow(T_GLIST *list, size_t new_size)
 {
-  if (list->available >= new_size)
+  if (list->_available >= new_size)
     return ;
-  if (new_size < list->available * 2)
-    new_size = list->available * 2;
-  list->available = new_size;
-  list->items = egc_realloc(list->items, sizeof(T_ITEM) * new_size);
+  if (new_size < list->_available * 2)
+    new_size = list->_available * 2;
+  list->_available = new_size;
+  list->_items = egc_realloc(list->_items, sizeof(T_ITEM) * new_size);
 }
 
 void            GLIST_append(T_GLIST *list, T_ITEM item)
 {
-  grow(list, list->size + 1);
-  list->items[list->size] = item;
-  list->size++;
+  grow(list, list->_size + 1);
+  list->_items[list->_size] = item;
+  list->_size++;
 }
 
 void            GLIST_append_all(T_GLIST *left,
@@ -122,8 +124,8 @@ void            GLIST_append_all(T_GLIST *left,
   int   i;
 
   i = -1;
-  while (++i < (int)right->size)
-    GLIST_append(left, right->items[i]);
+  while (++i < (int)right->_size)
+    GLIST_append(left, right->_items[i]);
 }
 """
 
@@ -143,7 +145,7 @@ T_GLIST                 GLIST_add(const T_GLIST *left,
 
 T_ITEM          GLIST_get(const T_GLIST *list, int index)
 {
-  return (list->items[index]);
+  return (list->_items[index]);
 }
 
 T_ITEM          GLIST_set(T_GLIST *list,
@@ -152,19 +154,19 @@ T_ITEM          GLIST_set(T_GLIST *list,
 {
   T_ITEM        old;
 
-  if (index == (int)list->size)
+  if (index == (int)list->_size)
     {
       GLIST_append(list, new);
       return (new);
     }
   old = GLIST_get(list, index);
-  list->items[index] = new;
+  list->_items[index] = new;
   return (old);
 }
 
-int             GLIST_size(const T_GLIST *list)
+int             GLIST_length(const T_GLIST *list)
 {
-  return (list->size);
+  return (list->_size);
 }
 
 void            GLIST_apply(const T_GLIST *list,
@@ -173,8 +175,8 @@ void            GLIST_apply(const T_GLIST *list,
   int           i;
 
   i = -1;
-  while (++i < (int)list->size)
-    func(i, list->items[i]);
+  while (++i < (int)list->_size)
+    func(i, list->_items[i]);
 }
 """
 

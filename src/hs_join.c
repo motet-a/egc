@@ -17,7 +17,7 @@ t_hs    hs_join(t_hs separator, const t_glist_hs *strings)
 
   s = hs_new_empty();
   i = -1;
-  while (++i < glist_hs_size(strings))
+  while (++i < glist_hs_length(strings))
     {
       if (i)
         s = hs_concat(s, separator);
