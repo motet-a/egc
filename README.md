@@ -1,5 +1,7 @@
 # egc
 
+[![Build Status](http://segfault.pro/job/egc/badge/icon)](http://segfault.pro/job/egc/)
+
 A garbage collector written in C for EPITECH projects.
 
 In fact, it was a garbage collector, but now it is more than a
@@ -137,9 +139,9 @@ void    print_string(t_hs hs);
 Moreover, don't use `const` heap strings. It is useless, since
 a heap string should be considered immutable.
 
-Heap strings can be created with the `hs_new_*()` and
+Heap strings can be created with the `hs()`, `hs_new_*()` or
 `hs_format()` functions, concatenated with the `hs_concat_*()`
-functions, and printed with `hs_print_*()` or `egc_printf()`
+functions, and printed with the `hs_print_*()` or `egc_printf()`
 functions.
 
 You can get the length of a heap string `hs` with `hs_length()`.
