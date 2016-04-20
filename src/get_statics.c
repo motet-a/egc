@@ -12,18 +12,39 @@
 
 #ifndef EGC_DEBUG
 
+static void             sigsegv_suicide(void)
+{
+  char                  *c;
+
+  c = NULL;
+  *c = 123;
+}
+
+t_statics               *egc_get_statics_0(void *stack_pointer)
+{
+  t_statics             *statics;
+
+  while (1)
+    {
+      if (*(uint64_t *)stack_pointer == MAGIC_NUMBER_0 + 1)
+        {
+          statics = (t_statics *)stack_pointer;
+          if (statics->magic_number_1 == MAGIC_NUMBER_1)
+            return statics;
+        }
+      stack_pointer++;
+    }
+  sigsegv_suicide();
+  return (NULL);
+}
+
 t_statics               *egc_get_private_statics(void)
 {
   char                  variable_on_the_stack;
-  char                  *stack_pointer;
 
-  stack_pointer = &variable_on_the_stack;
-  while (*(uint64_t *)stack_pointer != MAGIC_NUMBER + 1)
-    {
-      stack_pointer++;
-    }
-  return ((t_statics *)stack_pointer);
+  return (egc_get_statics_0(&variable_on_the_stack));
 }
+
 #endif
 
 void                    *egc_get_statics(void)

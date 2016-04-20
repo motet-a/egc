@@ -25,6 +25,7 @@ EGC_SOURCES_NAMES	= \
 			find.c \
 			get_statics.c \
 			heap.c \
+			heap_print.c \
 			heaps.c \
 			hs_concat.c \
 			hs_equals.c \

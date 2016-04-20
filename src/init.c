@@ -16,13 +16,15 @@ static t_statics        *init_statics(t_statics *statics)
   void                  *stack_bottom;
 
   stack_bottom = statics;
-  statics->magic_number = MAGIC_NUMBER;
-  statics->magic_number++;
+  statics->magic_number_0 = MAGIC_NUMBER_0;
+  statics->magic_number_1 = MAGIC_NUMBER_1;
+  statics->magic_number_0++;
 #ifdef EGC_DEBUG
   statics = &g_egc_private_statics;
 #endif
-  statics->magic_number = MAGIC_NUMBER;
-  statics->magic_number++;
+  statics->magic_number_0 = MAGIC_NUMBER_0;
+  statics->magic_number_1 = MAGIC_NUMBER_1;
+  statics->magic_number_0++;
   statics->stack_bottom = stack_bottom;
   return (statics);
 }

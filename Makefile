@@ -13,10 +13,10 @@ include egc.mk
 CFLAGS		= -W -Wall -Wextra \
 		-Wmissing-prototypes \
 		-Wmissing-declarations \
-		-std=c89 -I./include/
+		-std=c89 -g -I./include/
 
 ifneq ($(or					\
-	$(findstring test,$(MAKECMDGOALS)),	\
+	$(findstring rtest,$(MAKECMDGOALS)),	\
 	$(findstring vgtest,$(MAKECMDGOALS))),)
 	DEBUG	= true
 endif
@@ -65,6 +65,9 @@ test: src/glist_char_0.c test/test
 test/test: $(TEST_OBJECTS) libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 
+rtest: test
+	./test/test
+
 vgtest: test
 	valgrind --suppressions=valgrind.supp ./test/test
 
@@ -93,4 +96,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all test vgtest clean fclean re example delivery glist_clean
+.PHONY: all test rtest vgtest clean fclean re example delivery glist_clean

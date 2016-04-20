@@ -18,6 +18,8 @@ void    egc_stop()
   LOG("egc_stop() collection_count:");
   LOG_UINT(STATICS->collection_count);
   LOG("");
+  printf(">>>%d\n", (int)egc_get_heap_count());
+
   egc_collect();
   if (STATICS->total_malloc_count != STATICS->total_free_count)
     {
@@ -30,6 +32,8 @@ void    egc_stop()
 
 static void     exit_impl(int status)
 {
+  exit(status);
+  /*
   long  lstatus;
 
   lstatus = status;
@@ -39,6 +43,7 @@ static void     exit_impl(int status)
                     :
                     : "r" (lstatus)
                     : "%rax", "%rdi", "memory", "cc");
+  */
 }
 
 void    egc_exit(int status)

@@ -52,6 +52,7 @@ void            *egc_realloc(void *data, size_t size)
   t_block       *block;
   t_heap        *heap;
 
+  STATICS;
   LOG("egc_realloc() begin");
 
   LOG("");

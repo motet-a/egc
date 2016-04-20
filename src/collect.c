@@ -42,7 +42,7 @@ static void     egc_free_unmarked(void)
     }
 }
 
-static void     egc_collect_impl(void)
+void            egc_collect_impl(void)
 {
   LOG("egc_collect()");
   LOG("");
@@ -59,15 +59,19 @@ static void     egc_collect_impl(void)
 #if __x86_64__
 void            egc_collect(void)
 {
+  STATICS;
   AVT("pushq %rax\n pushq %rbx\n pushq %rcx\n pushq %rdx\n"
       "pushq %r8\n pushq %r9\n pushq %r10\n pushq %r11\n"
       "pushq %r12\n pushq %r13\n pushq %r14\n pushq %r15\n"
       "pushq %rsi\n pushq %rdi\n");
+  STATICS;
   egc_collect_impl();
+  STATICS;
   AVT("popq %rdi\n popq %rsi\n"
       "popq %r15\n popq %r14\n popq %r13\n popq %r12\n"
       "popq %r11\n popq %r10\n popq %r9\n popq %r8\n"
       "popq %rdx\n popq %rcx\n popq %rbx\n popq %rax\n");
+  STATICS;
 }
 #else
 /*

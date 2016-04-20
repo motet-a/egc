@@ -65,11 +65,12 @@ t_block         *egc_heap_get_free_block(t_heap *heap, size_t size);
 void            egc_heap_delete(t_heap *heap);
 
 /*
-** A random number.
+** Random numbers.
 ** You can use anything here, since it looks random and is
 ** 8 bytes long to fit in a uint64_t.
 */
-# define MAGIC_NUMBER   (0x8bc2df231f11ecc6)
+# define MAGIC_NUMBER_0 (0x8bc2df231f11ecc6)
+# define MAGIC_NUMBER_1 (0xc8e65651af5414fc)
 
 void            egc_log(const char *message);
 void            egc_log_pointer(void *pointer);
@@ -93,9 +94,14 @@ void            egc_log_uint(unsigned long n);
 #  define STATICS       (egc_get_private_statics())
 # endif
 
+/*
+** One magic number is not sufficient.
+** We need two magic numbers, and for safety purposes,
+** they are not adjacent.
+*/
 typedef struct          s_statics
 {
-  uint64_t              magic_number;
+  uint64_t              magic_number_0;
   t_egc_error_callback  error_callback;
   void                  *user_statics;
   size_t                user_statics_size;
@@ -107,6 +113,7 @@ typedef struct          s_statics
   size_t                malloc_count;
   size_t                free_count;
   size_t                collection_count;
+  uint64_t              magic_number_1;
 }                       t_statics;
 
 # ifdef EGC_DEBUG
@@ -167,6 +174,11 @@ t_heap          *egc_find_heap_from_pointer(t_heap *heaps, const void *p);
 void            *egc_safe_malloc(size_t length);
 
 t_statics       *egc_get_private_statics(void);
+
+/*
+** Don't use this function directly. Use egc_collect() instead.
+*/
+void            egc_collect_impl(void);
 
 # define AVT    AVT__(a, m)
 

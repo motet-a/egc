@@ -31,8 +31,11 @@ static void     run_tests(void)
   egc_collect();
   test_suite_statics();
   test_suite_set_to_zero();
+  STATS;
   test_suite_malloc();
+  STATS;
   test_suite_glist();
+  STATS;
   test_suite_hs_get();
   test_suite_hs_format();
   test_suite_hs_slice();
