@@ -166,7 +166,7 @@ Use `%hs` to print heap strings:
 
 ```c
 egc_printf("This is a plain old C string: %s\n", "hello");
-egc_printf("This is a heap string: %hs\n", hs_new_from_str("hello"));
+egc_printf("This is a heap string: %hs\n", hs("hello"));
 ```
 
 
