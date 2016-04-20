@@ -34,17 +34,3 @@ char    char_is_upper(char c)
 {
   return ('A' <= c && c <= 'Z');
 }
-
-char    char_to_lower(char c)
-{
-  if (char_is_upper(c))
-    return (c + ('a' - 'A'));
-  return (c);
-}
-
-char    char_to_upper(char c)
-{
-  if (char_is_lower(c))
-    return (c - ('a' - 'A'));
-  return (c);
-}

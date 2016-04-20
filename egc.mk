@@ -20,6 +20,7 @@ EGC_SOURCES_NAMES	= \
 			block_fragment.c \
 			char_is_alpha.c \
 			char_is_whitespace.c \
+			char_case.c \
 			collect.c \
 			debug_lock.c \
 			defrag.c \

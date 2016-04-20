@@ -21,17 +21,11 @@ static void     request_collection(t_statics *statics)
     }
 }
 
-t_block         *egc_malloc_block(size_t size, t_statics *statics)
+static t_block  *malloc_block_impl(size_t size, t_statics *statics)
 {
   t_block       *block;
   t_heap        *heap;
 
-  LOG("egc_malloc_block() begin");
-  request_collection(statics);
-  if (!size)
-    size++;
-  if (size % 8)
-    size += 8 - size % 8;
   block = egc_get_free_block(statics, &heap, size);
   if (!block)
     {
@@ -46,9 +40,23 @@ t_block         *egc_malloc_block(size_t size, t_statics *statics)
   egc_set_to_zero((void *)block + sizeof(t_block), block->size);
   statics->malloc_count++;
   statics->total_malloc_count++;
+  return (block);
+}
+
+t_block         *egc_malloc_block(size_t size, t_statics *statics)
+{
+  t_block       *block;
+
+  LOG("egc_malloc_block() begin");
+  request_collection(statics);
+  if (!size)
+    size++;
+  if (size % 8)
+    size += 8 - size % 8;
   LOG("egc_malloc_block()");
   LOG_POINTER(block);
   LOG("");
+  block = malloc_block_impl(size, statics);
   return (block);
 }
 

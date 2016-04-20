@@ -12,7 +12,6 @@
 
 int     hs_is_alpha(t_hs string)
 {
-
 }
 
 int     hs_is_lower(t_hs string);
