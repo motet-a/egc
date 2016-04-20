@@ -8,7 +8,7 @@
 ** Last update Thu Mar 31 13:01:50 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 t_heap          *egc_get_pointed_to_heap(const t_statics *statics,
                                          const void *pointer)
@@ -40,13 +40,10 @@ static t_block  *get_pointed_to_block(t_statics *statics, void *pointer)
   block = NULL;
   while ((block = egc_get_next_block(heap, block)))
     {
-      data = (void *)block;
-      if (pointer < data)
-        {
-          LOG("get_pointed_block() error");
-          break;
-        }
-      if (pointer < data + sizeof(t_block) + block->size)
+      if (pointer < (void *)block)
+        abort();
+      data = (char *)block + sizeof(t_block);
+      if (pointer < data + block->size)
         return (block);
     }
   return (NULL);

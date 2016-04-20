@@ -51,7 +51,8 @@ EGC_SOURCES_NAMES	= \
 			run.c \
 			safe_malloc.c \
 			stats.c \
-			string.c
+			string.c \
+			unmark.c
 
 EGC_SOURCES_NAMES	+= $(GLIST_SOURCES)
 

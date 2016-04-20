@@ -25,8 +25,3 @@ t_hs    hs_join(t_hs separator, const t_glist_hs *strings)
     }
   return (s);
 }
-
-t_hs    hs_join_str_hs(const char *separator, const t_glist_hs *strings)
-{
-  return (hs_join(hs_new_from_str(separator), strings));
-}

@@ -8,7 +8,7 @@
 ** Last update Sat Apr  2 15:51:46 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 void            egc_block_fragment(t_block *block,
                                    t_heap *heap,
@@ -25,6 +25,7 @@ void            egc_block_fragment(t_block *block,
   new->size = old_size - sizeof(t_block) - min_size;
   new->flags = BLOCK_FLAGS_FREE;
   block->size = min_size;
+  LOG("egc_block_fragment()");
   LOG("first block:");
   LOG_POINTER(block);
   LOG("new block:");

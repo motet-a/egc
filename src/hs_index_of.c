@@ -34,8 +34,3 @@ int     hs_index_of(t_hs hs, t_hs substring)
     }
   return (-1);
 }
-
-int     hs_index_of_str(t_hs hs, const char *substring)
-{
-  return (hs_index_of(hs, hs_new_from_str(substring)));
-}

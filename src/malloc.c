@@ -8,7 +8,7 @@
 ** Last update Wed Mar 30 18:42:56 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 static void     request_collection(t_statics *statics)
 {
@@ -26,8 +26,10 @@ t_block         *egc_malloc_block(size_t size, t_statics *statics)
   t_block       *block;
   t_heap        *heap;
 
-  LOG("egc_malloc_block()");
+  LOG("egc_malloc_block() begin");
   request_collection(statics);
+  if (!size)
+    size++;
   if (size % 8)
     size += 8 - size % 8;
   block = egc_get_free_block(statics, &heap, size);
@@ -44,6 +46,9 @@ t_block         *egc_malloc_block(size_t size, t_statics *statics)
   egc_set_to_zero((void *)block + sizeof(t_block), block->size);
   statics->malloc_count++;
   statics->total_malloc_count++;
+  LOG("egc_malloc_block()");
+  LOG_POINTER(block);
+  LOG("");
   return (block);
 }
 

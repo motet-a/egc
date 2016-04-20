@@ -8,7 +8,7 @@
 ** Last update Fri Apr 15 12:42:36 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 static void     *realloc_split(t_heap *heap, t_block *block, size_t size)
 {
@@ -52,16 +52,21 @@ void            *egc_realloc(void *data, size_t size)
   t_block       *block;
   t_heap        *heap;
 
-  LOG("egc_realloc()");
+  LOG("egc_realloc() begin");
+
   LOG("");
   egc_collect();
   if (!data)
     return (egc_malloc(size));
   block = data - sizeof(t_block);
+  LOG("egc_realloc()");
+  LOG_POINTER(block);
   heap = egc_get_pointed_to_heap(STATICS, block + 1);
+  /*
   if (size < block->size)
     return (realloc_split(heap, block, size));
   if (egc_defrag_block(heap, block, 0))
     return ((char *)block + sizeof(t_block));
+  */
   return (realloc_new(heap, block, size));
 }

@@ -8,7 +8,7 @@
 ** Last update Sat Apr  2 15:49:28 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 t_heap          *egc_find_heap_from_pointer(t_heap *heap, const void *p)
 {

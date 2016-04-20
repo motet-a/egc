@@ -8,7 +8,7 @@
 ** Last update Wed Mar 30 19:09:55 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 t_block         *egc_heap_get_free_block(t_heap *heap, size_t size)
 {

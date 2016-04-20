@@ -8,7 +8,7 @@
 ** Last update Wed Mar 30 18:07:20 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 #ifndef EGC_DEBUG
 

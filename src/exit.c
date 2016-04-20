@@ -8,7 +8,7 @@
 ** Last update Thu Mar 31 10:32:52 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 void    egc_stop()
 {
@@ -48,8 +48,15 @@ void    egc_exit(int status)
   exit_impl(status);
 }
 
+#ifdef EGC_DEBUG
+void    egc_abort(void)
+{
+  abort();
+}
+#else
 void    egc_abort(void)
 {
   egc_log("egc_abort() called");
   exit_impl(1);
 }
+#endif

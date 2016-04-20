@@ -23,8 +23,16 @@ typedef struct  s_hs
   char          *_chars;
 }               t_hs;
 
+/*
+** Returns an empty t_hs
+*/
 t_hs    hs_new_empty(void);
-t_hs    hs_new_from_str(const char *hsing);
+
+/*
+** Converts a C string to a t_hs
+*/
+t_hs    hs(const char *c_string);
+
 t_hs    hs_new_from_char(char c);
 t_hs    hs_new_from_n_chars(size_t n, const char *chars);
 
@@ -37,7 +45,7 @@ t_hs    hs_new_from_int_base(long n, unsigned base);
 t_hs    hs_new_from_uint(unsigned long n);
 t_hs    hs_new_from_uint_base(unsigned long n, unsigned base);
 
-size_t  hs_length(t_hs hs);
+size_t  hs_length(t_hs string);
 
 /*
 ** Returns the character at the given index
@@ -51,20 +59,13 @@ char    hs_get(t_hs hs, int index);
 */
 t_hs    hs_concat(t_hs left, t_hs right);
 
-t_hs    hs_concat_hs_str(t_hs left, const char *right);
-t_hs    hs_concat_str_hs(const char *left, t_hs right);
-t_hs    hs_concat_str_str(const char *left, const char *right);
-
 t_hs    hs_concat_hs_char(t_hs left, char right);
 t_hs    hs_concat_char_hs(char left, t_hs right);
 
 int     hs_equals(t_hs a, t_hs b);
-int     hs_equals_str(t_hs a, const char *b);
 
 int     hs_starts_with(t_hs string, t_hs prefix);
-int     hs_starts_with_str(t_hs string, const char *prefix);
 int     hs_ends_with(t_hs string, t_hs postfix);
-int     hs_ends_with_str(t_hs string, const char *prefix);
 
 /*
 ** Creates a new t_hs from the given format and arguments
@@ -75,39 +76,37 @@ t_hs    hs_format(const char *format, ...);
 t_hs    hs_vformat(const char *format, va_list list);
 t_hs    hs_format_directive(const char **format_pointer, va_list list);
 
-t_hs    hs_repr(t_hs hs);
-t_hs    hs_escape_nuls(t_hs hs);
+t_hs    hs_repr(t_hs string);
+t_hs    hs_escape_nuls(t_hs string);
 
 /*
 ** Returns a garbage-collected NUL-terminated string
 */
-char    *hs_to_str(t_hs hs);
+char    *hs_to_str(t_hs string);
 
 /*
 ** Prints a heap string to the standard output
 */
-int     hs_print(t_hs hs);
-int     hs_print_err(t_hs hs);
-int     hs_print_file(t_hs hs, int output_file);
+int     hs_print(t_hs string);
+int     hs_print_err(t_hs string);
+int     hs_print_file(t_hs string, int output_file);
 
 /*
 ** Like hs_print_*() functions, but prints a "\n" at the end
 */
-int     hs_puts(t_hs hs);
-int     hs_puts_err(t_hs hs);
-int     hs_puts_file(t_hs hs, int output_file);
+int     hs_puts(t_hs string);
+int     hs_puts_err(t_hs string);
+int     hs_puts_file(t_hs string, int output_file);
 
 /*
 ** Returns the lowest index in hs where the substring is found
 **
 ** Returns -1 on failure.
 */
-int     hs_index_of(t_hs hs, t_hs substring);
-int     hs_index_of_str(t_hs hs, const char *substring);
-int     hs_index_of_char(t_hs hs, char c);
+int     hs_index_of(t_hs string, t_hs substring);
+int     hs_index_of_char(t_hs string, char c);
 
-t_hs    hs_slice(t_hs hs, int start_index, int end_index);
-t_hs    hs_slice_str(const char *string, int start_index, int end_index);
+t_hs    hs_slice(t_hs string, int start_index, int end_index);
 
 /*
 ** Forward declarations
@@ -115,13 +114,10 @@ t_hs    hs_slice_str(const char *string, int start_index, int end_index);
 struct                          s_glist_hs;
 typedef struct s_glist_hs       t_glist_hs_;
 
-t_glist_hs_     hs_split(t_hs hs, t_hs separator);
-t_glist_hs_     hs_split_hs_str(t_hs hs, const char *separator);
-t_glist_hs_     hs_split_str_str(const char *str, const char *separator);
+t_glist_hs_     hs_split(t_hs string, t_hs separator);
 
 t_hs    hs_join(t_hs separator, const t_glist_hs_ *strings);
-t_hs    hs_join_str_hs(const char *separator, const t_glist_hs_ *strings);
 
-int     hs_get_real_index(t_hs hs, int index);
+int     hs_get_real_index(t_hs string, int index);
 
 #endif /* HS_H */

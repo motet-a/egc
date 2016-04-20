@@ -8,7 +8,7 @@
 ** Last update Thu Apr 14 10:13:35 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 static int      get_block_count(t_heap *heap)
 {

@@ -12,14 +12,14 @@
 
 void    test_suite_hs_format(void)
 {
-  ASSERT(hs_equals_str(hs_format(""), ""));
-  ASSERT(hs_equals_str(hs_format("hello"), "hello"));
-  ASSERT(hs_equals_str(hs_format("%%"), "%"));
-  ASSERT(hs_equals_str(hs_format("%c", 'z'), "z"));
-  ASSERT(hs_equals_str(hs_format("%hhu", 0xffff), "255"));
-  ASSERT(hs_equals_str(hs_format("%d", -1), "-1"));
-  ASSERT(hs_equals_str(hs_format("%d", 123), "123"));
-  ASSERT(hs_equals_str(hs_format("%x", 0xdeadbeef), "deadbeef"));
-  ASSERT(hs_equals_str(hs_format("%s", "a"), "a"));
-  ASSERT(hs_equals_str(hs_format("%hs", hs_new_from_str("a")), "a"));
+  ASSERT(hs_equals(hs_format(""), hs("")));
+  ASSERT(hs_equals(hs_format("hello"), hs("hello")));
+  ASSERT(hs_equals(hs_format("%%"), hs("%")));
+  ASSERT(hs_equals(hs_format("%c", 'z'), hs("z")));
+  ASSERT(hs_equals(hs_format("%hhu", 0xffff), hs("255")));
+  ASSERT(hs_equals(hs_format("%d", -1), hs("-1")));
+  ASSERT(hs_equals(hs_format("%d", 123), hs("123")));
+  ASSERT(hs_equals(hs_format("%x", 0xdeadbeef), hs("deadbeef")));
+  ASSERT(hs_equals(hs_format("%s", "a"), hs("a")));
+  ASSERT(hs_equals(hs_format("%hs", hs("x")), hs("x")));
 }

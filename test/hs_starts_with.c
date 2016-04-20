@@ -13,21 +13,21 @@
 
 static void     test_starts_with(void)
 {
-  ASSERT(hs_starts_with_str(hs_new_from_str(""), ""));
-  ASSERT(hs_starts_with_str(hs_new_from_str("abc"), ""));
-  ASSERT(hs_starts_with_str(hs_new_from_str("abc"), "a"));
-  ASSERT(hs_starts_with_str(hs_new_from_str("abc"), "abc"));
-  ASSERT(!hs_starts_with_str(hs_new_from_str(""), "a"));
-  ASSERT(!hs_starts_with_str(hs_new_from_str("ab"), "abc"));
-  ASSERT(!hs_starts_with_str(hs_new_from_str("abc"), "b"));
+  ASSERT(hs_starts_with(hs(""), hs("")));
+  ASSERT(hs_starts_with(hs("abc"), hs("")));
+  ASSERT(hs_starts_with(hs("abc"), hs("a")));
+  ASSERT(hs_starts_with(hs("abc"), hs("abc")));
+  ASSERT(!hs_starts_with(hs(""), hs("a")));
+  ASSERT(!hs_starts_with(hs("ab"), hs("abc")));
+  ASSERT(!hs_starts_with(hs("abc"), hs("b")));
 }
 
 static void     test_ends_with(void)
 {
-  ASSERT(hs_ends_with_str(hs_new_from_str(""), ""));
-  ASSERT(hs_ends_with_str(hs_new_from_str("abc"), ""));
-  ASSERT(hs_ends_with_str(hs_new_from_str("abc"), "c"));
-  ASSERT(!hs_ends_with_str(hs_new_from_str("a"), "aa"));
+  ASSERT(hs_ends_with(hs(""), hs("")));
+  ASSERT(hs_ends_with(hs("abc"), hs("")));
+  ASSERT(hs_ends_with(hs("abc"), hs("c")));
+  ASSERT(!hs_ends_with(hs("a"), hs("aa")));
 }
 
 void    test_suite_hs_starts_with(void)

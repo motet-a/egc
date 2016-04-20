@@ -8,7 +8,7 @@
 ** Last update Thu Mar 31 13:22:17 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 void            egc_log(const char *message)
 {

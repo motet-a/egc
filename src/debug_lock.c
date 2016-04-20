@@ -8,7 +8,7 @@
 ** Last update Sat Apr 16 22:05:20 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 void            egc_debug_lock_on(void *pointer)
 {

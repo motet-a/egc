@@ -39,8 +39,3 @@ t_hs    hs_slice(t_hs hs, int start_index, int end_index)
     length = 0;
   return (hs_new_from_n_chars(length, hs._chars + start_index));
 }
-
-t_hs    hs_slice_str(const char *string, int start_index, int end_index)
-{
-  return (hs_slice(hs_new_from_str(string), start_index, end_index));
-}

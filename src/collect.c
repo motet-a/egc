@@ -8,38 +8,7 @@
 ** Last update Thu Mar 31 13:07:36 2016 antoine
 */
 
-#include "egc_private.h"
-
-static void     unmark_heap(t_heap *heap)
-{
-  t_block       *block;
-
-  block = NULL;
-  while ((block = egc_get_next_block(heap, block)))
-    {
-      /*
-        printf("block %p size %lu %d\n", block, block->size,
-        block->flags & BLOCK_FLAGS_FREE);
-        if (block->size > 100000)
-        {
-        egc_abort();
-        }
-      */
-      block->flags &= ~BLOCK_FLAGS_MARK;
-    }
-}
-
-static void     unmark_heaps(void)
-{
-  t_heap        *heap;
-
-  heap = STATICS->heaps;
-  while (heap)
-    {
-      unmark_heap(heap);
-      heap = heap->next;
-    }
-}
+#include "private.h"
 
 static void     egc_heap_free_unmarked(t_heap *heap)
 {
@@ -73,14 +42,43 @@ static void     egc_free_unmarked(void)
     }
 }
 
-void            egc_collect(void)
+static void     egc_collect_impl(void)
 {
   LOG("egc_collect()");
   LOG("");
-  unmark_heaps();
+  egc_unmark();
   egc_mark_stack();
   egc_mark_user_statics();
   egc_free_unmarked();
   egc_defrag();
   STATICS->collection_count++;
+  LOG("egc_collect() end");
+  LOG("");
 }
+
+#if __x86_64__
+void            egc_collect(void)
+{
+  AVT("pushq %rax\n pushq %rbx\n pushq %rcx\n pushq %rdx\n"
+      "pushq %r8\n pushq %r9\n pushq %r10\n pushq %r11\n"
+      "pushq %r12\n pushq %r13\n pushq %r14\n pushq %r15\n"
+      "pushq %rsi\n pushq %rdi\n");
+  egc_collect_impl();
+  AVT("popq %rdi\n popq %rsi\n"
+      "popq %r15\n popq %r14\n popq %r13\n popq %r12\n"
+      "popq %r11\n popq %r10\n popq %r9\n popq %r8\n"
+      "popq %rdx\n popq %rcx\n popq %rbx\n popq %rax\n");
+}
+#else
+/*
+** TODO: Test this function on x86
+*/
+void            egc_collect(void)
+{
+  AVT("pushl %eax\n pushl %ebx\n pushl %ecx\n pushl %edx\n"
+      "pushl %esi\n pushl %edi\n");
+  egc_collect_impl();
+  AVT("popl %edi\n popl %esi\n"
+      "popl %edx\n popl %ecx\n popl %ebx\n popl %eax\n");
+}
+#endif

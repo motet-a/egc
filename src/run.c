@@ -8,7 +8,7 @@
 ** Last update Thu Apr 14 10:34:36 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 static int      run(int argc,
                     char **argv,

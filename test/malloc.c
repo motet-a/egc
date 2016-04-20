@@ -10,7 +10,7 @@
 
 #include "utils.h"
 #include "test.h"
-#include "../src/egc_private.h"
+#include "../src/private.h"
 
 static void     check_allocated_block(void *data, size_t size)
 {

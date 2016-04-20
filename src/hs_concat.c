@@ -21,16 +21,6 @@ t_hs    hs_concat(t_hs left, t_hs right)
   return (new);
 }
 
-t_hs            hs_concat_str_hs(const char *left, t_hs right)
-{
-  return (hs_concat(hs_new_from_str(left), right));
-}
-
-t_hs            hs_concat_hs_str(t_hs left, const char *right)
-{
-  return (hs_concat(left, hs_new_from_str(right)));
-}
-
 t_hs    hs_concat_hs_char(t_hs left, char right)
 {
   t_hs  new;

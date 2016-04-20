@@ -21,6 +21,8 @@ typedef int     t_block_flags;
 # define BLOCK_FLAGS_ATOM       (4)
 # define BLOCK_FLAGS_DEBUG_LOCK (8)
 
+# define AVT__(a, m)            AVT_(a, m)
+
 typedef struct  s_block
 {
   t_block_flags flags;
@@ -73,7 +75,6 @@ void            egc_heap_delete(t_heap *heap);
 
 void            egc_heap_mark(t_heap *heap);
 
-
 /*
 ** A random number.
 ** You can use anything here, since it looks random and is
@@ -85,10 +86,12 @@ void            egc_log(const char *message);
 void            egc_log_pointer(void *pointer);
 void            egc_log_uint(unsigned long n);
 
+# define EGC_VT                 __volatile__
+
 # ifdef EGC_LOG
-#  define LOG(message)  egc_log(message)
+#  define LOG(message)          egc_log(message)
 #  define LOG_POINTER(pointer)  egc_log_pointer(pointer)
-#  define LOG_UINT(pointer)  egc_log_uint(pointer)
+#  define LOG_UINT(pointer)     egc_log_uint(pointer)
 # else
 #  define LOG(message)
 #  define LOG_POINTER(pointer)
@@ -121,6 +124,8 @@ typedef struct          s_statics
 t_statics               g_egc_private_statics;
 # endif
 
+# define AVT_(a, b)     __##a##s##b##__ EGC_VT
+
 void            egc_init(t_statics *statics);
 void            egc_stop(void);
 
@@ -145,6 +150,8 @@ t_heap          *egc_get_pointed_to_heap(const t_statics *statics,
 
 int             egc_get_heap_count(void);
 
+void            egc_unmark(void);
+
 void            egc_mark_stack(void);
 
 void            egc_mark_user_statics(void);
@@ -164,5 +171,7 @@ t_heap          *egc_find_heap_from_pointer(t_heap *heaps, const void *p);
 void            *egc_safe_malloc(size_t length);
 
 t_statics       *egc_get_private_statics(void);
+
+# define AVT    AVT__(a, m)
 
 #endif /* EGC_PRIVATE_H */

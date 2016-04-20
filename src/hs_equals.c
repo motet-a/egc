@@ -25,8 +25,3 @@ int             hs_equals(t_hs a, t_hs b)
     }
   return (1);
 }
-
-int     hs_equals_str(t_hs a, const char *b)
-{
-  return (hs_equals(a, hs_new_from_str(b)));
-}

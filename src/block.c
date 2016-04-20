@@ -8,7 +8,7 @@
 ** Last update Thu Mar 31 16:29:32 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 void            egc_block_mark(t_block *block)
 {

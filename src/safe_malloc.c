@@ -8,7 +8,7 @@
 ** Last update Wed Mar 30 17:47:49 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 static void     on_malloc_error(void)
 {

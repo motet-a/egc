@@ -39,34 +39,24 @@ static int      skip_separator(t_hs *hs_pointer, t_hs separator)
   return (1);
 }
 
-t_glist_hs      hs_split(t_hs hs, t_hs separator)
+t_glist_hs      hs_split(t_hs s, t_hs separator)
 {
   t_glist_hs    list;
   t_hs          word;
 
   if (hs_length(separator) == 0)
-    separator = hs_new_from_str(" ");
+    separator = hs(" ");
   list = glist_hs_new();
-  if (!hs_length(hs))
+  if (!hs_length(s))
     return (list);
   while (1)
     {
-      word = skip_word(&hs, separator);
+      word = skip_word(&s, separator);
       glist_hs_append(&list, word);
-      if (!hs_length(hs))
+      if (!hs_length(s))
         break;
-      if (!skip_separator(&hs, separator))
+      if (!skip_separator(&s, separator))
         break;
     }
   return (list);
-}
-
-t_glist_hs      hs_split_hs_str(t_hs hs, const char *separator)
-{
-  return (hs_split(hs, hs_new_from_str(separator)));
-}
-
-t_glist_hs_     hs_split_str_str(const char *str, const char *separator)
-{
-  return (hs_split_hs_str(hs_new_from_str(str), separator));
 }

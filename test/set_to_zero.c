@@ -10,7 +10,7 @@
 
 #include "test.h"
 #include "utils.h"
-#include "../src/egc_private.h"
+#include "../src/private.h"
 
 static void     set_to_1(char *buffer, size_t length)
 {

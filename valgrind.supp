@@ -6,6 +6,7 @@
    fun:egc_mark_pointer_array
    fun:mark_range
    fun:egc_mark_stack
+   fun:egc_collect_impl
    fun:egc_collect
    ...
 }

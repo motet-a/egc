@@ -20,12 +20,6 @@ int             hs_starts_with(t_hs string, t_hs prefix)
   return (i >= prefix._length);
 }
 
-int     hs_starts_with_str(t_hs string, const char *prefix)
-{
-  return (hs_starts_with(string, hs_new_from_str(prefix)));
-}
-
-
 int     hs_ends_with(t_hs string, t_hs postfix)
 {
   int   string_i;
@@ -39,9 +33,4 @@ int     hs_ends_with(t_hs string, t_hs postfix)
         return (0);
     }
   return (postfix_i == 0);
-}
-
-int     hs_ends_with_str(t_hs string, const char *prefix)
-{
-  return (hs_ends_with(string, hs_new_from_str(prefix)));
 }

@@ -8,7 +8,7 @@
 ** Last update Thu Mar 31 13:03:03 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 static void     mark_range(void *a, void *b)
 {

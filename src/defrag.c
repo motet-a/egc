@@ -8,7 +8,7 @@
 ** Last update Sun Apr 17 08:04:43 2016 antoine
 */
 
-#include "egc_private.h"
+#include "private.h"
 
 static void     join_blocks(t_block *left, t_block *right, int clear_left)
 {
@@ -38,8 +38,8 @@ t_block         *egc_defrag_block(t_heap *heap, t_block *block, int clr_left)
   last_free_block = egc_get_last_free_block(heap, block);
   if (!last_free_block || block == last_free_block)
     return (NULL);
-  join_blocks(block, last_free_block, clr_left)
-    LOG("egc_block_defrag()");
+  join_blocks(block, last_free_block, clr_left);
+  LOG("egc_defrag_block()");
   LOG_POINTER(block);
   LOG("");
   return (block);
@@ -57,6 +57,8 @@ void            egc_defrag_blocks(t_heap *heap, t_block *block)
 void            egc_defrag(void)
 {
   t_heap        *heap;
+  LOG("egc_defrag()");
+  LOG("");
 
   heap = STATICS->heaps;
   while (heap)

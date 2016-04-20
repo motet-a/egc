@@ -10,7 +10,7 @@
 
 #include "../include/egc.h"
 
-t_hs            hs_new_from_str(const char *string)
+t_hs            hs(const char *string)
 {
   return (hs_new_from_n_chars(egc_strlen(string), string));
 }
