@@ -12,6 +12,10 @@
 
 #ifndef EGC_DEBUG
 
+/*
+** abort() is forbidden, so we do this to get a pretty
+** stacktrace in Valgrind or GDB
+*/
 static void             sigsegv_suicide(void)
 {
   char                  *c;

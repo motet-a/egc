@@ -18,8 +18,6 @@ void    egc_stop()
   LOG("egc_stop() collection_count:");
   LOG_UINT(STATICS->collection_count);
   LOG("");
-  printf(">>>%d\n", (int)egc_get_heap_count());
-
   egc_collect();
   if (STATICS->total_malloc_count != STATICS->total_free_count)
     {
@@ -34,15 +32,17 @@ static void     exit_impl(int status)
 {
   exit(status);
   /*
-  long  lstatus;
+    TODO: Fix the following assembler code
 
-  lstatus = status;
-  __asm__ volatile ("movq   $60, %%rax\n\t"
-                    "movq   %0, %%rdi\n\t"
-                    "syscall"
-                    :
-                    : "r" (lstatus)
-                    : "%rax", "%rdi", "memory", "cc");
+    long  lstatus;
+
+    lstatus = status;
+    __asm__ volatile ("movq   $60, %%rax\n\t"
+    "movq   %0, %%rdi\n\t"
+    "syscall"
+    :
+    : "r" (lstatus)
+    : "%rax", "%rdi", "memory", "cc");
   */
 }
 

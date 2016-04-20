@@ -180,6 +180,11 @@ t_statics       *egc_get_private_statics(void);
 */
 void            egc_collect_impl(void);
 
+/*
+** Don't use this function directly. Use egc_get_statics() instead.
+*/
+t_statics       *egc_get_statics_0(void *stack_pointer);
+
 # define AVT    AVT__(a, m)
 
 #endif /* EGC_PRIVATE_H */

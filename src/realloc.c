@@ -52,9 +52,7 @@ void            *egc_realloc(void *data, size_t size)
   t_block       *block;
   t_heap        *heap;
 
-  STATICS;
   LOG("egc_realloc() begin");
-
   LOG("");
   egc_collect();
   if (!data)
@@ -64,9 +62,11 @@ void            *egc_realloc(void *data, size_t size)
   LOG_POINTER(block);
   heap = egc_find_pointed_to_heap(STATICS, block + 1);
   /*
-  if (size < block->size)
+    TODO: Test and enable the following statements
+
+    if (size < block->size)
     return (realloc_split(heap, block, size));
-  if (egc_defrag_block(heap, block, 0))
+    if (egc_defrag_block(heap, block, 0))
     return ((char *)block + sizeof(t_block));
   */
   return (realloc_new(heap, block, size));
