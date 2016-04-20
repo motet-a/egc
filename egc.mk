@@ -10,7 +10,7 @@
 
 GLIST_TYPES		= char double float hs int long str uint ulong voidp
 
-GLIST_SOURCES		= $(foreach type,$(GLIST_TYPES), \
+GLIST_SOURCES_NAMES	= $(foreach type,$(GLIST_TYPES), \
 			glist_$(type)_0.c \
 			glist_$(type)_1.c \
 			glist_$(type)_2.c)
@@ -55,9 +55,12 @@ EGC_SOURCES_NAMES	= \
 			string.c \
 			unmark.c
 
-EGC_SOURCES_NAMES	+= $(GLIST_SOURCES)
+EGC_SOURCES_NAMES	+= $(GLIST_SOURCES_NAMES)
 
 EGC_SOURCES		= $(foreach file,$(EGC_SOURCES_NAMES), \
+			src/$(file))
+
+GLIST_SOURCES		= $(foreach file,$(GLIST_SOURCES_NAMES), \
 			src/$(file))
 
 EGC_OBJECTS		= $(EGC_SOURCES:.c=.o)

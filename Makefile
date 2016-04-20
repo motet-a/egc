@@ -15,7 +15,9 @@ CFLAGS		= -W -Wall -Wextra \
 		-Wmissing-declarations \
 		-std=c89 -I./include/
 
-ifneq ($(findstring test,$(MAKECMDGOALS)),)
+ifneq ($(or					\
+	$(findstring test,$(MAKECMDGOALS)),	\
+	$(findstring vgtest,$(MAKECMDGOALS))),)
 	DEBUG	= true
 endif
 
@@ -49,21 +51,22 @@ TEST_SOURCES	= \
 
 TEST_OBJECTS	= $(TEST_SOURCES:.c=.o)
 
-all: test
+all: libegc.a
 
-glist: src/glist_char_0.c
-
-src/glist_%.c:
+$(GLIST_SOURCES):
 	./glist_gen.py
 
-libegc.a: glist $(EGC_OBJECTS)
+libegc.a: src/glist_char_0.c $(EGC_OBJECTS)
 	ar rc $@ $(EGC_OBJECTS)
 	ranlib $@
 
-test: glist test/test
+test: src/glist_char_0.c test/test
 
 test/test: $(TEST_OBJECTS) libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
+
+vgtest: test
+	valgrind --suppressions=valgrind.supp ./test/test
 
 example: example.o libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
@@ -90,4 +93,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all test clean fclean re
+.PHONY: all test vgtest clean fclean re example delivery glist_clean
