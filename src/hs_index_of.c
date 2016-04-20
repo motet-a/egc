@@ -27,7 +27,7 @@ int     hs_index_of(t_hs hs, t_hs substring)
   if (hs._length < substring._length)
     return (-1);
   index = -1;
-  while (++index < (int)hs._length)
+  while (++index + (int)substring._length <= (int)hs._length)
     {
       if (equals(hs._chars + index, substring._chars, substring._length))
         return (index);

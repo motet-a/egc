@@ -29,18 +29,21 @@ void            assert_impl(int a, const char *position)
 static void     run_tests(void)
 {
   egc_collect();
-  test_suite_statics();
-  test_suite_set_to_zero();
-  STATS;
-  test_suite_malloc();
-  STATS;
-  test_suite_glist();
-  STATS;
-  test_suite_hs_get();
-  test_suite_hs_format();
-  test_suite_hs_slice();
-  test_suite_hs_split();
-  test_suite_hs_starts_with();
+  {
+    test_suite_statics();
+    test_suite_set_to_zero();
+    STATS;
+    test_suite_malloc();
+    STATS;
+    test_suite_glist();
+    STATS;
+    test_suite_hs_get();
+    test_suite_hs_format();
+    test_suite_hs_slice();
+    test_suite_hs_split();
+    test_suite_hs_starts_with();
+    test_suite_hs_index_of();
+  }
   egc_print_stats();
   egc_collect();
   egc_print_stats();
@@ -50,6 +53,10 @@ static void     run_tests(void)
   egc_exit(STATS->failed_test_count != 0);
 }
 
+/*
+** There is a FAIL() at the end of this function to test
+** the exit at the end of run_tests()
+*/
 static int      main2()
 {
   t_test_stats  stats;
