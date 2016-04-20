@@ -18,6 +18,7 @@ GLIST_SOURCES_NAMES	= $(foreach type,$(GLIST_TYPES), \
 EGC_SOURCES_NAMES	= \
 			block.c \
 			block_fragment.c \
+			char_is_alpha.c \
 			collect.c \
 			debug_lock.c \
 			defrag.c \
@@ -32,6 +33,7 @@ EGC_SOURCES_NAMES	= \
 			hs_format_directive.c \
 			hs_get.c \
 			hs_index_of.c \
+			hs_is_alpha.c \
 			hs_join.c \
 			hs_length.c \
 			hs_new.c \

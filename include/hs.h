@@ -120,4 +120,30 @@ t_hs    hs_join(t_hs separator, const t_glist_hs_ *strings);
 
 int     hs_get_real_index(t_hs string, int index);
 
+t_hs    hs_to_lower(t_hs string);
+t_hs    hs_to_upper(t_hs string);
+
+char    char_is_alpha(char c);
+char    char_is_alpha_numeric(char c);
+char    char_is_digit(char c);
+char    char_is_lower(char c);
+char    char_is_upper(char c);
+
+char    char_to_lower(char c);
+char    char_to_upper(char c);
+
+int     hs_is_alpha(t_hs string);
+int     hs_is_lower(t_hs string);
+int     hs_is_upper(t_hs string);
+int     hs_is_alpha_numeric(t_hs string);
+int     hs_is_digit(t_hs string);
+int     hs_is_hex_digit(t_hs string);
+
+/*
+** Returns true if the given string is a space, a form-feed ('\f'),
+** a newline ('\n'), a carriage return ('\r'), a horizontal tab
+** ('\t') or a vertical tab ('\v').
+*/
+int     hs_is_whitespace(t_hs string);
+
 #endif /* HS_H */
