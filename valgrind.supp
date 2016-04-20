@@ -10,11 +10,3 @@
    fun:egc_collect
    ...
 }
-
-{
-   statics_cond
-   Memcheck:Cond
-   ...
-   fun:egc_get_private_statics
-   ...
-}

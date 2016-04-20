@@ -15,9 +15,7 @@ CFLAGS		= -W -Wall -Wextra \
 		-Wmissing-declarations \
 		-std=c89 -g -I./include/
 
-ifneq ($(or					\
-	$(findstring rtest,$(MAKECMDGOALS)),	\
-	$(findstring vgtest,$(MAKECMDGOALS))),)
+ifneq ($(findstring vgtest,$(MAKECMDGOALS)),)
 	DEBUG	= true
 endif
 
