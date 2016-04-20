@@ -43,6 +43,7 @@ static void     run_tests(void)
     test_suite_hs_split();
     test_suite_hs_starts_with();
     test_suite_hs_index_of();
+    test_suite_hs_strip();
   }
   egc_print_stats();
   egc_collect();

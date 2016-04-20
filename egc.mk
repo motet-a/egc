@@ -19,6 +19,7 @@ EGC_SOURCES_NAMES	= \
 			block.c \
 			block_fragment.c \
 			char_is_alpha.c \
+			char_is_whitespace.c \
 			collect.c \
 			debug_lock.c \
 			defrag.c \
@@ -43,6 +44,7 @@ EGC_SOURCES_NAMES	= \
 			hs_slice.c \
 			hs_split.c \
 			hs_starts_with.c \
+			hs_strip.c \
 			hs_vformat.c \
 			init.c \
 			log.c \

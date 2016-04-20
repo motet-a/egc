@@ -44,6 +44,7 @@ TEST_SOURCES	= \
 		test/hs_slice.c \
 		test/hs_split.c \
 		test/hs_starts_with.c \
+		test/hs_strip.c \
 		test/malloc.c \
 		test/set_to_zero.c \
 		test/statics.c \
