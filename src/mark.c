@@ -10,43 +10,19 @@
 
 #include "private.h"
 
-t_heap          *egc_get_pointed_to_heap(const t_statics *statics,
-                                         const void *pointer)
+static void     mark_block(t_block *block)
 {
-  t_heap        *heap;
   void          *data;
+  t_block_flags flags;
 
-  heap = statics->heaps;
-  while (heap)
-    {
-      data = heap->data;
-      if (pointer >= data + sizeof(t_block) &&
-          pointer < data + heap->size)
-        return (heap);
-      heap = heap->next;
-    }
-  return (NULL);
-}
-
-static t_block  *get_pointed_to_block(t_statics *statics, void *pointer)
-{
-  t_heap        *heap;
-  t_block       *block;
-  void          *data;
-
-  heap = egc_get_pointed_to_heap(statics, pointer);
-  if (!heap)
-    return (NULL);
-  block = NULL;
-  while ((block = egc_get_next_block(heap, block)))
-    {
-      if (pointer < (void *)block)
-        abort();
-      data = (char *)block + sizeof(t_block);
-      if (pointer < data + block->size)
-        return (block);
-    }
-  return (NULL);
+  flags = block->flags;
+  if ((flags & BLOCK_FLAGS_FREE) || (flags & BLOCK_FLAGS_MARK))
+    return ;
+  block->flags |= BLOCK_FLAGS_MARK;
+  if (flags & BLOCK_FLAGS_ATOM)
+    return ;
+  data = (char *)block + sizeof(t_block);
+  egc_mark_pointer_array((void **)data, block->size);
 }
 
 void            egc_mark_pointer_array(void **pointer_array, size_t size)
@@ -54,6 +30,7 @@ void            egc_mark_pointer_array(void **pointer_array, size_t size)
   t_block       *block;
   t_statics     *statics;
   char          *char_array;
+  void          *p;
 
   if (size < sizeof(void *))
     return ;
@@ -62,9 +39,19 @@ void            egc_mark_pointer_array(void **pointer_array, size_t size)
   size -= sizeof(void *);
   while (size)
     {
-      block = get_pointed_to_block(statics, *(void **)(char_array + size));
+      p = *(void **)(char_array + size);
+      block = egc_find_pointed_to_block(statics, p);
       if (block)
-        egc_block_mark(block);
+        mark_block(block);
       size--;
     }
+}
+
+void            egc_mark_user_statics(void)
+{
+  t_statics     *statics;
+
+  statics = STATICS;
+  if (statics->user_statics && statics->user_statics_size)
+    egc_mark_pointer_array(statics->user_statics, statics->user_statics_size);
 }

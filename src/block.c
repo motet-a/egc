@@ -10,21 +10,6 @@
 
 #include "private.h"
 
-void            egc_block_mark(t_block *block)
-{
-  void          *data;
-  t_block_flags flags;
-
-  flags = block->flags;
-  if ((flags & BLOCK_FLAGS_FREE) || (flags & BLOCK_FLAGS_MARK))
-    return ;
-  block->flags |= BLOCK_FLAGS_MARK;
-  if (flags & BLOCK_FLAGS_ATOM)
-    return ;
-  data = (char *)block + sizeof(t_block);
-  egc_mark_pointer_array((void **)data, block->size);
-}
-
 t_block         *egc_get_next_block(t_heap *heap, t_block *block)
 {
   if (block == NULL)

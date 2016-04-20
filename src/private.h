@@ -43,16 +43,7 @@ void            egc_set_to_zero(void *data, size_t n);
 
 void            egc_mark_pointer_array(void **pointer_array, size_t size);
 
-void            egc_block_mark(t_block *block);
 void            egc_block_free(t_block *block, t_heap *heap);
-
-void            egc_block_fragment(t_block *block,
-                                   t_heap *heap,
-                                   size_t min_size);
-
-void            egc_block_request_fragmentation(t_block *block,
-                                                t_heap *heap,
-                                                size_t size);
 
 t_block         *egc_get_next_block(t_heap *heap, t_block *block);
 
@@ -72,8 +63,6 @@ void            egc_heap_add(size_t min_block_size);
 t_block         *egc_heap_get_free_block(t_heap *heap, size_t size);
 
 void            egc_heap_delete(t_heap *heap);
-
-void            egc_heap_mark(t_heap *heap);
 
 /*
 ** A random number.
@@ -129,8 +118,15 @@ t_statics               g_egc_private_statics;
 void            egc_init(t_statics *statics);
 void            egc_stop(void);
 
+void            egc_block_fragment(t_block *block,
+                                   t_heap *heap,
+                                   size_t min_size);
+
+void            egc_block_request_fragmentation(t_block *block,
+                                                t_heap *heap,
+                                                size_t size);
+
 t_block         *egc_defrag_block(t_heap *heap, t_block *block, int clr_left);
-void            egc_defrag_blocks(t_heap *heap, t_block *block);
 void            egc_defrag(void);
 
 t_block         *egc_malloc_block(size_t size, t_statics *statics);
@@ -145,15 +141,15 @@ void            egc_abort(void);
 
 t_block         *egc_get_last_free_block(t_heap *heap, t_block *block);
 
-t_heap          *egc_get_pointed_to_heap(const t_statics *statics,
-                                         const void *pointer);
+t_block         *egc_find_pointed_to_block(t_statics *statics, void *pointer);
+t_heap          *egc_find_pointed_to_heap(const t_statics *statics,
+                                          const void *pointer);
 
 int             egc_get_heap_count(void);
 
 void            egc_unmark(void);
 
 void            egc_mark_stack(void);
-
 void            egc_mark_user_statics(void);
 
 /*

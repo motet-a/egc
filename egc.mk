@@ -22,6 +22,7 @@ EGC_SOURCES_NAMES	= \
 			debug_lock.c \
 			defrag.c \
 			exit.c \
+			find.c \
 			get_statics.c \
 			heap.c \
 			heaps.c \

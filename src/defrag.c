@@ -45,7 +45,7 @@ t_block         *egc_defrag_block(t_heap *heap, t_block *block, int clr_left)
   return (block);
 }
 
-void            egc_defrag_blocks(t_heap *heap, t_block *block)
+static void     egc_defrag_blocks(t_heap *heap, t_block *block)
 {
   while ((block = egc_get_next_block(heap, block)))
     {
