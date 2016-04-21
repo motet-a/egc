@@ -147,6 +147,9 @@ functions.
 You can get the length of a heap string `hs` with `hs_length()`.
 Don't access directly the members of a `t_hs`.
 
+You can convert a `t_hs` to a null-terminated C string with
+`hs_to_str()`.
+
 
 
 ## printf-like functions
