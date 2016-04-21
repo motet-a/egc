@@ -52,19 +52,31 @@ TEST_SOURCES	= \
 
 TEST_OBJECTS	= $(TEST_SOURCES:.c=.o)
 
+ECHO		= /bin/echo -e
+
+RED		= "\033[0;91m"
+GREEN		= "\033[0;92m"
+END		= "\033[0m"
+
+echo_error	= $(ECHO) $(RED) $(1) "[ERROR]" $(END)
+
 all: libegc.a
 
 $(GLIST_SOURCES):
 	./glist_gen.py
 
 libegc.a: src/glist_char_0.c $(EGC_OBJECTS)
-	ar rc $@ $(EGC_OBJECTS)
+	@ar rc $@ $^ && \
+		$(ECHO) AR || \
+		$(call echo_error,$@)
 	ranlib $@
 
 test: src/glist_char_0.c test/test
 
 test/test: $(TEST_OBJECTS) libegc.a
-	$(CC) -o $@ $^ $(LDFLAGS)
+	@$(CC) -o $@ $^ $(LDFLAGS) && \
+		$(ECHO) CC $@ || \
+		$(call echo_error,$@)
 
 rtest: test
 	./test/test
@@ -81,19 +93,21 @@ delivery: src/glist_char.c
 	$(RM) valgrind.supp
 
 %.o: %.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	@$(CC) -c $< -o $@ $(CFLAGS) && \
+		$(ECHO) CC $< || \
+		$(call echo_error,$<)
 
 glist_clean:
 	$(RM) src/glist_*.c
 	$(RM) include/glist_*.h
 
 clean:
-	$(RM) $(TEST_OBJECTS)
-	$(RM) $(EGC_OBJECTS)
+	@$(RM) $(TEST_OBJECTS)
+	@$(RM) $(EGC_OBJECTS)
 
 fclean: clean
-	$(RM) libegc.a
-	$(RM) test/test
+	@$(RM) libegc.a
+	@$(RM) test/test
 
 re: fclean all
 
