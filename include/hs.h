@@ -77,10 +77,16 @@ t_hs    hs_vformat(const char *format, va_list list);
 t_hs    hs_format_directive(const char **format_pointer, va_list list);
 
 t_hs    hs_repr(t_hs string);
+
+/*
+** Returns the given string with NULs replaced by '\0'
+*/
 t_hs    hs_escape_nuls(t_hs string);
 
 /*
 ** Returns a garbage-collected NUL-terminated string
+**
+** The NULs of the given string are escaped with '\0'.
 */
 char    *hs_to_str(t_hs string);
 
