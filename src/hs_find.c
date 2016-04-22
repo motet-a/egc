@@ -32,3 +32,14 @@ int     hs_find(t_hs hs, t_hs substring, size_t index)
     }
   return (-1);
 }
+
+int     hs_find_char(t_hs s, char c, size_t index)
+{
+  while (index < hs_length(s))
+    {
+      if (hs_get(s, index) == c)
+        return (index);
+      index++;
+    }
+  return (-1);
+}

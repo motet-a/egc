@@ -10,6 +10,13 @@
 
 #include "test.h"
 
+static void     test_hs_find_char(void)
+{
+  ASSERT(hs_find_char(hs(" abc"), 'a', 0) == 1);
+  ASSERT(hs_find_char(hs(" abc"), 'z', 0) == -1);
+  ASSERT(hs_find_char(hs(""), 'z', 0) == -1);
+}
+
 void    test_suite_hs_find(void)
 {
   ASSERT(hs_find(hs(""), hs(""), 0) == 0);
@@ -18,4 +25,5 @@ void    test_suite_hs_find(void)
   ASSERT(hs_find(hs(" ab "), hs("abc"), 0) == -1);
   ASSERT(hs_find(hs("abc "), hs("abc"), 0) == 0);
   ASSERT(hs_find(hs(" abc"), hs("abc"), 0) == 1);
+  test_hs_find_char();
 }
