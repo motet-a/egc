@@ -42,7 +42,7 @@ static void     run_tests(void)
     test_suite_hs_slice();
     test_suite_hs_split();
     test_suite_hs_starts_with();
-    test_suite_hs_index_of();
+    test_suite_hs_find();
     test_suite_hs_strip();
     test_suite_hs_to_str();
   }

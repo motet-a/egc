@@ -16,7 +16,7 @@ static t_hs     skip_word(t_hs *hs_pointer, t_hs separator)
   t_hs          hs;
 
   hs = *hs_pointer;
-  index = hs_index_of(hs, separator);
+  index = hs_find(hs, separator, 0);
   if (index == -1)
     {
       *hs_pointer = hs_new_empty();
@@ -32,7 +32,7 @@ static int      skip_separator(t_hs *hs_pointer, t_hs separator)
   t_hs          hs;
 
   hs = *hs_pointer;
-  index = hs_index_of(hs, separator);
+  index = hs_find(hs, separator, 0);
   if (index != 0)
     return (0);
   *hs_pointer = hs_slice(hs, hs_length(separator), hs_length(hs));

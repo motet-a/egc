@@ -107,10 +107,12 @@ int     hs_puts_file(t_hs string, int output_file);
 /*
 ** Returns the lowest index in hs where the substring is found
 **
+** The search starts from start_index.
+**
 ** Returns -1 on failure.
 */
-int     hs_index_of(t_hs string, t_hs substring);
-int     hs_index_of_char(t_hs string, char c);
+int     hs_find(t_hs string, t_hs substring, size_t start_index);
+int     hs_find_char(t_hs string, char c, size_t start_index);
 
 t_hs    hs_slice(t_hs string, int start_index, int end_index);
 

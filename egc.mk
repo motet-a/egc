@@ -31,10 +31,10 @@ EGC_SOURCES_NAMES	= \
 			heaps.c \
 			hs_concat.c \
 			hs_equals.c \
+			hs_find.c \
 			hs_format.c \
 			hs_format_directive.c \
 			hs_get.c \
-			hs_index_of.c \
 			hs_is_alpha.c \
 			hs_join.c \
 			hs_length.c \
