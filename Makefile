@@ -88,7 +88,7 @@ example: example.o libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 delivery: src/glist_char.c
-	$(RM) glist_gen.py
+	$(RM) glist_gen.py gen.py
 	$(RM) .gitignore
 	$(RM) valgrind.supp
 
