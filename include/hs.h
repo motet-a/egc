@@ -134,6 +134,7 @@ t_hs    hs_to_upper(t_hs string);
 char    char_is_alpha(char c);
 char    char_is_alpha_numeric(char c);
 char    char_is_digit(char c);
+char    char_is_hex_digit(char c);
 char    char_is_lower(char c);
 char    char_is_upper(char c);
 

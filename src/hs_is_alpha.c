@@ -12,10 +12,52 @@
 
 int     hs_is_alpha(t_hs string)
 {
+  int   i;
+
+  i = -1;
+  while (++i < (int)string._length)
+    {
+      if (!char_is_alpha(string._chars[i]))
+        return (0);
+    }
+  return (1);
 }
 
-int     hs_is_lower(t_hs string);
-int     hs_is_upper(t_hs string);
-int     hs_is_alpha_numeric(t_hs string);
-int     hs_is_digit(t_hs string);
-int     hs_is_hex_digit(t_hs string);
+int     hs_is_lower(t_hs string)
+{
+  int   i;
+
+  i = -1;
+  while (++i < (int)string._length)
+    {
+      if (!char_is_lower(string._chars[i]))
+        return (0);
+    }
+  return (1);
+}
+
+int     hs_is_upper(t_hs string)
+{
+  int   i;
+
+  i = -1;
+  while (++i < (int)string._length)
+    {
+      if (!char_is_upper(string._chars[i]))
+        return (0);
+    }
+  return (1);
+}
+
+int     hs_is_alpha_numeric(t_hs string)
+{
+  int   i;
+
+  i = -1;
+  while (++i < (int)string._length)
+    {
+      if (!char_is_alpha_numeric(string._chars[i]))
+        return (0);
+    }
+  return (1);
+}

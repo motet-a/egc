@@ -20,11 +20,6 @@ char    char_is_alpha_numeric(char c)
   return (char_is_alpha(c) || char_is_lower(c));
 }
 
-char    char_is_digit(char c)
-{
-  return ('0' <= c && c <= '9');
-}
-
 char    char_is_lower(char c)
 {
   return ('a' <= c && c <= 'z');
