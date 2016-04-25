@@ -3,3 +3,4 @@
 /test/test
 src/glist_*.c
 include/glist_*.h
+__pycache__/
