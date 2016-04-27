@@ -18,7 +18,7 @@
 */
 static void             sigsegv_suicide(void)
 {
-  char                  *c;
+  int                   *c;
 
   c = NULL;
   *c = 123;

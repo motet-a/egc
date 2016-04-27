@@ -57,7 +57,7 @@ static void     run_tests(void)
 
 /*
 ** There is a FAIL() at the end of this function to test
-** the exit at the end of run_tests()
+** the call to egc_exit() at the end of run_tests()
 */
 static int      main2()
 {

@@ -21,7 +21,7 @@ void            egc_heap_print(t_heap *heap)
              block->flags & BLOCK_FLAGS_FREE);
       if (!block->size || block->size > 100000)
         {
-          abort();
+          egc_abort();
         }
     }
 }

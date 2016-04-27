@@ -41,7 +41,7 @@ t_block         *egc_find_pointed_to_block(t_statics *statics, void *pointer)
   while ((block = egc_get_next_block(heap, block)))
     {
       if (pointer < (void *)block)
-        abort();
+        egc_abort();
       data = (char *)block + sizeof(t_block);
       if (pointer < data + block->size)
         return (block);
