@@ -3,5 +3,5 @@ ok /0\ failures/
 warning /[1-9]+\ failures/
 warning /warning/
 
-error /[Ee]rror/
+error /\[ERROR\]/
 error /marked build as failure/
