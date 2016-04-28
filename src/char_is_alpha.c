@@ -17,7 +17,7 @@ char    char_is_alpha(char c)
 
 char    char_is_alpha_numeric(char c)
 {
-  return (char_is_alpha(c) || char_is_lower(c));
+  return (char_is_alpha(c) || char_is_digit(c));
 }
 
 char    char_is_lower(char c)
