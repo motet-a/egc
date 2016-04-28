@@ -19,6 +19,7 @@ EGC_SOURCES_NAMES	= \
 			block.c \
 			block_fragment.c \
 			char_is_alpha.c \
+			char_is_digit.c \
 			char_is_whitespace.c \
 			char_case.c \
 			collect.c \
