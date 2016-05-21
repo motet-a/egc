@@ -91,7 +91,7 @@ void    egc_set_error_callback(t_egc_error_callback error_callback);
 
 /*
 ** Stops egc and exits the program
-
+**
 ** Avoid to call directly exit(), prefer this function.
 */
 void    egc_exit(int status);

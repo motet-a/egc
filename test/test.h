@@ -45,4 +45,6 @@ void    test_suite_hs_find(void);
 void    test_suite_hs_strip(void);
 void    test_suite_hs_to_str(void);
 
+void    run_suites(void);
+
 #endif /* TEST_H */

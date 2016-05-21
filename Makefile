@@ -45,6 +45,7 @@ TEST_SOURCES	= \
 		test/hs_strip.c \
 		test/hs_to_str.c \
 		test/malloc.c \
+		test/run_suites.c \
 		test/set_to_zero.c \
 		test/statics.c \
 		test/test.c \

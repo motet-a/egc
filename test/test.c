@@ -29,23 +29,7 @@ void            assert_impl(int a, const char *position)
 static void     run_tests(void)
 {
   egc_collect();
-  {
-    test_suite_statics();
-    test_suite_set_to_zero();
-    STATS;
-    test_suite_malloc();
-    STATS;
-    test_suite_glist();
-    STATS;
-    test_suite_hs_get();
-    test_suite_hs_format();
-    test_suite_hs_slice();
-    test_suite_hs_split();
-    test_suite_hs_starts_with();
-    test_suite_hs_find();
-    test_suite_hs_strip();
-    test_suite_hs_to_str();
-  }
+  run_suites();
   egc_print_stats();
   egc_collect();
   egc_print_stats();

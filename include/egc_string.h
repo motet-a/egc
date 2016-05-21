@@ -11,8 +11,8 @@
 #ifndef EGC_STRING_H
 # define EGC_STRING_H
 
-#include <stddef.h>
-#include <stdarg.h>
+# include <stddef.h>
+# include <stdarg.h>
 
 size_t          egc_strlen(const char *string);
 void            egc_strcpy(char *dest, const char *source);

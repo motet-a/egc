@@ -18,5 +18,5 @@ t_hs            hs_format(const char *format, ...)
   va_start(list, format);
   hs = hs_vformat(format, list);
   va_end(list);
-  return hs;
+  return (hs);
 }

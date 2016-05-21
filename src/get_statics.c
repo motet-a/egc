@@ -34,7 +34,7 @@ t_statics               *egc_get_statics_0(void *stack_pointer)
         {
           statics = (t_statics *)stack_pointer;
           if (statics->magic_number_1 == MAGIC_NUMBER_1)
-            return statics;
+            return (statics);
         }
       stack_pointer++;
     }

@@ -22,7 +22,7 @@ static char     read_char(void)
 
   if (read(STDIN_FILENO, &c, 1) != 1)
     return ('\0');
-  return c;
+  return (c);
 }
 
 /*
