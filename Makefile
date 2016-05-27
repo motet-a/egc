@@ -74,7 +74,7 @@ $(GLIST_SOURCES):
 	./glist_gen.py
 
 libegc.a: src/glist_char_0.c $(EGC_OBJECTS)
-	@$(AR) $@ $^ && \
+	@$(AR) $@ $(EGC_OBJECTS) && \
 		$(ECHO) AR || \
 		$(call echo_error,$@)
 	ranlib $@
