@@ -57,9 +57,9 @@ static void     egc_defrag_blocks(t_heap *heap, t_block *block)
 void            egc_defrag(void)
 {
   t_heap        *heap;
+
   LOG("egc_defrag()");
   LOG("");
-
   heap = STATICS->heaps;
   while (heap)
     {

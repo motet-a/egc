@@ -18,7 +18,7 @@ t_hs    hs_lstrip(t_hs string)
   while (++i < (int)hs_length(string))
     {
       if (!char_is_whitespace(hs_get(string, i)))
-        break;
+        break ;
     }
   if (i == (int)hs_length(string))
     return (hs_new_empty());
@@ -33,7 +33,7 @@ t_hs    hs_rstrip(t_hs string)
   while (i >= 0)
     {
       if (!char_is_whitespace(hs_get(string, i)))
-        break;
+        break ;
       i--;
     }
   return (hs_slice(string, 0, i + 1));

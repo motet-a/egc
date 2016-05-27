@@ -54,9 +54,9 @@ t_glist_hs      hs_split(t_hs s, t_hs separator)
       word = skip_word(&s, separator);
       glist_hs_append(&list, word);
       if (!hs_length(s))
-        break;
+        break ;
       if (!skip_separator(&s, separator))
-        break;
+        break ;
     }
   return (list);
 }

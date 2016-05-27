@@ -40,7 +40,7 @@ static t_hs     read_line(void)
     {
       c = read_char();
       if (!c || c == '\n')
-        break;
+        break ;
       line = hs_concat_hs_char(line, c);
     }
   return (line);

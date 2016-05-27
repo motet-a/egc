@@ -35,15 +35,9 @@ void    egc_exit(int status)
   exit(status);
 }
 
-#ifdef EGC_DEBUG
 void    egc_abort(void)
 {
-  abort();
+  EGC_IF_DEBUG(abort());
+  EGC_IF_NOT_DEBUG(egc_log("egc_abort() called"));
+  EGC_IF_NOT_DEBUG(exit(1));
 }
-#else
-void    egc_abort(void)
-{
-  egc_log("egc_abort() called");
-  exit(1);
-}
-#endif

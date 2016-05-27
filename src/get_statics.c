@@ -10,6 +10,10 @@
 
 #include "private.h"
 
+#ifdef EGC_DEBUG
+t_statics               g_egc_private_statics;
+#endif
+
 #ifndef EGC_DEBUG
 
 /*

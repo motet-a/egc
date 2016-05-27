@@ -50,7 +50,6 @@ static void     test_glist_hs(void)
   t_glist_hs    l;
 
   l = glist_hs_new();
-
   glist_hs_append(&l, hs("a"));
   glist_hs_append(&l, hs("b"));
   glist_hs_append(&l, hs("c"));

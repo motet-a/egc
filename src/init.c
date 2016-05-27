@@ -19,9 +19,7 @@ static t_statics        *init_statics(t_statics *statics)
   statics->magic_number_0 = MAGIC_NUMBER_0;
   statics->magic_number_1 = MAGIC_NUMBER_1;
   statics->magic_number_0++;
-#ifdef EGC_DEBUG
-  statics = &g_egc_private_statics;
-#endif
+  EGC_IF_DEBUG(statics = &g_egc_private_statics);
   statics->magic_number_0 = MAGIC_NUMBER_0;
   statics->magic_number_1 = MAGIC_NUMBER_1;
   statics->magic_number_0++;

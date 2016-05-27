@@ -16,8 +16,8 @@ EPITECH_HEADER_COMMENT = """/*
 """
 
 HEADER_TEMPLATE = EPITECH_HEADER_COMMENT + """
-#ifndef GLIST_H
-# define GLIST_H
+#ifndef ONCE_INCLUDE_GUARD
+# define ONCE_INCLUDE_GUARD
 
 # INCLUDES
 
@@ -68,7 +68,7 @@ int             GLIST_length(const T_GLIST *list);
 */
 void    GLIST_apply(const T_GLIST *list, T_GLIST_func f);
 
-#endif /* EGC_H */
+#endif /* !ONCE_INCLUDE_GUARD */
 """
 
 SOURCE0_TEMPLATE = EPITECH_HEADER_COMMENT + """
@@ -194,6 +194,7 @@ def gen_content(content, item_type_name, item_type):
         ('S_GLIST', 's_glist_' + item_type_name),
         ('T_ITEM', item_type),
         ('GLIST_', 'glist_' + item_type_name + '_'),
+        ('ONCE_INCLUDE_GUARD', 'GLIST_' + item_type_name.upper() + '_H_'),
     ]
     return gen.replace(content, replacements)
 

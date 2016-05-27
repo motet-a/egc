@@ -94,6 +94,14 @@ void            egc_log_uint(unsigned long n);
 #  define STATICS       (egc_get_private_statics())
 # endif
 
+# ifdef EGC_DEBUG
+#  define EGC_IF_DEBUG(x)       (x)
+#  define EGC_IF_NOT_DEBUG(x)
+# else
+#  define EGC_IF_DEBUG(x)
+#  define EGC_IF_NOT_DEBUG(x)   (x)
+# endif
+
 /*
 ** One magic number is not sufficient.
 ** We need two magic numbers, and for safety purposes,
@@ -117,7 +125,7 @@ typedef struct          s_statics
 }                       t_statics;
 
 # ifdef EGC_DEBUG
-t_statics               g_egc_private_statics;
+extern t_statics        g_egc_private_statics;
 # endif
 
 # define AVT_(a, b)     __##a##s##b##__ EGC_VT

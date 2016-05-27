@@ -25,7 +25,7 @@ static void     egc_heap_free_unmarked(t_heap *heap)
           STATICS->total_free_count++;
           egc_block_free(block, heap);
           egc_heap_free_unmarked(heap);
-          return;
+          return ;
         }
     }
 }

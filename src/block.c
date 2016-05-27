@@ -30,7 +30,7 @@ t_block         *egc_get_last_free_block(t_heap *heap, t_block *block)
       if (block == previous)
         egc_abort();
       if (!(block->flags & BLOCK_FLAGS_FREE))
-        break;
+        break ;
       previous = block;
       block = egc_get_next_block(heap, block);
     }
