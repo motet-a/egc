@@ -10,3 +10,15 @@
    fun:egc_collect
    ...
 }
+
+{
+   mark_user_statics_cond
+   Memcheck:Cond
+   ...
+   fun:egc_find_pointed_to_block
+   fun:egc_mark_pointer_array
+   fun:egc_mark_user_statics
+   fun:egc_collect_impl
+   fun:egc_collect
+   ...
+}
