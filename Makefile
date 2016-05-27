@@ -10,6 +10,13 @@
 
 include egc.mk
 
+AR	= ar rc
+
+UNAME_S	:= $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+	AR = libtool -static -o
+endif
+
 CFLAGS		= -W -Wall -Wextra \
 		-Wmissing-prototypes \
 		-Wmissing-declarations \
@@ -67,7 +74,7 @@ $(GLIST_SOURCES):
 	./glist_gen.py
 
 libegc.a: src/glist_char_0.c $(EGC_OBJECTS)
-	@ar rc $@ $^ && \
+	@$(AR) $@ $^ && \
 		$(ECHO) AR || \
 		$(call echo_error,$@)
 	ranlib $@
