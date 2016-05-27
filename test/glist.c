@@ -52,7 +52,9 @@ static void     test_glist_hs(void)
   l = glist_hs_new();
   glist_hs_append(&l, hs("a"));
   glist_hs_append(&l, hs("b"));
+  glist_hs_append(&l, hs("auie"));
   glist_hs_append(&l, hs("c"));
+  glist_hs_remove(&l, 2);
   ASSERT(hs_equals(glist_hs_get(&l, 0), hs("a")));
   ASSERT(hs_equals(glist_hs_get(&l, 1), hs("b")));
   ASSERT(hs_equals(glist_hs_get(&l, 2), hs("c")));

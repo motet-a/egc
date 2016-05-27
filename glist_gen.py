@@ -47,9 +47,26 @@ T_GLIST         GLIST_copy(const T_GLIST *source);
 */
 void            GLIST_append(T_GLIST *list, T_ITEM item);
 
+/*
+** Adds all the elements at the end of the list
+**
+** The list `new_items` is not modified.
+*/
 void            GLIST_append_all(T_GLIST *list,
                                  const T_GLIST *new_items);
 
+/*
+** Removes an element at the given index
+**
+** Returns the removed element.
+*/
+T_ITEM          GLIST_remove(T_GLIST *list, int index);
+
+/*
+** Concatenates two lists
+**
+** Returns a new list, doesn't modify the given lists.
+*/
 T_GLIST         GLIST_add(const T_GLIST *left,
                           const T_GLIST *right);
 
@@ -100,6 +117,7 @@ T_GLIST                 GLIST_copy(const T_GLIST *source)
 """
 
 SOURCE1_TEMPLATE = EPITECH_HEADER_COMMENT + """
+#include <string.h>
 #INCLUDES
 
 static void     grow(T_GLIST *list, size_t new_size)
@@ -127,6 +145,17 @@ void            GLIST_append_all(T_GLIST *left,
   i = -1;
   while (++i < (int)right->_size)
     GLIST_append(left, right->_items[i]);
+}
+
+T_ITEM          GLIST_remove(T_GLIST *list, int index)
+{
+  T_ITEM        item;
+
+  item = GLIST_get(list, index);
+  memmove(list->_items + index, list->_items + index + 1,
+          (list->_size - index - 1) * sizeof(T_ITEM));
+  list->_size--;
+  return (item);
 }
 """
 
