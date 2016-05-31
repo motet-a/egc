@@ -1,11 +1,11 @@
 ##
-## Makefile for  in /home/antoine
+## Makefile for egc in /home/antoine/egc
 ##
 ## Made by antoine
 ## Login   <antoine@epitech.net>
 ##
 ## Started on  Wed Mar 30 17:32:15 2016 antoine
-## Last update Wed Mar 30 17:32:15 2016 antoine
+## Last update Tue May 31 12:44:07 2016 Antoine Baudrand
 ##
 
 include egc.mk
@@ -95,7 +95,7 @@ vgtest: test
 example: example.o libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-delivery: src/glist_char.c
+delivery: src/glist_char_0.c
 	$(RM) test/log_parsing.rules
 	$(RM) glist_gen.py gen.py
 	$(RM) .gitignore
