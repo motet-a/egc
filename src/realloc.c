@@ -10,20 +10,6 @@
 
 #include "private.h"
 
-static void     *realloc_split(t_heap *heap, t_block *block, size_t size)
-{
-  char          *begin;
-
-  egc_block_request_fragmentation(block, heap, size);
-  begin = (char *)block + sizeof(t_block);
-  if (block->size > size)
-    SET_TO_ZERO(begin + size, block->size - size);
-  LOG("realloc_split()");
-  LOG_POINTER(block);
-  LOG("");
-  return (begin);
-}
-
 static void     *realloc_new(t_heap *heap, t_block *block, size_t size)
 {
   t_block       *new;
@@ -65,13 +51,5 @@ void            *egc_realloc(void *data, size_t size)
   heap = egc_find_pointed_to_heap(STATICS, data);
   if (!heap)
     egc_abort();
-  /*
-    TODO: Test and enable the following statements
-
-    if (size < block->size)
-    return (realloc_split(heap, block, size));
-    if (egc_defrag_block(heap, block, 0))
-    return ((char *)block + sizeof(t_block));
-  */
   return (realloc_new(heap, block, size));
 }
