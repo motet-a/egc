@@ -21,7 +21,7 @@ static void     assert_not_locked(t_block *left, t_block *right)
           left->flags & BLOCK_FLAGS_DEBUG_LOCK)
         egc_abort();
       if (left == right)
-        break;
+        break ;
     }
 }
 

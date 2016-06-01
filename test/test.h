@@ -8,8 +8,8 @@
 ** Last update Wed Mar  9 18:54:57 2016 Valentin Pichard
 */
 
-#ifndef TEST_H
-# define TEST_H
+#ifndef TEST_H_
+# define TEST_H_
 
 # include "../include/egc.h"
 
@@ -47,4 +47,4 @@ void    test_suite_hs_to_str(void);
 
 void    run_suites(void);
 
-#endif /* TEST_H */
+#endif /* !TEST_H_ */

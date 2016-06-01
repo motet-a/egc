@@ -11,22 +11,10 @@
 #include "private.h"
 
 #ifdef EGC_DEBUG
-t_statics               g_egc_private_statics;
+t_statics       g_egc_private_statics;
 #endif
 
 #ifndef EGC_DEBUG
-
-/*
-** abort() is forbidden, so we do this to get a pretty
-** stacktrace in Valgrind or GDB
-*/
-static void             sigsegv_suicide(void)
-{
-  int                   *c;
-
-  c = NULL;
-  *c = 123;
-}
 
 t_statics               *egc_get_statics_0(void *stack_pointer)
 {
@@ -42,7 +30,7 @@ t_statics               *egc_get_statics_0(void *stack_pointer)
         }
       stack_pointer++;
     }
-  sigsegv_suicide();
+  egc_abort();
   return (NULL);
 }
 

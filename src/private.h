@@ -8,8 +8,8 @@
 ** Last update Wed Mar 30 17:43:11 2016 antoine
 */
 
-#ifndef EGC_PRIVATE_H_
-# define EGC_PRIVATE_H_
+#ifndef PRIVATE_H_
+# define PRIVATE_H_
 
 # include <stdint.h>
 # include "../include/egc.h"
@@ -205,4 +205,4 @@ t_statics       *egc_get_statics_0(void *stack_pointer);
 
 # define AVT    AVT__(a, m)
 
-#endif /* !EGC_PRIVATE_H_ */
+#endif /* !PRIVATE_H_ */

@@ -8,8 +8,8 @@
 ** Last update Sat Apr  2 08:57:05 2016 antoine
 */
 
-#ifndef HS_H
-# define HS_H
+#ifndef HS_H_
+# define HS_H_
 
 # include <stdlib.h>
 # include <stdarg.h>
@@ -166,4 +166,4 @@ t_hs    hs_lstrip(t_hs string);
 t_hs    hs_rstrip(t_hs string);
 t_hs    hs_strip(t_hs string);
 
-#endif /* HS_H */
+#endif /* !HS_H_ */

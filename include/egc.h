@@ -8,8 +8,8 @@
 ** Last update Wed Mar 30 17:33:03 2016 antoine
 */
 
-#ifndef EGC_H
-# define EGC_H
+#ifndef EGC_H_
+# define EGC_H_
 
 # include <stdlib.h>
 # include "egc_string.h"
@@ -128,4 +128,4 @@ void    egc_collect(void);
 */
 void    egc_print_stats(void);
 
-#endif /* EGC_H */
+#endif /* !EGC_H_ */
