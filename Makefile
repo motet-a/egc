@@ -12,6 +12,8 @@ include egc.mk
 
 AR	= ar rc
 
+RM	= rm -f
+
 UNAME_S	:= $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 	AR = libtool -static -o
@@ -34,9 +36,8 @@ ifdef DEBUG
 	CFLAGS		+= -g
 	CFLAGS		+= -D EGC_DEBUG
 	EGC_SOURCES	+= src/get_statics_debug.c
+	EGC_OBJECTS	+= src/get_statics_debug.o
 endif
-
-EGC_OBJECTS	+= src/get_statics_debug.o
 
 ifdef LOG
 	CFLAGS	+= -D EGC_LOG
@@ -99,11 +100,13 @@ example: example.o libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 delivery: src/glist_char_0.c
+	$(RM) README.md
 	$(RM) src/get_statics_debug.c
 	$(RM) src/heap_print.c
 	$(RM) test/log_parsing.rules
 	$(RM) glist_gen.py gen.py
 	$(RM) .gitignore
+	$(RM) -r __pycache__/
 	$(RM) valgrind.supp
 
 %.o: %.c
@@ -117,7 +120,7 @@ glist_clean:
 
 clean:
 	@$(RM) $(TEST_OBJECTS)
-	@$(RM) $(EGC_OBJECTS)
+	@$(RM) $(EGC_OBJECTS) src/get_statics_debug.o
 
 fclean: clean
 	@$(RM) libegc.a
