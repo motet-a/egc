@@ -35,7 +35,7 @@ t_heap          *egc_heap_new(size_t size, t_heap *next)
   LOG("egc_heap_new() data:");
   LOG_POINTER(data);
   LOG("");
-  egc_set_to_zero(data, size);
+  SET_TO_ZERO(data, size);
   block = (t_block *)data;
   block->size = size - sizeof(t_block);
   block->flags = BLOCK_FLAGS_FREE;
@@ -46,7 +46,7 @@ t_heap          *egc_heap_new(size_t size, t_heap *next)
   return (heap);
 }
 
-void            egc_heap_delete(t_heap *heap)
+void    egc_heap_delete(t_heap *heap)
 {
   if (!heap)
     return ;

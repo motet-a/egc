@@ -44,7 +44,7 @@ static size_t   set_to_zero_8(size_t sdata, size_t *length8)
   return (sdata);
 }
 
-void            egc_set_to_zero(void *data, size_t length)
+void            egc_set_to_zero_(void *data, size_t length)
 {
   size_t        sdata;
   size_t        length8;

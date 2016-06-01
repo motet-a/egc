@@ -8,8 +8,8 @@
 ** Last update Wed Mar 30 17:43:11 2016 antoine
 */
 
-#ifndef EGC_PRIVATE_H
-# define EGC_PRIVATE_H
+#ifndef EGC_PRIVATE_H_
+# define EGC_PRIVATE_H_
 
 # include <stdint.h>
 # include "../include/egc.h"
@@ -39,30 +39,40 @@ typedef struct  s_heap
 /*
 ** Sets the first `n` bytes pointed to by data with zeros.
 */
-void            egc_set_to_zero(void *data, size_t n);
+void    egc_set_to_zero_(void *data, size_t n);
 
-void            egc_mark_pointer_array(void **pointer_array, size_t size);
+# define USE_MEMSET
 
-void            egc_block_free(t_block *block, t_heap *heap);
+# ifdef USE_MEMSET
 
-t_block         *egc_get_next_block(t_heap *heap, t_block *block);
+#  include <string.h>
+#  define SET_TO_ZERO(data, n)  memset(data, 0, n)
+# else
+#  define SET_TO_ZERO(data, n)  egc_set_to_zero_(data, n)
+# endif /* !USE_MEMSET */
+
+void    egc_mark_pointer_array(void **pointer_array, size_t size);
+
+void    egc_block_free(t_block *block, t_heap *heap);
+
+t_block *egc_get_next_block(t_heap *heap, t_block *block);
 
 /*
 ** Creates a new heap of the given size
 */
-t_heap          *egc_heap_new(size_t size, t_heap *next);
+t_heap  *egc_heap_new(size_t size, t_heap *next);
 
 /*
 ** Calls egc_heap_new()
 */
-void            egc_heap_add(size_t min_block_size);
+void    egc_heap_add(size_t min_block_size);
 
 /*
 ** Returns NULL if there is no free block of the given size
 */
-t_block         *egc_heap_get_free_block(t_heap *heap, size_t size);
+t_block *egc_heap_get_free_block(t_heap *heap, size_t size);
 
-void            egc_heap_delete(t_heap *heap);
+void    egc_heap_delete(t_heap *heap);
 
 /*
 ** Random numbers.
@@ -86,13 +96,13 @@ void            egc_log_uint(unsigned long n);
 #  define LOG(message)
 #  define LOG_POINTER(pointer)
 #  define LOG_UINT(pointer)
-# endif
+# endif /* !EGC_LOG */
 
 # ifdef EGC_DEBUG
 #  define STATICS       (&g_egc_private_statics)
 # else
 #  define STATICS       (egc_get_private_statics())
-# endif
+# endif /* !EGC_DEBUG */
 
 # ifdef EGC_DEBUG
 #  define EGC_IF_DEBUG(x)       (x)
@@ -100,7 +110,7 @@ void            egc_log_uint(unsigned long n);
 # else
 #  define EGC_IF_DEBUG(x)
 #  define EGC_IF_NOT_DEBUG(x)   (x)
-# endif
+# endif /* !EGC_DEBUG */
 
 /*
 ** One magic number is not sufficient.
@@ -126,7 +136,7 @@ typedef struct          s_statics
 
 # ifdef EGC_DEBUG
 extern t_statics        g_egc_private_statics;
-# endif
+# endif /* !EGC_DEBUG */
 
 # define AVT_(a, b)     __##a##s##b##__ EGC_VT
 
@@ -158,7 +168,7 @@ t_block         *egc_get_last_free_block(t_heap *heap, t_block *block);
 
 t_block         *egc_find_pointed_to_block(t_statics *statics, void *pointer);
 t_heap          *egc_find_pointed_to_heap(const t_statics *statics,
-                                          const void *pointer);
+                                          void *pointer);
 
 int             egc_get_heap_count(void);
 
@@ -195,4 +205,4 @@ t_statics       *egc_get_statics_0(void *stack_pointer);
 
 # define AVT    AVT__(a, m)
 
-#endif /* EGC_PRIVATE_H */
+#endif /* !EGC_PRIVATE_H_ */

@@ -10,6 +10,9 @@
 
 #include "private.h"
 
+/*
+** TODO:
+*/
 static void     request_collection(t_statics *statics)
 {
   egc_collect();
@@ -37,7 +40,7 @@ static t_block  *malloc_block_impl(size_t size, t_statics *statics)
     }
   egc_block_request_fragmentation(block, heap, size);
   block->flags &= ~BLOCK_FLAGS_FREE;
-  egc_set_to_zero((void *)block + sizeof(t_block), block->size);
+  SET_TO_ZERO((void *)block + sizeof(t_block), block->size);
   statics->malloc_count++;
   statics->total_malloc_count++;
   return (block);
@@ -53,25 +56,34 @@ t_block         *egc_malloc_block(size_t size, t_statics *statics)
     size++;
   if (size % 8)
     size += 8 - size % 8;
+  block = malloc_block_impl(size, statics);
   LOG("egc_malloc_block()");
   LOG_POINTER(block);
   LOG("");
-  block = malloc_block_impl(size, statics);
   return (block);
 }
 
 void            *egc_malloc(size_t size)
 {
   t_block       *block;
+  void          *data;
+  t_statics     *statics;
 
+  statics = STATICS;
   LOG("egc_malloc() size:");
   LOG_POINTER((void *)size);
   LOG("");
-  block = egc_malloc_block(size, STATICS);
+  block = egc_malloc_block(size, statics);
   LOG("egc_malloc() block:");
   LOG_POINTER(block);
   LOG("");
-  return ((void *)block + sizeof(t_block));
+  egc_collect();
+  data = (void *)block + sizeof(t_block);
+  if (egc_find_pointed_to_block(statics, data) != block)
+    egc_abort();
+  if (egc_find_pointed_to_block(statics, block) != block)
+    egc_abort();
+  return (data);
 }
 
 void            *egc_malloc_atomic(size_t size)

@@ -15,6 +15,9 @@ void            egc_debug_lock_on(void *pointer)
   t_block       *block;
 
   block = (t_block *)((char *)pointer - sizeof(t_block));
+  egc_log("lock block:");
+  egc_log_pointer(block);
+  egc_log("");
   if (block->flags & BLOCK_FLAGS_FREE)
     egc_abort();
   if (block->flags & BLOCK_FLAGS_DEBUG_LOCK)

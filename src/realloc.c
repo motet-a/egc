@@ -17,7 +17,7 @@ static void     *realloc_split(t_heap *heap, t_block *block, size_t size)
   egc_block_request_fragmentation(block, heap, size);
   begin = (char *)block + sizeof(t_block);
   if (block->size > size)
-    egc_set_to_zero(begin + size, block->size - size);
+    SET_TO_ZERO(begin + size, block->size - size);
   LOG("realloc_split()");
   LOG_POINTER(block);
   LOG("");
@@ -31,6 +31,8 @@ static void     *realloc_new(t_heap *heap, t_block *block, size_t size)
 
   LOG("realloc_new() begin");
   new = egc_malloc_block(size, STATICS);
+  if (block->flags & BLOCK_FLAGS_FREE)
+    egc_abort();
   new->flags = block->flags;
   preserved_size = size;
   if (block->size < preserved_size)
@@ -60,7 +62,9 @@ void            *egc_realloc(void *data, size_t size)
   block = data - sizeof(t_block);
   LOG("egc_realloc()");
   LOG_POINTER(block);
-  heap = egc_find_pointed_to_heap(STATICS, block + 1);
+  heap = egc_find_pointed_to_heap(STATICS, data);
+  if (!heap)
+    egc_abort();
   /*
     TODO: Test and enable the following statements
 

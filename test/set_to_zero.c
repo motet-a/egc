@@ -26,18 +26,18 @@ void            test_suite_set_to_zero(void)
 
   {
     set_to_1(buffer, sizeof(buffer));
-    egc_set_to_zero(buffer, sizeof(buffer));
+    egc_set_to_zero_(buffer, sizeof(buffer));
     ASSERT(is_zero(buffer, sizeof(buffer)));
   }
   {
     set_to_1(buffer, sizeof(buffer));
-    egc_set_to_zero(buffer + 1, sizeof(buffer) - 1);
+    egc_set_to_zero_(buffer + 1, sizeof(buffer) - 1);
     ASSERT(is_zero(buffer + 1, sizeof(buffer) - 1));
     ASSERT(buffer[0] == 1);
   }
   {
     set_to_1(buffer, sizeof(buffer));
-    egc_set_to_zero(buffer + 1, sizeof(buffer) - 2);
+    egc_set_to_zero_(buffer + 1, sizeof(buffer) - 2);
     ASSERT(is_zero(buffer + 1, sizeof(buffer) - 2));
     ASSERT(buffer[0] == 1);
     ASSERT(buffer[sizeof(buffer) - 1] == 1);

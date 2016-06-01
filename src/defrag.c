@@ -10,19 +10,35 @@
 
 #include "private.h"
 
+static void     assert_not_locked(t_block *left, t_block *right)
+{
+  t_heap        *heap;
+
+  heap = egc_find_pointed_to_heap(STATICS, left);
+  while ((left = egc_get_next_block(heap, left)))
+    {
+      if (!(left->flags & BLOCK_FLAGS_FREE) ||
+          left->flags & BLOCK_FLAGS_DEBUG_LOCK)
+        egc_abort();
+      if (left == right)
+        break;
+    }
+}
+
 static void     join_blocks(t_block *left, t_block *right, int clear_left)
 {
   size_t        new_size;
   char          *begin;
   char          *new_end;
 
+  assert_not_locked(left, right);
   begin = (char *)left + sizeof(t_block);
   new_end = (char *)right + sizeof(t_block) + right->size;
   new_size = new_end - begin;
   if (clear_left)
-    egc_set_to_zero(begin, new_size);
+    SET_TO_ZERO(begin, new_size);
   else
-    egc_set_to_zero(begin + left->size, new_size - left->size);
+    SET_TO_ZERO(begin + left->size, new_size - left->size);
   left->size = new_size;
 }
 

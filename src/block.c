@@ -10,14 +10,20 @@
 
 #include "private.h"
 
+/*
+** The last `return` is not reached.
+*/
 t_block         *egc_get_next_block(t_heap *heap, t_block *block)
 {
   if (block == NULL)
     return ((t_block *)heap->data);
   block = (t_block *)((char *)block + sizeof(t_block) + block->size);
-  if ((void *)block >= heap->data + heap->size)
+  if ((void *)block == heap->data + heap->size)
     return (NULL);
-  return (block);
+  if ((void *)block < heap->data + heap->size)
+    return (block);
+  egc_abort();
+  return (NULL);
 }
 
 t_block         *egc_get_last_free_block(t_heap *heap, t_block *block)
@@ -60,29 +66,5 @@ void            egc_block_free(t_block *block, t_heap *heap)
       block->size += last->size;
     }
   block->flags = BLOCK_FLAGS_FREE;
-  egc_set_to_zero((void *)block + sizeof(t_block), block->size);
-}
-
-void            egc_debug_lock_on(void *pointer)
-{
-  t_block       *block;
-
-  block = (t_block *)((char *)pointer - sizeof(t_block));
-  if (block->flags & BLOCK_FLAGS_FREE)
-    egc_abort();
-  if (block->flags & BLOCK_FLAGS_DEBUG_LOCK)
-    egc_abort();
-  block->flags |= BLOCK_FLAGS_DEBUG_LOCK;
-}
-
-void            egc_debug_lock_off(void *pointer)
-{
-  t_block       *block;
-
-  block = (t_block *)((char *)pointer - sizeof(t_block));
-  if (block->flags & BLOCK_FLAGS_FREE)
-    egc_abort();
-  if (!(block->flags & BLOCK_FLAGS_DEBUG_LOCK))
-    egc_abort();
-  block->flags &= ~BLOCK_FLAGS_DEBUG_LOCK;
+  SET_TO_ZERO((void *)block + sizeof(t_block), block->size);
 }

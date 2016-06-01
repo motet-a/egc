@@ -11,7 +11,7 @@
 #include "private.h"
 
 t_heap          *egc_find_pointed_to_heap(const t_statics *statics,
-                                          const void *pointer)
+                                          void *pointer)
 {
   t_heap        *heap;
   void          *data;
@@ -20,9 +20,10 @@ t_heap          *egc_find_pointed_to_heap(const t_statics *statics,
   while (heap)
     {
       data = heap->data;
-      if (pointer >= data + sizeof(t_block) &&
-          pointer < data + heap->size)
-        return (heap);
+      if (pointer >= data && (char *)pointer < (char *)data + heap->size)
+        {
+          return (heap);
+        }
       heap = heap->next;
     }
   return (NULL);
