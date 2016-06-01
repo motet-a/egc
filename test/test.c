@@ -57,5 +57,5 @@ static int      main2()
 
 int             main()
 {
-  return (egc_run(0, NULL, main2));
+  return (egc_run(0, NULL, NULL, main2));
 }

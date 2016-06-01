@@ -28,7 +28,7 @@
 
 typedef void    (*t_egc_error_callback)(const char *message);
 
-typedef int     (*t_egc_main_function)(int argc, char **argv);
+typedef int     (*t_egc_main_function)(int argc, char **argv, char **env);
 
 /*
 ** Runs a garbage-collected program
@@ -36,7 +36,7 @@ typedef int     (*t_egc_main_function)(int argc, char **argv);
 ** You should call this function before any other egc's function.
 **
 ** This functions initializes egc and calls the given function pointer
-** `aux_main`. `argc` and `argv` are passed unmodified to `aux_main`.
+** `aux_main`. `argc`, `argv` and `env` are passed unmodified to `aux_main`.
 **
 ** The default error callback is the following:
 **
@@ -52,7 +52,7 @@ typedef int     (*t_egc_main_function)(int argc, char **argv);
 ** It prints the error messages and the logs on the error output.
 **
 */
-int     egc_run(int argc, char **argv, t_egc_main_function aux_main);
+int     egc_run(int argc, char **argv, char **env, t_egc_main_function aux);
 
 /*
 ** Sets up pseudo-statics variables

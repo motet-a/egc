@@ -48,19 +48,19 @@ other egc routines.
 Here is a typical `main()` function of a garbage-collected program:
 
 ```c
-int     main2(int argc, char **argv)
+int     main2(int argc, char **argv, char **env)
 {
   /* do garbage-collected stuff here */
   return (0);
 }
 
-int     main(int argc, char **argv)
+int     main(int argc, char **argv, char **env)
 {
-  return (egc_run(argc, argv, main2));
+  return (egc_run(argc, argv, env, main2));
 }
 ```
 
-`egc_run()` passes `argc` and `argv` unmodified to `main2()`,
+`egc_run()` passes `argc`, `argv` and `env` unmodified to `main2()`,
 and returns the value returned by `main2()`.
 
 You can exit the program from `main2()` with `egc_exit()`. It
