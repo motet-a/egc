@@ -31,19 +31,21 @@ void            egc_mark_pointer_array(void **pointer_array, size_t size)
   t_statics     *statics;
   char          *char_array;
   void          *p;
+  ptrdiff_t     signed_size;
 
-  if (size < sizeof(void *))
+  signed_size = size;
+  if (signed_size < (ptrdiff_t)sizeof(void *))
     return ;
   char_array = (char *)pointer_array;
   statics = STATICS;
-  size -= sizeof(void *);
-  while (size)
+  signed_size -= sizeof(void *);
+  while (signed_size >= 0)
     {
-      p = *(void **)(char_array + size);
+      p = *(void **)(char_array + signed_size);
       block = egc_find_pointed_to_block(statics, p);
       if (block)
         mark_block(block);
-      size--;
+      signed_size--;
     }
 }
 
