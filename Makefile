@@ -31,9 +31,12 @@ ifdef LOG
 endif
 
 ifdef DEBUG
-	CFLAGS	+= -g
-	CFLAGS	+= -D EGC_DEBUG
+	CFLAGS		+= -g
+	CFLAGS		+= -D EGC_DEBUG
+	EGC_SOURCES	+= src/get_statics_debug.c
 endif
+
+EGC_OBJECTS	+= src/get_statics_debug.o
 
 ifdef LOG
 	CFLAGS	+= -D EGC_LOG
@@ -96,6 +99,8 @@ example: example.o libegc.a
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 delivery: src/glist_char_0.c
+	$(RM) src/get_statics_debug.c
+	$(RM) src/heap_print.c
 	$(RM) test/log_parsing.rules
 	$(RM) glist_gen.py gen.py
 	$(RM) .gitignore

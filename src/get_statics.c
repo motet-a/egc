@@ -10,13 +10,7 @@
 
 #include "private.h"
 
-#ifdef EGC_DEBUG
-t_statics       g_egc_private_statics;
-#endif
-
-#ifndef EGC_DEBUG
-
-t_statics               *egc_get_statics_0(void *stack_pointer)
+static t_statics        *egc_get_statics_0(void *stack_pointer)
 {
   t_statics             *statics;
 
@@ -34,21 +28,19 @@ t_statics               *egc_get_statics_0(void *stack_pointer)
   return (NULL);
 }
 
-t_statics               *egc_get_private_statics(void)
+t_statics       *egc_get_private_statics(void)
 {
-  char                  variable_on_the_stack;
+  char          variable_on_the_stack;
 
   return (egc_get_statics_0(&variable_on_the_stack));
 }
 
-#endif
-
-void                    *egc_get_statics(void)
+void    *egc_get_statics(void)
 {
   return (STATICS->user_statics);
 }
 
-size_t                  egc_get_statics_size(void)
+size_t  egc_get_statics_size(void)
 {
   return (STATICS->user_statics_size);
 }
