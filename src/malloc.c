@@ -15,11 +15,13 @@
 */
 static void     request_collection(t_statics *statics)
 {
-  if (statics->malloc_count > 2 * statics->free_count + 10)
+  int           heap_count;
+
+  heap_count = egc_get_heap_count();
+  if ((int)statics->malloc_count > heap_count * heap_count * 8)
     {
       egc_collect();
       statics->malloc_count = 0;
-      statics->free_count = 0;
     }
 }
 

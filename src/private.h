@@ -129,7 +129,6 @@ typedef struct          s_statics
   size_t                total_malloc_count;
   size_t                total_free_count;
   size_t                malloc_count;
-  size_t                free_count;
   size_t                collection_count;
   uint64_t              magic_number_1;
 }                       t_statics;

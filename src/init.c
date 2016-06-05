@@ -43,7 +43,6 @@ void            egc_init(t_statics *statics)
   statics->user_statics = NULL;
   statics->user_statics_size = 0;
   statics->malloc_count = 0;
-  statics->free_count = 0;
   statics->total_malloc_count = 0;
   statics->total_free_count = 0;
   statics->collection_count = 0;

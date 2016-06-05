@@ -22,7 +22,7 @@ endif
 CFLAGS		= -W -Wall -Wextra \
 		-Wmissing-prototypes \
 		-Wmissing-declarations \
-		-std=c89 -g -I./include/
+		-std=c89 -I./include/
 
 ifneq ($(findstring vgtest,$(MAKECMDGOALS)),)
 	DEBUG	= true
