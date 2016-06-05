@@ -15,7 +15,6 @@
 */
 static void     request_collection(t_statics *statics)
 {
-  egc_collect();
   if (statics->malloc_count > 2 * statics->free_count + 10)
     {
       egc_collect();
@@ -77,7 +76,6 @@ void            *egc_malloc(size_t size)
   LOG("egc_malloc() block:");
   LOG_POINTER(block);
   LOG("");
-  egc_collect();
   data = (void *)block + sizeof(t_block);
   if (egc_find_pointed_to_block(statics, data) != block)
     egc_abort();

@@ -42,7 +42,6 @@ void            *egc_realloc(void *data, size_t size)
 
   LOG("egc_realloc() begin");
   LOG("");
-  egc_collect();
   if (!data)
     return (egc_malloc(size));
   block = data - sizeof(t_block);
