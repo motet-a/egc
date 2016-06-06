@@ -48,7 +48,7 @@ static void     print_heap(t_heap *heap)
   egc_log("");
 }
 
-void    egc_print_stats(void)
+void            egc_print_stats(void)
 {
   t_heap        *heap;
 

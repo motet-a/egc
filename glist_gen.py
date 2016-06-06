@@ -33,7 +33,7 @@ typedef struct          S_GLIST
   T_ITEM                *_items;
 }                       T_GLIST;
 
-typedef void (*T_GLIST_func)(int index, T_ITEM item);
+typedef void    (*T_GLIST_func)(int index, T_ITEM item);
 
 /*
 ** Creates a new empty list
@@ -140,7 +140,7 @@ void            GLIST_append(T_GLIST *list, T_ITEM item)
 void            GLIST_append_all(T_GLIST *left,
                                  const T_GLIST *right)
 {
-  int   i;
+  int           i;
 
   i = -1;
   while (++i < (int)right->_size)
